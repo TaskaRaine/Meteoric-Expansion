@@ -1,0 +1,42 @@
+﻿{
+	code: "meteor",
+	variantgroups: [
+		{ code: "type", loadFromProperties: "game:block/ore-graded" },
+		{ code: "rock", loadFromProperties: "game:block/rockwithdeposit" },
+		{ code: "index", states: ["1", "2", "3"]}
+	],
+	class: "EntityMeteor",
+	habitat: "air",
+	hitboxSize: { x: 1, y: 1 },
+	client: {
+		renderer: "Shape",
+		textures: {
+			"core": {
+				base: "game:block/stone/rock/{rock}{index}",
+				overlays: [ "game:block/stone/ore/{type}{index}" ],
+				alternates: [
+					{base: "game:block/stone/rock/{rock}{index}", overlays: [ "game:block/stone/ore/{type}{index}" ]},
+					{base: "game:block/stone/rock/{rock}{index}", overlays: [ "game:block/stone/ore/{type}{index}" ]}
+				]
+			},
+			"rock": {
+				base: "game:block/stone/rock/{rock}{index}",
+			}
+		},
+		shape: { base: "entity/meteor" },
+		size: 1,
+		behaviors: [
+		{ code: "interpolateposition" },
+		{ code: "meteormotion" },
+		],
+	},
+	server: {
+		behaviors: [
+		{ code: "despawn", minSeconds: 10 }
+		]
+	},
+	sounds: {
+	},
+	attributes: {
+	},
+}

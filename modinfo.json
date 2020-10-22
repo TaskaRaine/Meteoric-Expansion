@@ -1,0 +1,11 @@
+{
+  "type": "code",
+  "modid": "meteoricexpansion",
+  "name": "Meteoric Expansion",
+  "author": "Taska Raine",
+  "description": "To be added",
+  "version": "1.0.0",
+  "dependency": {
+    "game": "1.13.4"
+  }
+}
