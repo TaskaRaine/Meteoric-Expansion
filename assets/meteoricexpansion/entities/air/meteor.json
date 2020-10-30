@@ -23,20 +23,29 @@
 				base: "game:block/stone/rock/{rock}{index}",
 			}
 		},
+		glowlevel: 255,
 		shape: { base: "entity/meteor" },
 		size: 1,
 		behaviors: [
 		{ code: "interpolateposition" },
-		{ code: "meteormotion" },
+		{ code: "meteormotion" }
 		],
 	},
 	server: {
 		behaviors: [
-		{ code: "despawn", minSeconds: 10 }
+		{ code: "despawn", minSeconds: 30 },
+		{ code: "meteormotion" },
+		{ code: "meteorexplosion" }
 		]
 	},
 	sounds: {
 	},
+	idlesoundchance: 100,
+	idlesoundrange: 256, 
 	attributes: {
 	},
+	drops: [
+		{type: "item", code: "game:stone-{rock}", quantity: { avg: 1, var: 0, dist: "gaussian" }},
+		{type: "item", code: "game:nugget-{type}", quantity: { avg: 1, var: 0, dist: "gaussian" }},
+	]
 }

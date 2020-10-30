@@ -7,6 +7,7 @@ namespace MeteoricExpansion
         public override void Start(ICoreAPI api)
         {
             api.RegisterEntityBehaviorClass("meteormotion", typeof(MeteorMotion));
+            api.RegisterEntityBehaviorClass("meteorexplosion", typeof(MeteorExplosion));
         }
     }
 }

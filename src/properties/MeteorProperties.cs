@@ -9,11 +9,13 @@ namespace MeteoricExpansion
         public string metalRichness;
         public string metalType;
         public string rockType;
+        public float lifespan;
 
         public MeteorProperties(Random rand)
         {
             scaleMultiplier = (float)rand.NextDouble() + rand.Next(1, 3);
             metalRichness = DetermineRichness(rand.Next(0, 99));
+            lifespan = DetermineLifespan(rand.Next(1, 5), rand.NextDouble());
         }
 
         //-- 10% chance for bountiful meteors --//
@@ -30,6 +32,10 @@ namespace MeteoricExpansion
                 return "medium";
             else
                 return "poor";
+        }
+        private float DetermineLifespan(int randomInt, double randomDouble)
+        {
+            return (float)(randomInt * scaleMultiplier + randomDouble) * 1000;
         }
     }
 }

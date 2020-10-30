@@ -31,7 +31,7 @@ namespace MeteoricExpansion
 
                 EntityProperties entityType = api.World.GetEntityType(new AssetLocation("meteoricexpansion", meteorCode));
                 Entity entity = api.World.ClassRegistry.CreateEntity(entityType);
-                EntityPos entityPos = new EntityPos(player.Entity.ServerPos.X, player.Entity.ServerPos.Y + 10, player.Entity.ServerPos.Z);
+                EntityPos entityPos = new EntityPos(player.Entity.ServerPos.X, api.WorldManager.MapSizeY - 10, player.Entity.ServerPos.Z);
 
                 entity.ServerPos.SetPos(entityPos);
                 entity.Pos.SetFrom(entity.ServerPos);

@@ -62,9 +62,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\meteoricexpansion\sounds\effect\air_meteor_explosion.ogg" />
+    <Content Include="assets\meteoricexpansion\sounds\effect\meteor_sizzle.ogg" />
     <Content Include="modinfo.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\behaviours\MeteorExplosion.cs" />
     <Compile Include="src\behaviours\MeteorMotion.cs" />
     <Compile Include="src\behaviours\RegisterBehaviours.cs" />
     <Compile Include="src\commands\RegisterCommands.cs" />

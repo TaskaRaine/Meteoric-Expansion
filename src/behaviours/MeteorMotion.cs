@@ -1,5 +1,6 @@
 ﻿using System;
 using Vintagestory.API;
+using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 
@@ -7,7 +8,9 @@ namespace MeteoricExpansion
 {
     class MeteorMotion : EntityBehavior
     {
-        Random rand = new Random();
+        public static SimpleParticleProperties meteorParticles;
+
+        Random rand;
         EntityPos meteorTransforms = new EntityPos();
 
         Vec3f randRotation;
@@ -39,6 +42,8 @@ namespace MeteoricExpansion
         {
             meteorTransforms = entity.Pos;
 
+            rand = new Random((int)this.entity.EntityId);                                               //-- Rand uses the entity ID as a seed so that the client and server can be properly synced --//
+
             randRotation = new Vec3f();
             randTranslation = new Vec3f();
 
@@ -46,7 +51,10 @@ namespace MeteoricExpansion
             DetermineMeteorRotation();
             DetermineMeteorTranslation();
 
+            meteorParticles = new SimpleParticleProperties(1, 1, 1, new Vec3d(), new Vec3d(), new Vec3f(), new Vec3f());
+
             this.entity.ServerPos = CalculateEntityRotation();
+            this.entity.Pos.SetFrom(this.entity.ServerPos);
         }
 
         public override void OnGameTick(float deltaTime)
@@ -54,6 +62,9 @@ namespace MeteoricExpansion
             base.OnGameTick(deltaTime);
 
             this.entity.ServerPos = CalculateEntityTransform(deltaTime);
+            this.entity.Pos.SetFrom(this.entity.ServerPos);
+
+            SpawnMeteorParticles();
         }
         private EntityPos CalculateEntityRotation()
         {
@@ -142,6 +153,44 @@ namespace MeteoricExpansion
 
             if (isMovingSouth != 0)
                 randTranslation.Z *= -1;
+        }
+
+        private void SpawnMeteorParticles()
+        {
+            #region Meteor Particles Options
+            meteorParticles.MinPos = this.entity.Pos.XYZ + new Vec3d(-this.entity.Properties.Client.Size / 2, -this.entity.Properties.Client.Size / 2, -this.entity.Properties.Client.Size / 2);
+            meteorParticles.AddPos = new Vec3d(this.entity.Properties.Client.Size, this.entity.Properties.Client.Size, this.entity.Properties.Client.Size);
+
+            meteorParticles.MinVelocity = new Vec3f(randTranslation.X * 0.1f, 0, randTranslation.Z * 0.1f);
+
+            meteorParticles.GravityEffect = -0.01f;
+            meteorParticles.WindAffected = true;
+
+            meteorParticles.MinSize = 1.0f;
+            meteorParticles.MaxSize = 5.0f;
+            meteorParticles.SizeEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEAR, -2);
+
+            meteorParticles.MinQuantity = 4;
+            meteorParticles.AddQuantity = 25;
+
+            meteorParticles.LifeLength = 1.5f;
+            meteorParticles.addLifeLength = 0.5f;
+
+            meteorParticles.ShouldDieInLiquid = true;
+
+            meteorParticles.Color = ColorUtil.ColorFromRgba(255, 255, 255, rand.Next(100, 255));
+            meteorParticles.OpacityEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, 255);
+            meteorParticles.BlueEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, rand.Next(0, 150));
+            meteorParticles.GreenEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, rand.Next(150, 255));
+            meteorParticles.RedEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, 255);
+
+            meteorParticles.VertexFlags = rand.Next(150, 255);
+
+            meteorParticles.ParticleModel = EnumParticleModel.Quad;
+
+            #endregion
+
+            this.entity.World.SpawnParticles(meteorParticles);
         }
     }
 }
