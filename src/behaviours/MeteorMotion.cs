@@ -1,5 +1,6 @@
 ﻿using System;
 using Vintagestory.API;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
@@ -8,6 +9,8 @@ namespace MeteoricExpansion
 {
     class MeteorMotion : EntityBehavior
     {
+        ILoadedSound meteorIdleSound;
+
         public static SimpleParticleProperties meteorParticles;
 
         Random rand;
@@ -40,7 +43,7 @@ namespace MeteoricExpansion
 
         public override void Initialize(EntityProperties properties, JsonObject attributes)
         {
-            meteorTransforms = entity.Pos;
+            meteorTransforms = entity.ServerPos;
 
             rand = new Random((int)this.entity.EntityId);                                               //-- Rand uses the entity ID as a seed so that the client and server can be properly synced --//
 
@@ -53,31 +56,48 @@ namespace MeteoricExpansion
 
             meteorParticles = new SimpleParticleProperties(1, 1, 1, new Vec3d(), new Vec3d(), new Vec3f(), new Vec3f());
 
-            this.entity.ServerPos = CalculateEntityRotation();
             this.entity.Pos.SetFrom(this.entity.ServerPos);
+
+            if(this.entity.Api.Side == EnumAppSide.Client)
+            {
+                //-- Creating an idle sound here allows me to control when the sound starts and stops, whereas the JSON idle sound property would continue to play the sound after entity death --//
+                meteorIdleSound = ((IClientWorldAccessor)this.entity.Api.World).LoadSound(new SoundParams()
+                {
+                    Location = new AssetLocation("meteoricexpansion", "sounds/effect/meteor_sizzle"),
+                    ShouldLoop = true,
+                    Position = this.entity.ServerPos.XYZFloat,
+                    DisposeOnFinish = false,
+                    Volume = 0.5f,
+                    Range = 256,
+                });
+
+                meteorIdleSound.Start();
+            }
+        }
+        public override void OnEntityDespawn(EntityDespawnReason despawn)
+        {
+            if(this.entity.Api.Side == EnumAppSide.Client)
+            {
+                meteorIdleSound.FadeOutAndStop(1.0f);
+            }
         }
 
         public override void OnGameTick(float deltaTime)
         {
             base.OnGameTick(deltaTime);
 
-            this.entity.ServerPos = CalculateEntityTransform(deltaTime);
+            this.entity.ServerPos.SetFrom(CalculateEntityTransform(deltaTime));
             this.entity.Pos.SetFrom(this.entity.ServerPos);
 
-            SpawnMeteorParticles();
-        }
-        private EntityPos CalculateEntityRotation()
-        {
-            meteorTransforms.Pitch = CalculateMeteorPitch();
-            meteorTransforms.Roll = CalculateMeteorRoll();
-            meteorTransforms.Yaw = CalculateMeteorYaw();
 
-            return meteorTransforms;
+            SpawnMeteorParticles();
         }
 
         private EntityPos CalculateEntityTransform(float deltaTime)
         {
-            meteorTransforms = CalculateEntityRotation();
+            meteorTransforms.Pitch = CalculateMeteorPitch();
+            meteorTransforms.Roll = CalculateMeteorRoll();
+            meteorTransforms.Yaw = CalculateMeteorYaw();
 
             meteorTransforms.X += randTranslation.X * deltaTime;
             meteorTransforms.Y += randTranslation.Y * deltaTime;
@@ -145,7 +165,7 @@ namespace MeteoricExpansion
         private void DetermineMeteorTranslation()
         {
             randTranslation.X = rand.Next(0, maxSpeed);
-            randTranslation.Y = 0;
+            randTranslation.Y = -rand.Next(0, maxSpeed);
             randTranslation.Z = maxSpeed - randTranslation.X;
 
             if (isMovingEast != 0)

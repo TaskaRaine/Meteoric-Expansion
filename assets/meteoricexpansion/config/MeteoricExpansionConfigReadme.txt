@@ -1,0 +1,21 @@
+﻿This file details all the possible config options for MeteoricExpansion.
+
+
+{
+	//-- Destructive determines whether meteor strikes damage the world. If set to true, meteorites will cause craters, destroy structures, toss inventory contents across the ground, etc --// 
+	"Destructive": [true][false]	Default: false
+
+	//-- Determines the MINIMUM amount of time, in minutes, between meteor spawns. --//
+	"MinimumMinutesBetweenMeteorSpawns": [ANY integer]		Default: 10
+
+	//-- Determines the MAXIMUM amount of time, in minutes, between meteor spawns. MUST be a larger number than the minimum, otherwise it will be forced to 1 minute longer than minimum spawn --//
+	"MaximumMinutesBetweenMeteorSpawns": [ANY integer]		Default: 30
+}
+
+
+
+If you have made a mistake with your config file or something seems incorrect, please copy 'MeteoricExpansionConfig.json' 
+from this ZIP archive and paste it into your ModConfig folder for Vintage Story. 
+
+The Vintage Story mod config folder can be found here:
+C:\Users\{Your Username}\AppData\Roaming\VintagestoryData\ModConfig

@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\meteoricexpansion\sounds\effect\air_meteor_explosion.ogg" />
+    <Content Include="assets\meteoricexpansion\sounds\effect\land_meteor_explosion.ogg" />
     <Content Include="assets\meteoricexpansion\sounds\effect\meteor_sizzle.ogg" />
     <Content Include="modinfo.json" />
   </ItemGroup>
@@ -71,14 +72,15 @@
     <Compile Include="src\behaviours\MeteorMotion.cs" />
     <Compile Include="src\behaviours\RegisterBehaviours.cs" />
     <Compile Include="src\commands\RegisterCommands.cs" />
+    <Compile Include="src\config\MeteorConfig.cs" />
     <Compile Include="src\entities\Meteor.cs" />
     <Compile Include="src\entities\RegisterEntities.cs" />
-    <Compile Include="src\properties\MeteorProperties.cs" />
     <Compile Include="src\systems\MeteoricExpansionHelpers.cs" />
     <Compile Include="src\systems\MeteorSpawner.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="assets\meteoricexpansion\config\meteor_config.json" />
     <None Include="assets\meteoricexpansion\entities\air\meteor.json" />
     <None Include="assets\meteoricexpansion\shapes\entity\meteor.json" />
   </ItemGroup>

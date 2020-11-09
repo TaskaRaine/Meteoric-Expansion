@@ -1,0 +1,5 @@
+{
+  "Destructive": false,
+  "MinimumMinutesBetweenMeteorSpawns": 10,
+  "MaximumMinutesBetweenMeteorSpawns": 30
+}

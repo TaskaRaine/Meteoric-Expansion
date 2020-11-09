@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Vintagestory.API;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -12,73 +13,72 @@ namespace MeteoricExpansion
 {
     public static class MeteoricExpansionHelpers
     {
-        private static List<string> rockOptions = new List<string>();
-        private static List<string> metalOptions = new List<string>();
+        private static string[] meteorCodes;
+        private static MeteorConfig meteorConfig;
+
+        //private static List<string> rockOptions = new List<string>();
+        //private static List<string> metalOptions = new List<string>();
 
         private static Random rand;
 
-        public static void InitializeHelpers(int seed)
+        public static void InitializeHelpers(int seed, string[] codes)
         {
             rand = new Random(seed);
 
-            InitializeOptions("Rocks", new AssetLocation("game:assets/survival/worldproperties/block/rock.json").Path);
-            InitializeOptions("Metals", new AssetLocation("game:assets/survival/worldproperties/block/ore-graded.json").Path);
+            meteorCodes = codes;
+        }
+        public static bool GetConfigDestructive()
+        {
+            return meteorConfig.Destructive;
+        }
+        public static int GetMinSpawnTime()
+        {
+            return meteorConfig.MinimumMinutesBetweenMeteorSpawns;
+        }
+        public static int GetMaxSpawnTime()
+        {
+            if (meteorConfig.MaximumMinutesBetweenMeteorSpawns <= meteorConfig.MinimumMinutesBetweenMeteorSpawns)
+                return meteorConfig.MinimumMinutesBetweenMeteorSpawns + 1;
+
+            return meteorConfig.MaximumMinutesBetweenMeteorSpawns;
         }
         public static Random GetRand()
         {
             return rand;
         }
 
-        //-- Read all possible options from the file at the provided file path and store them within a list --//
-        private static void InitializeOptions(string materialType, string jsonPath)
+        public static void ReadConfig(ICoreServerAPI api)
         {
-            using (StreamReader reader = new StreamReader(jsonPath))
+            try
             {
-                string jsonString = reader.ReadToEnd();
-                JsonObject jsonFile = JsonObject.FromJson(jsonString);
+                meteorConfig = LoadConfig(api);
 
-                IJEnumerable<JToken> children = jsonFile.Token.Last.Last.Children();
-
-                switch(materialType)
+                if(meteorConfig == null)
                 {
-                    case "Rocks":
-                        foreach (JToken child in children)
-                        {
-                            string rockType = child.First.Value<dynamic>().Value;
-                            rockOptions.Add(rockType);
-                        }
-                        break;
-                    case "Metals":
-                        foreach (JToken child in children)
-                        {
-                            string metalType = child.First.Value<dynamic>().Value;
-                            metalOptions.Add(metalType);
-                        }
-                        break;
-                    default:
-                        return;
+                    GenerateConfig(api);
+                    meteorConfig = LoadConfig(api);
                 }
             }
+            catch
+            {
+                GenerateConfig(api);
+                meteorConfig = LoadConfig(api);
+            }
         }
-        public static string SelectRandomRock()
+        private static MeteorConfig LoadConfig(ICoreServerAPI api)
         {
-            int randomRockIndex = rand.Next(0, rockOptions.Count);
-
-            return rockOptions[randomRockIndex];
+            return api.LoadModConfig<MeteorConfig>("MeteoricExpansionConfig.json");
         }
-        public static string SelectRandomMetal()
+        private static void GenerateConfig(ICoreServerAPI api)
         {
-            int randomMetalIndex = rand.Next(0, metalOptions.Count);
-
-            return metalOptions[randomMetalIndex];
+            api.StoreModConfig<MeteorConfig>(new MeteorConfig(), "MeteoricExpansionConfig.json");
         }
-        public static string SelectRandomIndex()
+        public static string SelectRandomMeteor()
         {
-            string[] indexArray = { "1", "2", "3" };
+            int randIndex = rand.Next(0, meteorCodes.Length);
 
-            return indexArray[rand.Next(0, 2)];
+            return meteorCodes[randIndex]; 
         }
-
         //-- Math Helpers --//
         public static int ConvertMinutesToMilliseconds(int minutes)
         {
@@ -111,6 +111,10 @@ namespace MeteoricExpansion
                 random3DVelocity.Z *= -1;
 
             return random3DVelocity;
+        }
+        public static Vec3d InvertVector(Vec3d vectorToInvert)
+        {
+            return new Vec3d(-vectorToInvert.X, -vectorToInvert.Y, -vectorToInvert.Z);
         }
     }
 }

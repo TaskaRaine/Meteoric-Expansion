@@ -2,18 +2,25 @@
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
 
 namespace MeteoricExpansion
 {
     class EntityMeteor : Entity
     {
-        MeteorProperties meteorProperties;
+        private Random rand;
 
-        float spawnTimeInMilliseconds;
-        float elapsedTimeInMilliseconds;
-        float maxEntityLifeSpan;
+        private float currentScale;
+        private int minMeteorScale = 1;
+        private int maxMeteorScale = 3;
 
-        byte[] lightHsv = new byte[] { 4, 4, 31 };
+        private float spawnTimeInMilliseconds;
+        private float elapsedTimeInMilliseconds;
+        private float currentLifespan;
+        private int minMeteorLifespan = 2;
+        private int maxMeteorLifespan = 15;
+
+        private byte[] lightHsv = new byte[] { 4, 4, 31 };
 
         public override byte[] LightHsv
         {
@@ -26,19 +33,17 @@ namespace MeteoricExpansion
         public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
         {
             base.Initialize(properties, api, InChunkIndex3d);
+            rand = new Random((int)this.EntityId);
+
+            currentScale = (float)rand.NextDouble() + rand.Next(minMeteorScale, maxMeteorScale);
+
+            properties.Client.Size *= currentScale;
+            properties.HitBoxSize *= currentScale;
 
             if (api.Side == EnumAppSide.Server)
             {
-                meteorProperties = new MeteorProperties(MeteoricExpansionHelpers.GetRand())
-                {
-                    metalType = this.FirstCodePart(1),
-                    rockType = this.FirstCodePart(2)
-                };
-                properties.Client.Size *= meteorProperties.scaleMultiplier;
-                properties.HitBoxSize *= meteorProperties.scaleMultiplier;
-
                 spawnTimeInMilliseconds = api.World.ElapsedMilliseconds;
-                maxEntityLifeSpan = meteorProperties.lifespan;
+                currentLifespan = (float)(rand.Next(minMeteorLifespan, maxMeteorLifespan) * currentScale + rand.NextDouble()) * 1000;
 
                 properties.Attributes["lightHsv"].AsObject<byte[]>(new byte[] { 4, 4, 31 });
             }
@@ -51,9 +56,21 @@ namespace MeteoricExpansion
             {
                 elapsedTimeInMilliseconds = this.Api.World.ElapsedMilliseconds;
 
-                if(elapsedTimeInMilliseconds - spawnTimeInMilliseconds > maxEntityLifeSpan && maxEntityLifeSpan > 0)
+                if(elapsedTimeInMilliseconds - spawnTimeInMilliseconds > currentLifespan)
                 {
-                    this.Die();
+                    //-- Combusted, in this case, represents the meteor exploding in mid-air --//
+                    this.Die(EnumDespawnReason.Combusted);
+                }
+                else if(this.World.CollisionTester.IsColliding(this.World.BlockAccessor, this.CollisionBox, this.ServerPos.XYZ, false))
+                {
+                    EnumBlockMaterial material = this.World.BlockAccessor.GetBlock(this.ServerPos.XYZ.AsBlockPos).BlockMaterial;
+
+                    //-- Don't kill the entity on plant matter, causing the meteor to explode. It just looks silly... --//
+                    if(material != EnumBlockMaterial.Plant && material != EnumBlockMaterial.Wood && material != EnumBlockMaterial.Leaves && material != EnumBlockMaterial.Air)
+                    {
+                        //-- Death represents the meteor colliding with terrain and creating a crater --//
+                        this.Die(EnumDespawnReason.Death);
+                    }
                 }
             }
         }

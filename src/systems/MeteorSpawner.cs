@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Server;
@@ -8,35 +9,47 @@ namespace MeteoricExpansion
     class MeteorSpawner: ModSystem
     {
         //-- Spawn Time In Minutes --//
-        public int minMeteorSpawnTime = 0;
-        public int maxMeteorSpawnTime = 1;
+        public int minMeteorSpawnTime;
+        public int maxMeteorSpawnTime;
 
         private ICoreServerAPI serverAPI;
         private Random spawnerRand;
 
-        private int spawnerTickIntervalInSeconds = 5000;
+        private int spawnerTickIntervalInMilliseconds = 5000;
 
         private double nextMeteorSpawn;
         private long timeSinceSpawn;
+
+        private long firstTickListener;
 
         public override void StartServerSide(ICoreServerAPI api)
         {
             base.StartServerSide(api);
             serverAPI = api;
 
+            MeteoricExpansionHelpers.ReadConfig(api);
             InitializeSpawner();
 
-            api.Event.RegisterGameTickListener(onSpawnerTick, spawnerTickIntervalInSeconds);
+            api.Event.RegisterGameTickListener(onSpawnerTick, spawnerTickIntervalInMilliseconds);
+            firstTickListener = api.Event.RegisterGameTickListener(onFirstTick, 1);
         }
-
         private void InitializeSpawner()
         {
             spawnerRand = new Random(serverAPI.World.Seed);
             timeSinceSpawn = serverAPI.World.ElapsedMilliseconds;
+
+            minMeteorSpawnTime = MeteoricExpansionHelpers.GetMinSpawnTime();
+            maxMeteorSpawnTime = MeteoricExpansionHelpers.GetMaxSpawnTime();
+
             nextMeteorSpawn = spawnerRand.Next(minMeteorSpawnTime, maxMeteorSpawnTime) + spawnerRand.NextDouble();
             nextMeteorSpawn = MeteoricExpansionHelpers.ConvertMinutesToMilliseconds(nextMeteorSpawn);
         }
+        private void onFirstTick(float deltaTime)
+        {
+            MeteoricExpansionHelpers.InitializeHelpers(serverAPI.World.Seed, EntityCodeArray());
 
+            serverAPI.Event.UnregisterGameTickListener(firstTickListener);
+        }
         //-- Spawn a meteor made with random rock and metals above the first online player every number of seconds as determined by tickIntervalInSeconds --//
         //-- Eventually spawns will happen between the minMeteorSpawnTime and maxMeteorSpawnTime --// 
         private void onSpawnerTick(float deltaTime)
@@ -45,11 +58,9 @@ namespace MeteoricExpansion
             {
                 if (serverAPI.World.AllOnlinePlayers.Length > 0)
                 {
-                    string meteorCode = "meteor-" + MeteoricExpansionHelpers.SelectRandomMetal() + "-" + MeteoricExpansionHelpers.SelectRandomRock() + "-" + MeteoricExpansionHelpers.SelectRandomIndex();
-
                     int playerToSpawnAt = GetSinglePlayer(serverAPI.World.AllOnlinePlayers);
 
-                    serverAPI.World.SpawnEntity(InitEntity(meteorCode, playerToSpawnAt));
+                    serverAPI.World.SpawnEntity(InitEntity(MeteoricExpansionHelpers.SelectRandomMeteor(), playerToSpawnAt));
                 }
 
                 nextMeteorSpawn = spawnerRand.Next(minMeteorSpawnTime, maxMeteorSpawnTime) + spawnerRand.NextDouble();
@@ -58,7 +69,6 @@ namespace MeteoricExpansion
                 timeSinceSpawn = this.serverAPI.World.ElapsedMilliseconds;
             }
         }
-
         //-- Fetches the entity type, assigns the entity to an object, sets its position on server and client, then returns the entity object --//
         private Entity InitEntity(string meteorCode, int atPlayer)
         {
@@ -89,6 +99,26 @@ namespace MeteoricExpansion
                 return -spawnOffset;
 
             return spawnOffset;
+        }
+        private static bool FindMeteor(EntityProperties meteor)
+        {
+            if (meteor.Class == "EntityMeteor")
+                return true;
+
+            return false;
+        }
+        private string[] EntityCodeArray()
+        {
+            List<string> entityCodes = new List<string>();
+
+            List<EntityProperties> entityList = serverAPI.World.EntityTypes.FindAll(FindMeteor);
+
+            foreach (EntityProperties property in entityList)
+            {
+                entityCodes.Add(property.Code.Path);
+            }
+
+            return entityCodes.ToArray();
         }
     }
 }
