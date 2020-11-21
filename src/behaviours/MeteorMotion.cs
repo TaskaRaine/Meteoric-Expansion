@@ -89,7 +89,6 @@ namespace MeteoricExpansion
             this.entity.ServerPos.SetFrom(CalculateEntityTransform(deltaTime));
             this.entity.Pos.SetFrom(this.entity.ServerPos);
 
-
             SpawnMeteorParticles();
         }
 
