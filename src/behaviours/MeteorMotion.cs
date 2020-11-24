@@ -26,8 +26,6 @@ namespace MeteoricExpansion
         //-- 0 = False, 1 = True --//
         private int isMovingSouth, isMovingEast;
 
-        private int maxSpeed;
-
         private readonly int minRotation = 200;
         private readonly int maxRotation = 1600;
 
@@ -78,7 +76,10 @@ namespace MeteoricExpansion
         {
             if(this.entity.Api.Side == EnumAppSide.Client)
             {
-                meteorIdleSound.FadeOutAndStop(1.0f);
+                if (despawn.reason == EnumDespawnReason.OutOfRange)
+                    meteorIdleSound.FadeOutAndStop(5.0f);
+                else
+                    meteorIdleSound.FadeOutAndStop(1.0f);
             }
         }
 
@@ -131,8 +132,6 @@ namespace MeteoricExpansion
 
             isMovingSouth = rand.Next(0, 2);
             isMovingEast = rand.Next(0, 2);
-
-            maxSpeed = rand.Next(20, 50);
         }
 
         //-- Determine the rotation of the meteor --//
@@ -163,9 +162,11 @@ namespace MeteoricExpansion
         //-- Determine the speed and direction of the meteor --//
         private void DetermineMeteorTranslation()
         {
-            randTranslation.X = rand.Next(0, maxSpeed);
-            randTranslation.Y = -rand.Next(0, maxSpeed);
-            randTranslation.Z = maxSpeed - randTranslation.X;
+            int horizontalSpeed = rand.Next(20, 50);
+
+            randTranslation.X = rand.Next(0, horizontalSpeed);
+            randTranslation.Y = -rand.Next(0, horizontalSpeed / 2);
+            randTranslation.Z = horizontalSpeed - randTranslation.X;
 
             if (isMovingEast != 0)
                 randTranslation.X *= -1;

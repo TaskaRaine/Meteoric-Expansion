@@ -16,9 +16,10 @@ namespace MeteoricExpansion
 
         private float spawnTimeInMilliseconds;
         private float elapsedTimeInMilliseconds;
+
         private float currentLifespan;
-        private int minMeteorLifespan = 2;
-        private int maxMeteorLifespan = 15;
+        private int minMeteorLifespan;
+        private int maxMeteorLifespan;
 
         private byte[] lightHsv = new byte[] { 4, 4, 31 };
 
@@ -39,6 +40,9 @@ namespace MeteoricExpansion
 
             properties.Client.Size *= currentScale;
             properties.HitBoxSize *= currentScale;
+
+            minMeteorLifespan = MeteoricExpansionHelpers.GetMinLifespan();
+            maxMeteorLifespan = MeteoricExpansionHelpers.GetMaxLifespan();
 
             if (api.Side == EnumAppSide.Server)
             {

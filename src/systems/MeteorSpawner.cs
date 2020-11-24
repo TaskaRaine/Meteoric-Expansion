@@ -93,7 +93,7 @@ namespace MeteoricExpansion
         private double GetSpawnOffset()
         {
             int negativeRand = spawnerRand.Next(0, 1);
-            double spawnOffset = spawnerRand.Next(this.serverAPI.WorldManager.ChunkSize, this.serverAPI.WorldManager.ChunkSize * 2) + spawnerRand.NextDouble();
+            double spawnOffset = spawnerRand.Next(this.serverAPI.WorldManager.ChunkSize, this.serverAPI.WorldManager.ChunkSize * 6) + spawnerRand.NextDouble();
             
             if (negativeRand == 0)
                 return -spawnOffset;

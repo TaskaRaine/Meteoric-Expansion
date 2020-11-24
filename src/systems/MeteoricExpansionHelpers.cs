@@ -16,9 +16,6 @@ namespace MeteoricExpansion
         private static string[] meteorCodes;
         private static MeteorConfig meteorConfig;
 
-        //private static List<string> rockOptions = new List<string>();
-        //private static List<string> metalOptions = new List<string>();
-
         private static Random rand;
 
         public static void InitializeHelpers(int seed, string[] codes)
@@ -42,6 +39,18 @@ namespace MeteoricExpansion
 
             return meteorConfig.MaximumMinutesBetweenMeteorSpawns;
         }
+        public static int GetMinLifespan()
+        {
+            return meteorConfig.MinimumMeteorLifespanInSeconds;
+        }
+        public static int GetMaxLifespan()
+        {
+            if (meteorConfig.MaximumMeteorLifespanInSeconds > meteorConfig.MinimumMeteorLifespanInSeconds)
+                return meteorConfig.MaximumMeteorLifespanInSeconds;
+            else
+                return meteorConfig.MinimumMeteorLifespanInSeconds;
+        }
+
         public static Random GetRand()
         {
             return rand;
@@ -79,6 +88,7 @@ namespace MeteoricExpansion
 
             return meteorCodes[randIndex]; 
         }
+
         //-- Math Helpers --//
         public static int ConvertMinutesToMilliseconds(int minutes)
         {

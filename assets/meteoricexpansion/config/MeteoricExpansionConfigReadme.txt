@@ -3,13 +3,19 @@
 
 {
 	//-- Destructive determines whether meteor strikes damage the world. If set to true, meteorites will cause craters, destroy structures, toss inventory contents across the ground, etc --// 
-	"Destructive": [true][false]	Default: false
+	"Destructive": [true][false],	Default: false
 
 	//-- Determines the MINIMUM amount of time, in minutes, between meteor spawns. --//
-	"MinimumMinutesBetweenMeteorSpawns": [ANY integer]		Default: 10
+	"MinimumMinutesBetweenMeteorSpawns": [ANY integer],		Default: 10
 
 	//-- Determines the MAXIMUM amount of time, in minutes, between meteor spawns. MUST be a larger number than the minimum, otherwise it will be forced to 1 minute longer than minimum spawn --//
-	"MaximumMinutesBetweenMeteorSpawns": [ANY integer]		Default: 30
+	"MaximumMinutesBetweenMeteorSpawns": [ANY integer],		Default: 30
+
+	//-- Determines the MINIMUM amount of time, in seconds, that a meteor can live before exploding. --//
+	"MinimumMeteorLifespanInSeconds": [ANY integer],	Default: 2
+
+	//-- Determines the MAXIMUM amount of time, in seconds, that a meteor can live before exploding. --//
+	"MaximumMeteorLifespanInSeconds": [ANY interger],	Default: 10
 }
 
 

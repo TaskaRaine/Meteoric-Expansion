@@ -37,6 +37,10 @@ namespace MeteoricExpansion
         private int meteorImpactResourceChance = 75;
         private int metalResourceChance = 33;
 
+        private bool fillWithLiquid = false;
+        private int fillHeight;
+        AssetLocation liquidAsset;
+
         public override string PropertyName()
         {
             return "meteorexplosion";
@@ -150,6 +154,22 @@ namespace MeteoricExpansion
 
             BlockPos craterPos = new BlockPos();
 
+            //-- Initial scan to see if the meteor crater should fill with liquid instead of air --//
+            blockAccessor.WalkBlocks(new BlockPos(centerPos.X - explosionRadius, centerPos.Y - explosionRadius, centerPos.Z - explosionRadius), 
+                new BlockPos(centerPos.X + explosionRadius, centerPos.Y + explosionRadius, centerPos.Z + explosionRadius), (block, bpos) =>
+                {
+                    if(block.DrawType == EnumDrawType.Liquid)
+                    {
+                        liquidAsset = new AssetLocation(block.Code.Domain, block.Code.Path);
+
+                        fillWithLiquid = true;
+                        fillHeight = bpos.Y;
+
+                        return;
+                    }
+                });
+            
+            
             //-- Scans every block in a cube determined by the explosion radius and determines whether that block fits within the explosion sphere --//
             blockAccessor.WalkBlocks(new BlockPos(centerPos.X - explosionRadius, centerPos.Y - explosionRadius, centerPos.Z - explosionRadius),
                 new BlockPos(centerPos.X + explosionRadius, centerPos.Y + explosionRadius, centerPos.Z + explosionRadius), (block, bpos) =>
@@ -180,7 +200,7 @@ namespace MeteoricExpansion
                     break;
                 default:
                     //-- If a block being destroyed is an inventory, then throw all the contents of it on the ground. Otherwise, for terrain blocks, only spawn items based on a % chance --//
-                    if (blockToExplode is BlockGenericTypedContainer || blockToExplode is BlockShelf || blockToExplode is BlockDisplayCase)
+                    if (blockToExplode is BlockGenericTypedContainer || blockToExplode is BlockShelf || blockToExplode is BlockDisplayCase || blockToExplode is BlockMoldRack)
                     {
                         BlockEntityContainer entityContainer = blockAccessor.GetBlockEntity(explosionPos) as BlockEntityContainer;
 
@@ -209,7 +229,16 @@ namespace MeteoricExpansion
                             }
                     }
 
-                    blockAccessor.SetBlock(0, explosionPos);
+                    if (fillWithLiquid == false)
+                        blockAccessor.SetBlock(0, explosionPos);
+                    else
+                    {
+                        if (explosionPos.Y <= fillHeight)
+                            blockAccessor.SetBlock(serverAPI.WorldManager.GetBlockId(liquidAsset), explosionPos);
+                        else
+                            blockAccessor.SetBlock(0, explosionPos);
+                    }
+
                     blockAccessor.TriggerNeighbourBlockUpdate(explosionPos);
                     break;
             }

@@ -1,5 +1,7 @@
 {
   "Destructive": false,
   "MinimumMinutesBetweenMeteorSpawns": 10,
-  "MaximumMinutesBetweenMeteorSpawns": 30
+  "MaximumMinutesBetweenMeteorSpawns": 30,
+  "MinimumMeteorLifespanInSeconds": 2,
+  "MaximumMeteorLifespanInSeconds": 10
 }
