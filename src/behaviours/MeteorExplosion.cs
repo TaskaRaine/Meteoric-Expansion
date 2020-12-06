@@ -140,7 +140,7 @@ namespace MeteoricExpansion
                 foreach (BlockDropItemStack itemStack in entity.Properties.Drops)
                     for (int i = 0; i < (int)(entity.Properties.Client.Size * explosionRand.Next(minMeteorDrops, maxMeteorDrops)); i++)
                     {
-                        entity.World.SpawnItemEntity(itemStack.ResolvedItemstack, entity.ServerPos.XYZ, GetNewItemStackVector(shrapnelDirection, itemStackVelocityModifier));
+                        entity.World.SpawnItemEntity(itemStack.GetNextItemStack(), entity.ServerPos.XYZ, GetNewItemStackVector(shrapnelDirection, itemStackVelocityModifier));
                     }
             }
         }
@@ -225,7 +225,7 @@ namespace MeteoricExpansion
                         foreach (BlockDropItemStack itemStack in blockAccessor.GetBlock(explosionPos).Drops)
                             if (explosionRand.Next(0, 101) < terrainDropChance)
                             {
-                                entity.World.SpawnItemEntity(itemStack.ResolvedItemstack, explosionPos.ToVec3d(), GetNewItemStackVector(shrapnelDirection, itemStackVelocityModifier));
+                                entity.World.SpawnItemEntity(itemStack.GetNextItemStack(), explosionPos.ToVec3d(), GetNewItemStackVector(shrapnelDirection, itemStackVelocityModifier));
                             }
                     }
 

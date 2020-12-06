@@ -6,6 +6,6 @@
   "description": "Meteoric Expansion is a mod that introduces meteors to the skies of Vintage Story.",
   "version": "1.0.0",
   "dependency": {
-    "game": "1.13.4"
+    "game": "1.14.0"
   }
 }
