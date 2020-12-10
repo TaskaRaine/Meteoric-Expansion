@@ -39,6 +39,17 @@ namespace MeteoricExpansion
 
             return meteorConfig.MaximumMinutesBetweenMeteorSpawns;
         }
+        public static int GetMinSpawnDistance()
+        {
+            return meteorConfig.MinimumSpawnDistanceInChunks;
+        }
+        public static int GetMaxSpawnDistance()
+        {
+            if (meteorConfig.MaximumSpawnDistanceInChunks <= meteorConfig.MinimumSpawnDistanceInChunks)
+                return meteorConfig.MinimumSpawnDistanceInChunks;
+
+            return meteorConfig.MaximumSpawnDistanceInChunks;
+        }
         public static int GetMinLifespan()
         {
             return meteorConfig.MinimumMeteorLifespanInSeconds;
@@ -67,6 +78,10 @@ namespace MeteoricExpansion
                     GenerateConfig(api);
                     meteorConfig = LoadConfig(api);
                 }
+                else
+                {
+                    GenerateConfig(api, meteorConfig);
+                }
             }
             catch
             {
@@ -78,9 +93,17 @@ namespace MeteoricExpansion
         {
             return api.LoadModConfig<MeteorConfig>("MeteoricExpansionConfig.json");
         }
+
+        //-- Generate new config with default settings --//
         private static void GenerateConfig(ICoreServerAPI api)
         {
             api.StoreModConfig<MeteorConfig>(new MeteorConfig(), "MeteoricExpansionConfig.json");
+        }
+
+        //-- Generate config from previous settings and implement current version config changes --//
+        private static void GenerateConfig(ICoreServerAPI api, MeteorConfig previousConfig)
+        {
+            api.StoreModConfig<MeteorConfig>(new MeteorConfig(previousConfig), "MeteoricExpansionConfig.json");
         }
         public static string SelectRandomMeteor()
         {

@@ -7,10 +7,6 @@
 	"textureHeight": 16,
 	"textureSizes": {
 	},
-	"textures": {
-		"core": "",
-		"rock": "",
-	},
 	"elements": [
 		{
 			"name": "Core",

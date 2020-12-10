@@ -92,8 +92,11 @@ namespace MeteoricExpansion
         //-- Offsets meteor spawn position so that it does not spawn directly above the player --//
         private double GetSpawnOffset()
         {
+            int minSpawnOffset = MeteoricExpansionHelpers.GetMinSpawnDistance();
+            int maxSpawnOffset = MeteoricExpansionHelpers.GetMaxSpawnDistance();
+
             int negativeRand = spawnerRand.Next(0, 1);
-            double spawnOffset = spawnerRand.Next(this.serverAPI.WorldManager.ChunkSize, this.serverAPI.WorldManager.ChunkSize * 6) + spawnerRand.NextDouble();
+            double spawnOffset = spawnerRand.Next(this.serverAPI.WorldManager.ChunkSize * minSpawnOffset, this.serverAPI.WorldManager.ChunkSize * maxSpawnOffset) + spawnerRand.NextDouble();
             
             if (negativeRand == 0)
                 return -spawnOffset;

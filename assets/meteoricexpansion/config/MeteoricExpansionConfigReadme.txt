@@ -11,6 +11,12 @@
 	//-- Determines the MAXIMUM amount of time, in minutes, between meteor spawns. MUST be a larger number than the minimum, otherwise it will be forced to 1 minute longer than minimum spawn --//
 	"MaximumMinutesBetweenMeteorSpawns": [ANY integer],		Default: 30
 
+	//-- Determines the MINIMUM range that a meteor will spawn from the player. Y distance is always worldheight - 10.
+	"MinimumSpawnDistanceInChunks": [ANY integer],		Default: 1
+
+	//-- Determines the MAXIMUM range that a meteor will spawn from the player. Will be forced to equal the minimum range if set below the minimum. Y distance is always worldheight - 10 --//
+	"MaximumSpawnDistanceInChunks": [ANY integer],		Default: 6
+
 	//-- Determines the MINIMUM amount of time, in seconds, that a meteor can live before exploding. --//
 	"MinimumMeteorLifespanInSeconds": [ANY integer],	Default: 2
 

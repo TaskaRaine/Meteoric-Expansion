@@ -31,6 +31,7 @@ Further config details can be found by opening the mod ZIP and reading the readm
 ### Releases
 
 ### Vintage Story 1.14.0+
+[Version 1.0.2](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.0.2/MeteoricExpansion_v1.0.2.zip)
 
 [Version 1.0.1](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.0.1/MeteoricExpansion_v1.0.1.zip)
 
@@ -39,9 +40,16 @@ Further config details can be found by opening the mod ZIP and reading the readm
 
 ### Changelog
 
+##### Version 1.0.2
+Added config options to allow configuration of meteor spawn distances from the player.
+
+Removed unused code that caused a warning in the client error log.
+
 ##### Version 1.0.1
 Removed Rhodocrosite and Pentlandite as possible meteor minerals. There's no current use for them in vanilla Vintage Story.
+
 Gave meteors names that better describe their composition.
+
 Fixed an issue where meteor names would appear as code strings in the handbook(thank you, lisabet, for pointing this out to me).
 
 ##### Version 1.0.0

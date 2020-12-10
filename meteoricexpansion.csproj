@@ -81,7 +81,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="assets\meteoricexpansion\config\MeteoricExpansionConfig.json" />
     <None Include="assets\meteoricexpansion\entities\air\meteor.json" />
     <None Include="assets\meteoricexpansion\lang\en.json" />
     <None Include="assets\meteoricexpansion\shapes\entity\meteor.json" />
