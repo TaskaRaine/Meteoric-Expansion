@@ -4,6 +4,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
 
 namespace MeteoricExpansion
 {
@@ -65,7 +66,7 @@ namespace MeteoricExpansion
                     ShouldLoop = true,
                     Position = this.entity.ServerPos.XYZFloat,
                     DisposeOnFinish = false,
-                    Volume = 0.5f,
+                    Volume = 0.8f,
                     Range = 256,
                 });
 

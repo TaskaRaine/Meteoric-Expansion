@@ -103,7 +103,7 @@ namespace MeteoricExpansion
             {
                 SpawnExplosionParticles();
 
-                this.entity.World.PlaySoundAt(new AssetLocation("meteoricexpansion", "sounds/effect/air_meteor_explosion"), this.entity, null, true, 256, 0.25f);
+                this.entity.World.PlaySoundAt(new AssetLocation("meteoricexpansion", "sounds/effect/air_meteor_explosion"), this.entity, null, true, 256, 0.5f);
             }
             else
             {
@@ -119,7 +119,7 @@ namespace MeteoricExpansion
             {
                 SpawnExplosionParticles();
 
-                this.entity.World.PlaySoundAt(new AssetLocation("meteoricexpansion", "sounds/effect/land_meteor_explosion"), this.entity, null, true, 256, 0.25f);
+                this.entity.World.PlaySoundAt(new AssetLocation("meteoricexpansion", "sounds/effect/land_meteor_explosion"), this.entity, null, true, 256, 0.5f);
             }
             else
             {

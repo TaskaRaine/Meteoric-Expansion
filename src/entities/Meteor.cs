@@ -41,11 +41,11 @@ namespace MeteoricExpansion
             properties.Client.Size *= currentScale;
             properties.HitBoxSize *= currentScale;
 
-            minMeteorLifespan = MeteoricExpansionHelpers.GetMinLifespan();
-            maxMeteorLifespan = MeteoricExpansionHelpers.GetMaxLifespan();
-
             if (api.Side == EnumAppSide.Server)
             {
+                minMeteorLifespan = MeteoricExpansionHelpers.GetMinLifespan();
+                maxMeteorLifespan = MeteoricExpansionHelpers.GetMaxLifespan();
+
                 spawnTimeInMilliseconds = api.World.ElapsedMilliseconds;
                 currentLifespan = (float)(rand.Next(minMeteorLifespan, maxMeteorLifespan) * currentScale + rand.NextDouble()) * 1000;
 

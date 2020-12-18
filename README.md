@@ -31,6 +31,8 @@ Further config details can be found by opening the mod ZIP and reading the readm
 ### Releases
 
 ### Vintage Story 1.14.0+
+[Version 1.0.3](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.0.3/MeteoricExpansion_v1.0.3.zip)
+
 [Version 1.0.2](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.0.2/MeteoricExpansion_v1.0.2.zip)
 
 [Version 1.0.1](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.0.1/MeteoricExpansion_v1.0.1.zip)
@@ -39,6 +41,11 @@ Further config details can be found by opening the mod ZIP and reading the readm
 
 
 ### Changelog
+
+##### Version 1.0.3
+Fixed a client crash resulting from clients trying to access config data on meteor spawn.
+
+Increased the volume of meteor sizzles and meteor explosions.
 
 ##### Version 1.0.2
 Added config options to allow configuration of meteor spawn distances from the player.
