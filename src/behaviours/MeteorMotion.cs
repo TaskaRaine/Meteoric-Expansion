@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Vintagestory.API;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -10,8 +11,6 @@ namespace MeteoricExpansion
 {
     class MeteorMotion : EntityBehavior
     {
-        ILoadedSound meteorIdleSound;
-
         public static SimpleParticleProperties meteorParticles;
 
         Random rand;
@@ -30,6 +29,13 @@ namespace MeteoricExpansion
         private readonly int minRotation = 200;
         private readonly int maxRotation = 1600;
 
+        private AssetLocation meteorSound1 = new AssetLocation("meteoricexpansion", "sounds/effect/meteor_rumble_fade1_double");
+        private AssetLocation meteorSound2 = new AssetLocation("meteoricexpansion", "sounds/effect/meteor_rumble_fade2_double");
+        private AssetLocation meteorSound3 = new AssetLocation("meteoricexpansion", "sounds/effect/meteor_rumble_fade3_double");
+
+        private int idleSoundLengthInMilliseconds = 2000;
+        private long idleSoundStartTime = 0;
+
         public override string PropertyName()
         {
             return "meteormotion";
@@ -37,7 +43,7 @@ namespace MeteoricExpansion
 
         public MeteorMotion(Entity entity) : base(entity)
         {
-
+            
         }
 
         public override void Initialize(EntityProperties properties, JsonObject attributes)
@@ -56,34 +62,7 @@ namespace MeteoricExpansion
             meteorParticles = new SimpleParticleProperties(1, 1, 1, new Vec3d(), new Vec3d(), new Vec3f(), new Vec3f());
 
             this.entity.Pos.SetFrom(this.entity.ServerPos);
-
-            if(this.entity.Api.Side == EnumAppSide.Client)
-            {
-                //-- Creating an idle sound here allows me to control when the sound starts and stops, whereas the JSON idle sound property would continue to play the sound after entity death --//
-                meteorIdleSound = ((IClientWorldAccessor)this.entity.Api.World).LoadSound(new SoundParams()
-                {
-                    Location = new AssetLocation("meteoricexpansion", "sounds/effect/meteor_sizzle"),
-                    ShouldLoop = true,
-                    Position = this.entity.ServerPos.XYZFloat,
-                    DisposeOnFinish = false,
-                    Volume = 0.8f,
-                    Range = 256,
-                });
-
-                meteorIdleSound.Start();
-            }
         }
-        public override void OnEntityDespawn(EntityDespawnReason despawn)
-        {
-            if(this.entity.Api.Side == EnumAppSide.Client)
-            {
-                if (despawn.reason == EnumDespawnReason.OutOfRange)
-                    meteorIdleSound.FadeOutAndStop(5.0f);
-                else
-                    meteorIdleSound.FadeOutAndStop(1.0f);
-            }
-        }
-
         public override void OnGameTick(float deltaTime)
         {
             base.OnGameTick(deltaTime);
@@ -92,6 +71,23 @@ namespace MeteoricExpansion
             this.entity.Pos.SetFrom(this.entity.ServerPos);
 
             SpawnMeteorParticles();
+
+            if(this.entity.Api.Side == EnumAppSide.Server)
+            {
+                if ((this.idleSoundStartTime + idleSoundLengthInMilliseconds) / 2 < this.entity.World.ElapsedMilliseconds)
+                {
+                    int nextSound = rand.Next(0, 3);
+
+                    if(nextSound == 0)
+                        this.entity.World.PlaySoundAt(meteorSound1, this.entity, null, true, 512, 0.62f);
+                    else if(nextSound == 1)
+                        this.entity.World.PlaySoundAt(meteorSound2, this.entity, null, true, 512, 0.62f);
+                    else
+                        this.entity.World.PlaySoundAt(meteorSound3, this.entity, null, true, 512, 0.62f);
+
+                    this.idleSoundStartTime = this.entity.World.ElapsedMilliseconds;
+                }
+            }
         }
 
         private EntityPos CalculateEntityTransform(float deltaTime)

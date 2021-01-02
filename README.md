@@ -31,6 +31,8 @@ Further config details can be found by opening the mod ZIP and reading the readm
 ### Releases
 
 ### Vintage Story 1.14.0+
+[Version 1.0.4](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.0.4/MeteoricExpansion_v1.0.4.zip)
+
 [Version 1.0.3](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.0.3/MeteoricExpansion_v1.0.3.zip)
 
 [Version 1.0.2](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.0.2/MeteoricExpansion_v1.0.2.zip)
@@ -41,6 +43,17 @@ Further config details can be found by opening the mod ZIP and reading the readm
 
 
 ### Changelog
+
+##### Version 1.0.4
+Fixed a crash related to particles.
+
+Made all meteor sounds be activated server-side to be heard at great distances.
+
+Sounds are now directional and volume changes based on distance. 
+
+New meteor streaking sound, dynamically mixed and played server-side.
+
+Added more depth to the explosion sounds.
 
 ##### Version 1.0.3
 Fixed a client crash resulting from clients trying to access config data on meteor spawn.

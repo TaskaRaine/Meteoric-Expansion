@@ -58,12 +58,10 @@ namespace MeteoricExpansion
 
             explosionRand = new Random();
 
-            if (sidedAPI.Side == EnumAppSide.Client)
-            {
-                solidExplosionParticles = new SimpleParticleProperties(1, 1, 1, new Vec3d(), new Vec3d(), new Vec3f(), new Vec3f());
-                quadExplosionParticles = new SimpleParticleProperties(1, 1, 1, new Vec3d(), new Vec3d(), new Vec3f(), new Vec3f());
-            }
-            else
+            solidExplosionParticles = new SimpleParticleProperties(1, 1, 1, new Vec3d(), new Vec3d(), new Vec3f(), new Vec3f());
+            quadExplosionParticles = new SimpleParticleProperties(1, 1, 1, new Vec3d(), new Vec3d(), new Vec3f(), new Vec3f());
+
+            if(sidedAPI.Side == EnumAppSide.Server)
             {
                 serverAPI = (ICoreServerAPI)sidedAPI;
 
@@ -85,28 +83,30 @@ namespace MeteoricExpansion
                 injuryRadius = explosionRadius * 2;
                 injuryDamageModifier = this.entity.Properties.Client.Size * injuryDamageModifier;
             }
-
-            switch (despawn.reason)
+            if (despawn != null)
             {
-                case EnumDespawnReason.Combusted:
-                    ExplodeInAir();
-                    break;
-
-                case EnumDespawnReason.Death:
-                    ExplodeOnLand();
-                    break;
+                switch (despawn.reason)
+                {
+                    case EnumDespawnReason.Combusted:
+                        ExplodeInAir();
+                        break;
+                    case EnumDespawnReason.Death:
+                        ExplodeOnLand();
+                        break;
+                    default:
+                        break;
+                }
             }
+
         }
         private void ExplodeInAir()
         {
-            if(sidedAPI.Side == EnumAppSide.Client)
-            {
-                SpawnExplosionParticles();
+            SpawnExplosionParticles();
 
-                this.entity.World.PlaySoundAt(new AssetLocation("meteoricexpansion", "sounds/effect/air_meteor_explosion"), this.entity, null, true, 256, 0.5f);
-            }
-            else
+            if (sidedAPI.Side == EnumAppSide.Server)
             {
+                this.entity.World.PlaySoundAt(new AssetLocation("meteoricexpansion", "sounds/effect/air_meteor_explosion_layered"), this.entity, null, true, 512, 1.0f);
+
                 if (MeteoricExpansionHelpers.GetConfigDestructive() == true)
                 {
                     InjureEntities(this.entity.ServerPos.XYZ);
@@ -115,14 +115,12 @@ namespace MeteoricExpansion
         }
         private void ExplodeOnLand()
         {
-            if(sidedAPI.Side == EnumAppSide.Client)
-            {
-                SpawnExplosionParticles();
+            SpawnExplosionParticles();
 
-                this.entity.World.PlaySoundAt(new AssetLocation("meteoricexpansion", "sounds/effect/land_meteor_explosion"), this.entity, null, true, 256, 0.5f);
-            }
-            else
+            if (sidedAPI.Side == EnumAppSide.Server)
             {
+                this.entity.World.PlaySoundAt(new AssetLocation("meteoricexpansion", "sounds/effect/land_meteor_explosion_layered"), this.entity, null, true, 512, 1.0f);
+
                 Vec3d previousPos = this.entity.PreviousServerPos.XYZ;
                 Vec3d currentPos = this.entity.ServerPos.XYZ;
 
