@@ -14,9 +14,9 @@ namespace MeteoricExpansion
         }
         public override void StartServerSide(ICoreServerAPI api)
         {
-            /*
             base.StartServerSide(api);
 
+            /*
             //-- Registers a command that will spawn a random meteor 10 blocks above the player --//
             api.RegisterCommand("testmeteor", "Spawns a meteor for testing purposes.", "",
             (IServerPlayer player, int groupId, CmdArgs args) =>
@@ -24,6 +24,8 @@ namespace MeteoricExpansion
                 EntityProperties entityType = api.World.GetEntityType(new AssetLocation("meteoricexpansion", MeteoricExpansionHelpers.SelectRandomMeteor()));
                 Entity entity = api.World.ClassRegistry.CreateEntity(entityType);
                 EntityPos entityPos = new EntityPos(player.Entity.ServerPos.X, api.WorldManager.MapSizeY - 10, player.Entity.ServerPos.Z);
+
+                System.Diagnostics.Debug.WriteLine(MeteoricExpansionHelpers.SelectRandomMeteor());
 
                 entity.ServerPos.SetPos(entityPos);
                 entity.Pos.SetFrom(entity.ServerPos);
