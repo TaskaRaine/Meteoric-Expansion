@@ -40,7 +40,7 @@ namespace MeteoricExpansion
             currentScale = (float)rand.NextDouble() + rand.Next(minMeteorScale, maxMeteorScale);
 
             properties.Client.Size *= currentScale;
-            properties.HitBoxSize *= currentScale;
+            properties.CollisionBoxSize *= currentScale;
 
             if (api.Side == EnumAppSide.Server)
             {

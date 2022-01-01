@@ -30,8 +30,11 @@ Further config details can be found by opening the mod ZIP and reading the readm
 
 ### Releases
 
+### Vintage Story 1.16.0+
+[Version 1.0.6](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.0.6/MeteoricExpansion_v1.0.6.zip)
+
 ### Vintage Story 1.15.0+
-[Version 1.0.5](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.0.5/MeteoricExpansion_V1.0.5.zip)
+[Version 1.0.5](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.0.5/MeteoricExpansion_v1.0.5.zip)
 
 ### Vintage Story 1.14.0+
 [Version 1.0.4](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.0.4/MeteoricExpansion_v1.0.4.zip)
@@ -47,8 +50,11 @@ Further config details can be found by opening the mod ZIP and reading the readm
 
 ### Changelog
 
+##### Version 1.0.6
+Compatability patch for Vintage Story 1.16
+
 ##### Version 1.0.5
-Compiled mod to make it compatible with Vintage Story 1.15.0
+Compatability patch for Vintage Story 1.15
 
 ##### Version 1.0.4
 Fixed a crash related to particles.

@@ -2,9 +2,9 @@
   "type": "code",
   "modid": "meteoricexpansion",
   "name": "Meteoric Expansion",
-  "author": "Taska Raine",
+  "authors": ["Taska Raine"],
   "description": "Meteoric Expansion is a mod that introduces meteors to the skies of Vintage Story.",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "dependency": {
     "game": "1.15.0"
   }

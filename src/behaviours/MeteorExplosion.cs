@@ -356,7 +356,7 @@ namespace MeteoricExpansion
             string metalType = this.entity.FirstCodePart(1);
             string stoneType = this.entity.FirstCodePart(2);
 
-            int meteorRemainsSize = (int)(this.entity.Properties.HitBoxSize.X + 0.5f) / 2;
+            int meteorRemainsSize = (int)(this.entity.Properties.CollisionBoxSize.X + 0.5f) / 2;
             int metalBlockID = 0;
 
             string[] richnesses = { "poor", "medium", "rich", "bountiful" };
