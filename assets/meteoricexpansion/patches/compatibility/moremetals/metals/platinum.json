@@ -1,0 +1,81 @@
+﻿[
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteor-quartz_nativeplatinum-andesite",
+			"meteor-quartz_nativeplatinum-chalk",
+			"meteor-quartz_nativeplatinum-chert",
+			"meteor-quartz_nativeplatinum-conglomerate",
+			"meteor-quartz_nativeplatinum-limestone",
+			"meteor-quartz_nativeplatinum-claystone",
+			"meteor-quartz_nativeplatinum-granite",
+			"meteor-quartz_nativeplatinum-sandstone",
+			"meteor-quartz_nativeplatinum-shale",
+			"meteor-quartz_nativeplatinum-basalt",
+			"meteor-quartz_nativeplatinum-peridotite",
+			"meteor-quartz_nativeplatinum-phyllite",
+			"meteor-quartz_nativeplatinum-slate",
+		],
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "move",
+		"frompath": "/dropsByType/*",
+		"path": "/temp",
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "add",
+		"path": "/dropsByType/*-quartz_nativeplatinum-*",
+		"value": [
+			{type: "item", code: "game:stone-{rock}", quantity: { avg: 1, var: 0, dist: "gaussian" }},
+			{type: "item", code: "game:metalbit-platinum", quantity: { avg: 1, var: 0, dist: "gaussian" }},
+		],
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "move",
+		"frompath": "/temp",
+		"path": "/dropsByType/*",
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteoricmetallicrock-bountiful-quartz_nativeplatinum-andesite-*",
+			"meteoricmetallicrock-bountiful-quartz_nativeplatinum-chalk-*",
+			"meteoricmetallicrock-bountiful-quartz_nativeplatinum-chert-*",
+			"meteoricmetallicrock-bountiful-quartz_nativeplatinum-conglomerate-*",
+			"meteoricmetallicrock-bountiful-quartz_nativeplatinum-limestone-*",
+			"meteoricmetallicrock-bountiful-quartz_nativeplatinum-claystone-*",
+			"meteoricmetallicrock-bountiful-quartz_nativeplatinum-granite-*",
+			"meteoricmetallicrock-bountiful-quartz_nativeplatinum-sandstone-*",
+			"meteoricmetallicrock-bountiful-quartz_nativeplatinum-shale-*",
+			"meteoricmetallicrock-bountiful-quartz_nativeplatinum-basalt-*",
+			"meteoricmetallicrock-bountiful-quartz_nativeplatinum-peridotite-*",
+			"meteoricmetallicrock-bountiful-quartz_nativeplatinum-phyllite-*",
+			"meteoricmetallicrock-bountiful-quartz_nativeplatinum-slate-*",
+		],
+		"file": "meteoricexpansion:blocktypes/meteoricmetallicrock",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "add",
+		"path": "/requiredMiningTierByType/*-quartz_nativeplatinum-*",
+		"value": 3,
+		"file": "meteoricexpansion:blocktypes/meteoricmetallicrock",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	}
+]

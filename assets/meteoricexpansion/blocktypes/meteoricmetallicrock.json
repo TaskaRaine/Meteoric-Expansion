@@ -1,0 +1,217 @@
+﻿{
+	code: "meteoricmetallicrock",
+	classByType: {
+		"*-smouldering": "SmoulderingMeteorRock",
+		"*-cooled": "MeteorRock"
+	},
+	entityClassByType: {
+		"*-smouldering": "BESmoulderingRock"
+	},
+	behaviors: [
+		{ name: "BreakIfFloating" }
+	],
+	storageFlags: 5,
+	attributes: {
+		handbook: {
+			groupBy: ["*"],
+			extraSections: [
+				{ title: "game:handbook-item-sources", text: "Full block can be obtained by breaking all adjacent blocks." }
+			]
+		}
+	},
+	variantgroups: [
+		{ code: "grade", states: ["poor", "medium", "rich", "bountiful"] },
+		{ code: "type", loadFromProperties: "game:block/ore-graded" },
+		{ code: "rock", loadFromProperties: "game:block/rockwithdeposit" },
+		{ code: "state", states: ["cooled", "smouldering"] }
+	],
+	allowedVariants: [
+		"meteoricmetallicrock-rich-bismuthinite-andesite-*",
+		"meteoricmetallicrock-rich-bismuthinite-granite-*",
+		"meteoricmetallicrock-bountiful-bismuthinite-basalt-*",
+		"meteoricmetallicrock-rich-bismuthinite-peridotite-*",
+		"meteoricmetallicrock-medium-bismuthinite-phyllite-*",
+		"meteoricmetallicrock-medium-bismuthinite-slate-*",
+		"meteoricmetallicrock-medium-cassiterite-andesite-*",
+		"meteoricmetallicrock-bountiful-cassiterite-granite-*",
+		"meteoricmetallicrock-medium-cassiterite-basalt-*",
+		"meteoricmetallicrock-medium-cassiterite-peridotite-*",
+		"meteoricmetallicrock-medium-cassiterite-phyllite-*",
+		"meteoricmetallicrock-medium-cassiterite-slate-*",
+		"meteoricmetallicrock-medium-sphalerite-andesite-*",
+		"meteoricmetallicrock-medium-sphalerite-granite-*",
+		"meteoricmetallicrock-medium-sphalerite-basalt-*",
+		"meteoricmetallicrock-medium-sphalerite-peridotite-*",
+		"meteoricmetallicrock-rich-sphalerite-claystone-*",
+		"meteoricmetallicrock-rich-sphalerite-sandstone-*",
+		"meteoricmetallicrock-rich-sphalerite-shale-*",
+		"meteoricmetallicrock-rich-sphalerite-chalk-*",
+		"meteoricmetallicrock-rich-sphalerite-limestone-*",
+		"meteoricmetallicrock-rich-sphalerite-chert-*",
+		"meteoricmetallicrock-rich-sphalerite-conglomerate-*",
+		"meteoricmetallicrock-bountiful-sphalerite-phyllite-*",
+		"meteoricmetallicrock-bountiful-sphalerite-slate-*",
+		"meteoricmetallicrock-rich-nativecopper-granite-*",
+		"meteoricmetallicrock-bountiful-nativecopper-basalt-*",
+		"meteoricmetallicrock-rich-nativecopper-slate-*",
+		"meteoricmetallicrock-rich-nativecopper-andesite-*",
+		"meteoricmetallicrock-rich-nativecopper-peridotite-*",
+		"meteoricmetallicrock-medium-nativecopper-claystone-*",
+		"meteoricmetallicrock-medium-nativecopper-sandstone-*",
+		"meteoricmetallicrock-medium-nativecopper-shale-*",
+		"meteoricmetallicrock-medium-nativecopper-chalk-*",
+		"meteoricmetallicrock-medium-nativecopper-chert-*",
+		"meteoricmetallicrock-medium-nativecopper-conglomerate-*",
+		"meteoricmetallicrock-rich-nativecopper-phyllite-*",
+		"meteoricmetallicrock-bountiful-malachite-limestone-*",
+		"meteoricmetallicrock-rich-malachite-whitemarble-*",
+		"meteoricmetallicrock-rich-malachite-redmarble-*",
+		"meteoricmetallicrock-rich-malachite-greenmarble-*",
+		"meteoricmetallicrock-rich-galena-claystone-*",
+		"meteoricmetallicrock-rich-galena-sandstone-*",
+		"meteoricmetallicrock-bountiful-galena-shale-*",
+		"meteoricmetallicrock-medium-galena-chalk-*",
+		"meteoricmetallicrock-medium-galena-limestone-*",
+		"meteoricmetallicrock-bountiful-galena-chert-*",
+		"meteoricmetallicrock-medium-galena-conglomerate-*",
+		"meteoricmetallicrock-medium-limonite-basalt-*",
+		"meteoricmetallicrock-bountiful-limonite-shale-*",
+		"meteoricmetallicrock-bountiful-limonite-chert-*",
+		"meteoricmetallicrock-bountiful-hematite-granite-*",
+		"meteoricmetallicrock-bountiful-hematite-peridotite-*",
+		"meteoricmetallicrock-rich-hematite-sandstone-*",
+		"meteoricmetallicrock-rich-hematite-limestone-*",
+		"meteoricmetallicrock-medium-hematite-phyllite-*",
+		"meteoricmetallicrock-rich-magnetite-andesite-*",
+		"meteoricmetallicrock-medium-magnetite-claystone-*",
+		"meteoricmetallicrock-medium-magnetite-chalk-*",
+		"meteoricmetallicrock-medium-magnetite-conglomerate-*",
+		"meteoricmetallicrock-bountiful-magnetite-slate-*",
+		"meteoricmetallicrock-medium-ilmenite-andesite-*",
+		"meteoricmetallicrock-medium-ilmenite-granite-*",
+		"meteoricmetallicrock-rich-ilmenite-basalt-*",
+		"meteoricmetallicrock-rich-ilmenite-peridotite-*",
+		"meteoricmetallicrock-bountiful-ilmenite-kimberlite-*",
+		"meteoricmetallicrock-rich-ilmenite-phyllite-*",
+		"meteoricmetallicrock-rich-ilmenite-slate-*",
+		"meteoricmetallicrock-bountiful-quartz_nativegold-andesite-*",
+		"meteoricmetallicrock-bountiful-quartz_nativegold-chalk-*",
+		"meteoricmetallicrock-bountiful-quartz_nativegold-chert-*",
+		"meteoricmetallicrock-bountiful-quartz_nativegold-conglomerate-*",
+		"meteoricmetallicrock-bountiful-quartz_nativegold-limestone-*",
+		"meteoricmetallicrock-bountiful-quartz_nativegold-claystone-*",
+		"meteoricmetallicrock-bountiful-quartz_nativegold-granite-*",
+		"meteoricmetallicrock-bountiful-quartz_nativegold-sandstone-*",
+		"meteoricmetallicrock-bountiful-quartz_nativegold-shale-*",
+		"meteoricmetallicrock-bountiful-quartz_nativegold-basalt-*",
+		"meteoricmetallicrock-bountiful-quartz_nativegold-peridotite-*",
+		"meteoricmetallicrock-bountiful-quartz_nativegold-phyllite-*",
+		"meteoricmetallicrock-bountiful-quartz_nativegold-slate-*",
+		"meteoricmetallicrock-bountiful-quartz_nativesilver-andesite-*",
+		"meteoricmetallicrock-bountiful-quartz_nativesilver-chalk-*",
+		"meteoricmetallicrock-bountiful-quartz_nativesilver-chert-*",
+		"meteoricmetallicrock-bountiful-quartz_nativesilver-conglomerate-*",
+		"meteoricmetallicrock-bountiful-quartz_nativesilver-limestone-*",
+		"meteoricmetallicrock-bountiful-quartz_nativesilver-claystone-*",
+		"meteoricmetallicrock-bountiful-quartz_nativesilver-granite-*",
+		"meteoricmetallicrock-bountiful-quartz_nativesilver-sandstone-*",
+		"meteoricmetallicrock-bountiful-quartz_nativesilver-shale-*",
+		"meteoricmetallicrock-bountiful-quartz_nativesilver-basalt-*",
+		"meteoricmetallicrock-bountiful-quartz_nativesilver-peridotite-*",
+		"meteoricmetallicrock-bountiful-quartz_nativesilver-phyllite-*",
+		"meteoricmetallicrock-bountiful-quartz_nativesilver-slate-*",
+		"meteoricmetallicrock-medium-galena_nativesilver-chalk-*",
+		"meteoricmetallicrock-medium-galena_nativesilver-chert-*",
+		"meteoricmetallicrock-medium-galena_nativesilver-conglomerate-*",
+		"meteoricmetallicrock-medium-galena_nativesilver-limestone-*",
+		"meteoricmetallicrock-medium-galena_nativesilver-claystone-*",
+		"meteoricmetallicrock-medium-galena_nativesilver-sandstone-*",
+		"meteoricmetallicrock-medium-galena_nativesilver-shale-*",
+	],
+	creativeinventory: { "general": ["*"], "construction": ["*"], "meteoricexpansion": ["*"] },
+	drawtypeByType: {
+		"*-cooled": "cube",
+		"*-smouldering": "json"
+	},
+	replaceable: 100,
+	resistance: 8,
+	fertility: 0,
+	shapeByType: {
+		"*-smouldering": {
+			base: "block/rock_metal_smouldering"
+		}
+	},
+	texturesByType: {
+		"*-cooled": { all: { base: "game:block/meteor/{rock}", overlays: [ "game:block/stone/ore/{type}1" ] }},
+		"*-smouldering": { 
+			rock: { base: "game:block/meteor/{rock}" },
+			metal: { base: "game:block/stone/ore/{type}1" },
+			smouldering: { base: "block/overlay/smoulderoverlay" }
+		}
+	},
+	lightAbsorption: 0,
+	lighthsvByType: {
+		"*-smouldering": [4, 7, 5]
+	},
+	combustiblePropsByType: {
+		"*-cooled": {
+			meltingPoint: 1000,
+			meltingDuration: 30,
+			smeltedRatio: 1,
+			smeltingType: "cook",
+			smeltedStack: { type: "block", code: "meteoricexpansion:meteoricmetallicrock-{grade}-{type}-{rock}-smouldering" },
+			requiresContainer: false
+		}
+	},
+	sidesolid: { all: false },
+	sideopaque: { all: false },
+	requiredMiningTierByType: {
+		"*-lignite-*": 2,
+		"*-nativecopper-*": 2,
+		"*-malachite-*": 2,
+		"*-limonite-*": 3,
+		"*-hematite-*": 3,
+		"*-magnetite-*": 3,
+		
+		"*-galena-*": 2,
+		"*-cassiterite-*": 2,
+		"*-chromite-*": 5,
+		"*-platinum-*": 5,
+		"*-ilmenite-*": 5,
+		"*-sphalerite-*": 2,
+		"*-rocksalt_sylvite-*": 2,
+		"*-bismuthinite-*": 2,
+		"*-quartz_nativesilver-*":3 ,
+		"*-galena_nativesilver-*":2 ,
+		"*-quartz_nativegold-*": 3,
+		
+		"*-pentlandite-*": 4,
+		"*-uranium-*": 4,
+		"*-wolframite-*": 4,
+		"*-rhodochrosite-*": 4
+	},
+	sounds: {
+		walk: "game:walk/stone",
+		byTool: {
+			"Pickaxe": { hit: "game:block/rock-hit-pickaxe", break: "game:block/rock-break-pickaxe" }
+		}
+	},
+	dropsByType: {
+		"*": [ 
+			{ type: "item", code: "game:crystalizedore-{grade}-{type}-{rock}",  quantity: { avg: 0.005, var: 0 }  },
+			{ type: "item", code: "game:ore-{grade}-{type}-{rock}",  quantity: { avg: 1.25, var: 0 }  },
+			{ type: "item", code: "game:stone-obsidian", quantity: { avg: 0.1, var: 0.25 } }
+		],
+	},
+	heldTpIdleAnimation: "holdbothhandslarge", heldTpUseAnimation: "twohandplaceblock", 
+	fpHandTransformByType: {
+		"*-smouldering": {
+			rotation: { x: 0, y: 160, z: 0 }
+		}
+	},
+	tpHandTransform: {
+		translation: { x: -1.2, y: -1.1, z: -0.8 },
+		rotation: { x: -2, y: 25, z: -78 },
+		scale: 0.37
+	}
+}

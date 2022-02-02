@@ -1,0 +1,30 @@
+﻿[
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteor-chromite-andesite",
+			"meteor-chromite-granite",
+			"meteor-chromite-basalt",
+			"meteor-chromite-peridotite",
+			"meteor-chromite-kimberlite",
+		],
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteoricmetallicrock-medium-chromite-andesite-*",
+			"meteoricmetallicrock-medium-chromite-granite-*",
+			"meteoricmetallicrock-rich-chromite-basalt-*",
+			"meteoricmetallicrock-rich-chromite-peridotite-*",
+			"meteoricmetallicrock-bountiful-chromite-kimberlite-*",
+		],
+		"file": "meteoricexpansion:blocktypes/meteoricmetallicrock",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+]

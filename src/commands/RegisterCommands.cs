@@ -1,4 +1,5 @@
-﻿using Vintagestory.API.Common;
+﻿using MeteoricExpansion.Entities;
+using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
@@ -16,21 +17,21 @@ namespace MeteoricExpansion
         {
             base.StartServerSide(api);
 
-            /*
             //-- Registers a command that will spawn a random meteor 10 blocks above the player --//
             api.RegisterCommand("testmeteor", "Spawns a meteor for testing purposes.", "",
             (IServerPlayer player, int groupId, CmdArgs args) =>
             {
                 EntityProperties entityType = api.World.GetEntityType(new AssetLocation("meteoricexpansion", MeteoricExpansionHelpers.SelectRandomMeteor()));
-                Entity entity = api.World.ClassRegistry.CreateEntity(entityType);
+                EntityMeteor entity = (EntityMeteor)api.World.ClassRegistry.CreateEntity(entityType);
                 EntityPos entityPos = new EntityPos(player.Entity.ServerPos.X, api.WorldManager.MapSizeY - 10, player.Entity.ServerPos.Z);
-
-                System.Diagnostics.Debug.WriteLine(MeteoricExpansionHelpers.SelectRandomMeteor());
 
                 entity.ServerPos.SetPos(entityPos);
                 entity.Pos.SetFrom(entity.ServerPos);
 
                 api.World.SpawnEntity(entity);
+
+                if(args.Length != 0)
+                    entity.GetBehavior<EntityBehaviorMeteorMotion>().SetVerticalSpeed(float.Parse(args[0]));
 
                 System.Diagnostics.Debug.WriteLine("Spawned at: " + entity.ServerPos);
                 System.Diagnostics.Debug.WriteLine("Player at: " + player.Entity.ServerPos);
@@ -58,7 +59,6 @@ namespace MeteoricExpansion
 
                     blockAccessor.Commit();
                 }, Privilege.controlserver);
-            */
         }
     }
 }

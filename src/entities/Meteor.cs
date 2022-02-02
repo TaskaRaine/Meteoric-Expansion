@@ -4,7 +4,7 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 
-namespace MeteoricExpansion
+namespace MeteoricExpansion.Entities
 {
     class EntityMeteor : Entity
     {

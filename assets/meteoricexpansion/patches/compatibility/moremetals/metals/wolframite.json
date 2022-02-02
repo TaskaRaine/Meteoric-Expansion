@@ -1,0 +1,30 @@
+﻿[
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteor-wolframite-andesite",
+			"meteor-wolframite-granite",
+			"meteor-wolframite-basalt",
+			"meteor-wolframite-peridotite",
+			"meteor-wolframite-kimberlite",
+		],
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteoricmetallicrock-bountiful-wolframite-andesite-*",
+			"meteoricmetallicrock-bountiful-wolframite-granite-*",
+			"meteoricmetallicrock-bountiful-wolframite-basalt-*",
+			"meteoricmetallicrock-bountiful-wolframite-peridotite-*",
+			"meteoricmetallicrock-bountiful-wolframite-kimberlite-*",
+		],
+		"file": "meteoricexpansion:blocktypes/meteoricmetallicrock",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+]

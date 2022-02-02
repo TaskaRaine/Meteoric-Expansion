@@ -64,16 +64,48 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\meteoricexpansion\config\MeteoricExpansionConfigReadme.txt" />
+    <Content Include="assets\meteoricexpansion\sounds\block\smoulder.ogg" />
+    <Content Include="assets\meteoricexpansion\textures\block\overlay\smoulderoverlay.png" />
+    <Content Include="assets\game\textures\block\meteor\andesite.png" />
+    <Content Include="assets\game\textures\block\meteor\basalt.png" />
+    <Content Include="assets\game\textures\block\meteor\bauxite.png" />
+    <Content Include="assets\game\textures\block\meteor\chalk.png" />
+    <Content Include="assets\game\textures\block\meteor\chert.png" />
+    <Content Include="assets\game\textures\block\meteor\claystone.png" />
+    <Content Include="assets\game\textures\block\meteor\conglomerate.png" />
+    <Content Include="assets\game\textures\block\meteor\granite.png" />
+    <Content Include="assets\game\textures\block\meteor\greenmarble.png" />
+    <Content Include="assets\game\textures\block\meteor\halite.png" />
+    <Content Include="assets\game\textures\block\meteor\kimberlite.png" />
+    <Content Include="assets\game\textures\block\meteor\limestone.png" />
+    <Content Include="assets\game\textures\block\meteor\obsidian.png" />
+    <Content Include="assets\game\textures\block\meteor\peridotite.png" />
+    <Content Include="assets\game\textures\block\meteor\phyllite.png" />
+    <Content Include="assets\game\textures\block\meteor\redmarble.png" />
+    <Content Include="assets\game\textures\block\meteor\sandstone.png" />
+    <Content Include="assets\game\textures\block\meteor\scoria.png" />
+    <Content Include="assets\game\textures\block\meteor\shale.png" />
+    <Content Include="assets\game\textures\block\meteor\slate.png" />
+    <Content Include="assets\game\textures\block\meteor\suevite.png" />
+    <Content Include="assets\game\textures\block\meteor\tuff.png" />
+    <Content Include="assets\game\textures\block\meteor\whitemarble.png" />
+    <Content Include="assets\meteoricexpansion\textures\item\resource\rockash.png" />
     <Content Include="modinfo.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\behaviours\MeteorExplosion.cs" />
-    <Compile Include="src\behaviours\MeteorMotion.cs" />
-    <Compile Include="src\behaviours\RegisterBehaviours.cs" />
+    <Compile Include="src\blockentity\BESmoulderingRock.cs" />
+    <Compile Include="src\blockentity\RegisterBlockEntities.cs" />
+    <Compile Include="src\block\MeteorRock.cs" />
+    <Compile Include="src\block\RegisterBlocks.cs" />
+    <Compile Include="src\block\SmoulderingMeteorRock.cs" />
+    <Compile Include="src\entity\behavior\MeteorExplosion.cs" />
+    <Compile Include="src\entity\behavior\MeteorMotion.cs" />
+    <Compile Include="src\entity\behavior\RegisterEntityBehaviors.cs" />
     <Compile Include="src\commands\RegisterCommands.cs" />
     <Compile Include="src\config\MeteorConfig.cs" />
     <Compile Include="src\entities\Meteor.cs" />
     <Compile Include="src\entities\RegisterEntities.cs" />
+    <Compile Include="src\item\RegisterItems.cs" />
     <Compile Include="src\systems\MeteoricExpansionHelpers.cs" />
     <Compile Include="src\systems\MeteorSpawner.cs" />
   </ItemGroup>
@@ -81,8 +113,26 @@
     <Folder Include="assets\meteoricexpansion\sounds\effect\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\meteoricexpansion\blocktypes\meteoricmetallicrock.json" />
+    <None Include="assets\meteoricexpansion\blocktypes\meteoricrock.json" />
+    <None Include="assets\meteoricexpansion\blocktypes\rockashpile.json" />
     <None Include="assets\meteoricexpansion\entities\air\meteor.json" />
+    <None Include="assets\meteoricexpansion\itemtypes\rockash.json" />
     <None Include="assets\meteoricexpansion\lang\en.json" />
+    <None Include="assets\meteoricexpansion\patches\blocks\rock.json" />
+    <None Include="assets\meteoricexpansion\patches\compatibility\fahlore\tennantite.json" />
+    <None Include="assets\meteoricexpansion\patches\compatibility\moremetals\metals\chromite.json" />
+    <None Include="assets\meteoricexpansion\patches\compatibility\moremetals\metals\electrum.json" />
+    <None Include="assets\meteoricexpansion\patches\compatibility\moremetals\metals\magnesium.json" />
+    <None Include="assets\meteoricexpansion\patches\compatibility\moremetals\metals\molybdenite.json" />
+    <None Include="assets\meteoricexpansion\patches\compatibility\moremetals\metals\pentlandite.json" />
+    <None Include="assets\meteoricexpansion\patches\compatibility\moremetals\metals\platinum.json" />
+    <None Include="assets\meteoricexpansion\patches\compatibility\moremetals\metals\rhodium.json" />
+    <None Include="assets\meteoricexpansion\patches\compatibility\moremetals\metals\rhodochrosite.json" />
+    <None Include="assets\meteoricexpansion\patches\compatibility\moremetals\metals\wolframite.json" />
+    <None Include="assets\meteoricexpansion\patches\compatibility\moremetals\meteoricrock.json" />
+    <None Include="assets\meteoricexpansion\shapes\block\rock_metal_smouldering.json" />
+    <None Include="assets\meteoricexpansion\shapes\block\rock_smouldering.json" />
     <None Include="assets\meteoricexpansion\shapes\entity\meteor.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

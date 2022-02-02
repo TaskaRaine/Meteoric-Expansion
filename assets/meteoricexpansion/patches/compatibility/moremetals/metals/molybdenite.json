@@ -1,0 +1,81 @@
+﻿[
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteor-quartz_nativemolybdenite-andesite",
+			"meteor-quartz_nativemolybdenite-chalk",
+			"meteor-quartz_nativemolybdenite-chert",
+			"meteor-quartz_nativemolybdenite-conglomerate",
+			"meteor-quartz_nativemolybdenite-limestone",
+			"meteor-quartz_nativemolybdenite-claystone",
+			"meteor-quartz_nativemolybdenite-granite",
+			"meteor-quartz_nativemolybdenite-sandstone",
+			"meteor-quartz_nativemolybdenite-shale",
+			"meteor-quartz_nativemolybdenite-basalt",
+			"meteor-quartz_nativemolybdenite-peridotite",
+			"meteor-quartz_nativemolybdenite-phyllite",
+			"meteor-quartz_nativemolybdenite-slate",
+		],
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "move",
+		"frompath": "/dropsByType/*",
+		"path": "/temp",
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "add",
+		"path": "/dropsByType/*-quartz_nativemolybdenite-*",
+		"value": [
+			{type: "item", code: "game:stone-{rock}", quantity: { avg: 1, var: 0, dist: "gaussian" }},
+			{type: "item", code: "game:metalbit-molybdenum", quantity: { avg: 1, var: 0, dist: "gaussian" }},
+		],
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "move",
+		"frompath": "/temp",
+		"path": "/dropsByType/*",
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteoricmetallicrock-bountiful-quartz_nativemolybdenite-andesite-*",
+			"meteoricmetallicrock-bountiful-quartz_nativemolybdenite-chalk-*",
+			"meteoricmetallicrock-bountiful-quartz_nativemolybdenite-chert-*",
+			"meteoricmetallicrock-bountiful-quartz_nativemolybdenite-conglomerate-*",
+			"meteoricmetallicrock-bountiful-quartz_nativemolybdenite-limestone-*",
+			"meteoricmetallicrock-bountiful-quartz_nativemolybdenite-claystone-*",
+			"meteoricmetallicrock-bountiful-quartz_nativemolybdenite-granite-*",
+			"meteoricmetallicrock-bountiful-quartz_nativemolybdenite-sandstone-*",
+			"meteoricmetallicrock-bountiful-quartz_nativemolybdenite-shale-*",
+			"meteoricmetallicrock-bountiful-quartz_nativemolybdenite-basalt-*",
+			"meteoricmetallicrock-bountiful-quartz_nativemolybdenite-peridotite-*",
+			"meteoricmetallicrock-bountiful-quartz_nativemolybdenite-phyllite-*",
+			"meteoricmetallicrock-bountiful-quartz_nativemolybdenite-slate-*",
+		],
+		"file": "meteoricexpansion:blocktypes/meteoricmetallicrock",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "add",
+		"path": "/requiredMiningTierByType/*-quartz_nativemolybdenite-*",
+		"value": 3,
+		"file": "meteoricexpansion:blocktypes/meteoricmetallicrock",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	}
+]

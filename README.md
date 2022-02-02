@@ -50,6 +50,23 @@ Further config details can be found by opening the mod ZIP and reading the readm
 
 ### Changelog
 
+##### Version 1.1.0
+Meteors are now made of their own unique blocks. 'Cracked Meteoric Stone'.
+
+'Cracked Meteoric Stone' has multiple variants. Smouldering, and cooled. Smouldering stone produces smoke plumes and damages creatures that step on it. Smouldering stone will cool over time.
+
+A new config setting has been added. If 'ClaimsProtected' is set to true, this will ensure that, if the Destructive config is enabled...claims will not be harmed by falling meteors. 
+
+Traces of ash can be found in craters. Ash can be used as a fertilizer as it's high in phosphorus and nitrogen.
+
+Compatibility for More Metals and Fahl Ores has been implemented.
+
+Only useful meteors are now implemented into the vanilla version. No more overwhelming amounts of uranium.
+
+Gold and silver now can appear in meteors.
+
+Rock can be heated in a fire pit and 'cooked' into a cracked smouldering version.
+
 ##### Version 1.0.6
 Compatability patch for Vintage Story 1.16
 

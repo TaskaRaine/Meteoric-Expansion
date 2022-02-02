@@ -1,0 +1,10 @@
+﻿[
+	{
+		"op": "add",
+		"path": "/skipVariants/-",
+		"value": "meteoricrock-dolomite-*",
+		"file": "meteoricexpansion:blocktypes/meteoricrock",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	}
+]

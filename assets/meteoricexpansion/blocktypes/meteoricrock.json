@@ -1,0 +1,112 @@
+﻿{
+	code: "meteoricrock",
+	classByType: {
+		"*-smouldering": "SmoulderingMeteorRock"
+	},
+	entityClassByType: {
+		"*-smouldering": "BESmoulderingRock"
+	},
+	behaviors: [
+		{ name: "BreakIfFloating" }
+	],
+	storageFlags: 5,
+	attributes: {
+		handbook: {
+			groupBy: ["*"],
+			extraSections: [
+				{ title: "game:handbook-item-sources", text: "Full block can be obtained by breaking all adjacent blocks." }
+			]
+		}
+	},
+	variantgroups: [
+		{ code: "rock", loadFromProperties: "game:block/rockwithdeposit" },
+		{ code: "state", states: ["cooled", "smouldering"] }
+	],
+	skipVariants: [
+	],
+	creativeinventory: { "general": ["*"], "construction": ["*"], "meteoricexpansion": ["*"] },
+	drawtypeByType: {
+		"*-cooled": "cube",
+		"*-smouldering": "json"
+	},
+	replaceable: 90,
+	requiredMiningTier: 2,
+	fertility: 0,
+	shapeByType: {
+		"*-smouldering": {
+			base: "block/rock_smouldering"
+		}
+	},
+	texturesByType: {
+		"*-cooled": { all: { base: "game:block/meteor/{rock}" }},
+		"*-smouldering": { 
+			rock: { base: "game:block/meteor/{rock}" },
+			smouldering: { base: "block/overlay/smoulderoverlay" }
+		}
+	},
+	lightAbsorption: 0,
+	lighthsvByType: {
+		"*-smouldering": [4, 7, 5]
+	},
+	combustiblePropsByType: {
+		"*-cooled": {
+			meltingPoint: 1000,
+			meltingDuration: 30,
+			smeltedRatio: 1,
+			smeltingType: "cook",
+			smeltedStack: { type: "block", code: "meteoricexpansion:meteoricrock-{rock}-smouldering" },
+			requiresContainer: false
+		}
+	},
+	sidesolid: { all: true },
+	sideopaque: { all: false },
+	sounds: {
+		walk: "game:walk/stone",
+		byTool: {
+			"Pickaxe": { hit: "game:block/rock-hit-pickaxe", break: "game:block/rock-break-pickaxe" }
+		}
+	},
+	dropsByType: {
+		"*-suevite-*": [
+			{
+				type: "item", 
+				code: "game:stone-{rock}", 
+				quantity: { avg: 2.5, var: 0.5 } 
+			},
+			{
+				type: "item", 
+				code: "game:gem-diamond-rough", 
+				attributes: { potential: "low" }, 
+				quantity: { avg: 0.005, var: 0 } 
+			},
+			{ 
+				type: "item", 
+				code: "game:stone-obsidian", 
+				quantity: { avg: 0.1, var: 0.25 }
+			}
+		],
+		"*": [
+			{
+				type: "item", 
+				code: "game:stone-{rock}", 
+				quantity: { avg: 2.5, var: 0.5 } 
+			},
+			{ 
+				type: "item", 
+				code: "game:stone-obsidian", 
+				quantity: { avg: 0.1, var: 0.25 }
+			}
+		]
+	},
+	heldTpIdleAnimation: "holdbothhandslarge", heldTpUseAnimation: "twohandplaceblock", 
+	fpHandTransformByType: {
+		"*-smouldering": {
+			rotation: { x: 0, y: 160, z: 0 }
+		}
+	},	
+	tpHandTransform: {
+		translation: { x: -1.2, y: -1.1, z: -0.8 },
+		rotation: { x: -2, y: 25, z: -78 },
+		scale: 0.37
+	}
+}

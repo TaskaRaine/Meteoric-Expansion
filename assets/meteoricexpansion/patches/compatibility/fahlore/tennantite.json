@@ -1,0 +1,79 @@
+﻿[
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteor-tennantite-andesite",
+			"meteor-tennantite-chalk",
+			"meteor-tennantite-chert",
+			"meteor-tennantite-conglomerate",
+			"meteor-tennantite-claystone",
+			"meteor-tennantite-granite",
+			"meteor-tennantite-sandstone",
+			"meteor-tennantite-shale",
+			"meteor-tennantite-basalt",
+			"meteor-tennantite-peridotite",
+			"meteor-tennantite-phyllite",
+			"meteor-tennantite-slate",
+		],
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "FahlOres" }],
+		"side": "Server"
+	},
+	{
+		"op": "move",
+		"frompath": "/dropsByType/*",
+		"path": "/temp",
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "FahlOres" }],
+		"side": "Server"
+	},
+	{
+		"op": "add",
+		"path": "/dropsByType/*-tennantite-*",
+		"value": [
+			{type: "item", code: "game:stone-{rock}", quantity: { avg: 1, var: 0, dist: "gaussian" }},
+			{type: "item", code: "game:nugget-tennantite", quantity: { avg: 1, var: 0, dist: "gaussian" }},
+		],
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "FahlOres" }],
+		"side": "Server"
+	},
+	{
+		"op": "move",
+		"frompath": "/temp",
+		"path": "/dropsByType/*",
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "FahlOres" }],
+		"side": "Server"
+	},
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteoricmetallicrock-rich-tennantite-andesite-*",
+			"meteoricmetallicrock-medium-tennantite-chalk-*",
+			"meteoricmetallicrock-medium-tennantite-chert-*",
+			"meteoricmetallicrock-medium-tennantite-conglomerate-*",
+			"meteoricmetallicrock-medium-tennantite-claystone-*",
+			"meteoricmetallicrock-rich-tennantite-granite-*",
+			"meteoricmetallicrock-medium-tennantite-sandstone-*",
+			"meteoricmetallicrock-medium-tennantite-shale-*",
+			"meteoricmetallicrock-bountiful-tennantite-basalt-*",
+			"meteoricmetallicrock-rich-tennantite-peridotite-*",
+			"meteoricmetallicrock-rich-tennantite-phyllite-*",
+			"meteoricmetallicrock-rich-tennantite-slate-*",
+		],
+		"file": "meteoricexpansion:blocktypes/meteoricmetallicrock",
+		"dependsOn": [{ "modid": "FahlOres" }],
+		"side": "Server"
+	},
+	{
+		"op": "add",
+		"path": "/requiredMiningTierByType/*-tennantite-*",
+		"value": 3,
+		"file": "meteoricexpansion:blocktypes/meteoricmetallicrock",
+		"dependsOn": [{ "modid": "FahlOres" }],
+		"side": "Server"
+	}
+]

@@ -1,0 +1,28 @@
+﻿[
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteor-pentlandite-andesite",
+			"meteor-pentlandite-granite",
+			"meteor-pentlandite-basalt",
+			"meteor-pentlandite-peridotite",
+		],
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteoricmetallicrock-medium-pentlandite-andesite-*",
+			"meteoricmetallicrock-medium-pentlandite-granite-*",
+			"meteoricmetallicrock-medium-pentlandite-basalt-*",
+			"meteoricmetallicrock-bountiful-pentlandite-peridotite-*",
+		],
+		"file": "meteoricexpansion:blocktypes/meteoricmetallicrock",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+]

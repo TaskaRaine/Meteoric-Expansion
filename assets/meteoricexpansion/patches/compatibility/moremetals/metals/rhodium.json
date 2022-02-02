@@ -1,0 +1,81 @@
+﻿[
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteor-quartz_nativerhodium-andesite",
+			"meteor-quartz_nativerhodium-chalk",
+			"meteor-quartz_nativerhodium-chert",
+			"meteor-quartz_nativerhodium-conglomerate",
+			"meteor-quartz_nativerhodium-limestone",
+			"meteor-quartz_nativerhodium-claystone",
+			"meteor-quartz_nativerhodium-granite",
+			"meteor-quartz_nativerhodium-sandstone",
+			"meteor-quartz_nativerhodium-shale",
+			"meteor-quartz_nativerhodium-basalt",
+			"meteor-quartz_nativerhodium-peridotite",
+			"meteor-quartz_nativerhodium-phyllite",
+			"meteor-quartz_nativerhodium-slate",
+		],
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "move",
+		"frompath": "/dropsByType/*",
+		"path": "/temp",
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "add",
+		"path": "/dropsByType/*-quartz_nativerhodium-*",
+		"value": [
+			{type: "item", code: "game:stone-{rock}", quantity: { avg: 1, var: 0, dist: "gaussian" }},
+			{type: "item", code: "game:metalbit-rhodium", quantity: { avg: 1, var: 0, dist: "gaussian" }},
+		],
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "move",
+		"frompath": "/temp",
+		"path": "/dropsByType/*",
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteoricmetallicrock-bountiful-quartz_nativerhodium-andesite-*",
+			"meteoricmetallicrock-bountiful-quartz_nativerhodium-chalk-*",
+			"meteoricmetallicrock-bountiful-quartz_nativerhodium-chert-*",
+			"meteoricmetallicrock-bountiful-quartz_nativerhodium-conglomerate-*",
+			"meteoricmetallicrock-bountiful-quartz_nativerhodium-limestone-*",
+			"meteoricmetallicrock-bountiful-quartz_nativerhodium-claystone-*",
+			"meteoricmetallicrock-bountiful-quartz_nativerhodium-granite-*",
+			"meteoricmetallicrock-bountiful-quartz_nativerhodium-sandstone-*",
+			"meteoricmetallicrock-bountiful-quartz_nativerhodium-shale-*",
+			"meteoricmetallicrock-bountiful-quartz_nativerhodium-basalt-*",
+			"meteoricmetallicrock-bountiful-quartz_nativerhodium-peridotite-*",
+			"meteoricmetallicrock-bountiful-quartz_nativerhodium-phyllite-*",
+			"meteoricmetallicrock-bountiful-quartz_nativerhodium-slate-*",
+		],
+		"file": "meteoricexpansion:blocktypes/meteoricmetallicrock",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "add",
+		"path": "/requiredMiningTierByType/*-quartz_nativerhodium-*",
+		"value": 3,
+		"file": "meteoricexpansion:blocktypes/meteoricmetallicrock",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	}
+]

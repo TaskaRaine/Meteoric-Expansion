@@ -1,0 +1,60 @@
+﻿{
+	code: "rockashpile",
+	creativeinventory: { "meteoricexpansion": ["*"] },
+	behaviors: [
+		{ name: "UnstableFalling" }
+	],
+	variantgroups: [
+		{ code: "size", states: ["small", "medium", "large"] }
+	],
+	attributes: {
+		handbook: {
+			groupBy: ["*"],
+		}
+	},
+	drawtypeByType: {
+		"small": "BlockLayer_1",
+		"medium": "BlockLayer_2",
+		"large": "BlockLayer_3"
+	},
+	shapeByType: {
+		"*-small": { base: "game:block/basic/layers/2voxel" },
+		"*-medium": { base: "game:block/basic/layers/4voxel" },
+		"*-large": { base: "game:block/basic/layers/6voxel" },
+	},
+	faceCullMode: "FlushExceptTop",
+	lightAbsorption: 0,
+	sidesolid: { all: false, down: true },
+	sideopaque: { all: false, down: true },
+	textures: {
+		all: { base: "block/rockash" },
+	},
+	replaceable: 5000,
+	resistance: 0,
+	collisionSelectionBoxes: [
+		{
+			x1: 0, y1: 0, x2: 1, y2: 0, z2: 1,
+			y2ByType: {
+				"*-small": 0.125,
+				"*-medium": 0.25,
+				"*-large": 0.375
+			}
+		}
+	],
+	dropsByType: {
+		"*-small": [
+			{ type: "item", code: "rockash", quantity: { avg: 2.0, var: 0.5 } }
+		],
+		"*-medium": [
+			{ type: "item", code: "rockash", quantity: { avg: 3.0, var: 1.0 } }
+		],
+		"*-large": [
+			{ type: "item", code: "rockash", quantity: { avg: 4.0 }, var: 2.0 }
+		]
+	},
+	materialDensity: 30,
+	sounds: {
+		break: "game:block/snow",
+		hit: "game:block/snow",
+	},
+}

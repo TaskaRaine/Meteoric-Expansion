@@ -1,0 +1,38 @@
+﻿[
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteor-rhodochrosite-chalk",
+			"meteor-rhodochrosite-chert",
+			"meteor-rhodochrosite-conglomerate",
+			"meteor-rhodochrosite-limestone",
+			"meteor-rhodochrosite-claystone",
+			"meteor-rhodochrosite-sandstone",
+			"meteor-rhodochrosite-shale",
+			"meteor-rhodochrosite-phyllite",
+			"meteor-rhodochrosite-slate",
+		],
+		"file": "meteoricexpansion:entities/air/meteor",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+	{
+		"op": "addeach",
+		"path": "/allowedVariants/-",
+		"value": [
+			"meteoricmetallicrock-medium-rhodochrosite-chalk-*",
+			"meteoricmetallicrock-medium-rhodochrosite-chert-*",
+			"meteoricmetallicrock-rich-rhodochrosite-conglomerate-*",
+			"meteoricmetallicrock-medium-rhodochrosite-limestone-*",
+			"meteoricmetallicrock-rich-rhodochrosite-claystone-*",
+			"meteoricmetallicrock-rich-rhodochrosite-sandstone-*",
+			"meteoricmetallicrock-rich-rhodochrosite-shale-*",
+			"meteoricmetallicrock-bountiful-rhodochrosite-phyllite-*",
+			"meteoricmetallicrock-bountiful-rhodochrosite-slate-*",
+		],
+		"file": "meteoricexpansion:blocktypes/meteoricmetallicrock",
+		"dependsOn": [{ "modid": "moremetals" }],
+		"side": "Server"
+	},
+]

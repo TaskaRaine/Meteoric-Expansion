@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeteoricExpansion.Entities;
+using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 

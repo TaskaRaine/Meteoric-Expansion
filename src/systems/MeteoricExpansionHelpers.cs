@@ -28,6 +28,10 @@ namespace MeteoricExpansion
         {
             return meteorConfig.Destructive;
         }
+        public static bool GetConfigClaimsProtected()
+        {
+            return meteorConfig.ClaimsProtected;
+        }
         public static int GetMinSpawnTime()
         {
             return meteorConfig.MinimumMinutesBetweenMeteorSpawns;
@@ -61,7 +65,17 @@ namespace MeteoricExpansion
             else
                 return meteorConfig.MinimumMeteorLifespanInSeconds;
         }
-
+        public static int GetMinSmoulderTime()
+        {
+            return meteorConfig.MinimumCraterSmoulderTimeInMinutes;
+        }
+        public static int GetMaxSmoulderTime()
+        {
+            if (meteorConfig.MaximumCraterSmoulderTimeInMinutes > meteorConfig.MinimumCraterSmoulderTimeInMinutes)
+                return meteorConfig.MaximumCraterSmoulderTimeInMinutes;
+            else
+                return meteorConfig.MinimumCraterSmoulderTimeInMinutes;
+        }
         public static Random GetRand()
         {
             return rand;

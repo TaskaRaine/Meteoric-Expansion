@@ -1,0 +1,44 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+	},
+	"elements": [
+		{
+			"name": "StoneLayer",
+			"from": [ 0.0, 0.0, 0.0 ], 
+			"to": [ 16.0, 16.0, 16.0 ], 
+			"rotationOrigin": [ 8.0, 0.0, 8.0 ],
+			"faces": {
+				"north": { "texture": "#rock", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+				"east": { "texture": "#rock", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+				"south": { "texture": "#rock", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+				"west": { "texture": "#rock", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+				"up": { "texture": "#rock", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "rotation": 180 },
+				"down": { "texture": "#rock", "uv": [ 0.0, 0.0, 16.0, 16.0 ] }
+			},
+			"children": [
+				{
+					"name": "SmoulderLayer",
+					"from": [ -0.01, -0.01, -0.01 ], 
+					"to": [ 16.01, 16.01, 16.01 ], 
+					"renderPass": 2,
+					"rotationOrigin": [ 8.0, 0.0, 8.0 ],
+					"faces": {
+						"north": { "texture": "#smouldering", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "rotation": 180, "glow": 100 },
+						"east": { "texture": "#smouldering", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "glow": 100 },
+						"south": { "texture": "#smouldering", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "glow": 100 },
+						"west": { "texture": "#smouldering", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "glow": 100 },
+						"up": { "texture": "#smouldering", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "glow": 100 },
+						"down": { "texture": "#smouldering", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "glow": 100 }
+					}
+				}
+			]
+		}
+	]}

@@ -10,7 +10,7 @@ using Vintagestory.API.Server;
 
 namespace MeteoricExpansion
 {
-    class MeteorMotion : EntityBehavior
+    class EntityBehaviorMeteorMotion : EntityBehavior
     {
         public static SimpleParticleProperties meteorParticles;
 
@@ -42,7 +42,7 @@ namespace MeteoricExpansion
             return "meteormotion";
         }
 
-        public MeteorMotion(Entity entity) : base(entity)
+        public EntityBehaviorMeteorMotion(Entity entity) : base(entity)
         {
             
         }
@@ -90,7 +90,10 @@ namespace MeteoricExpansion
                 }
             }
         }
-
+        public void SetVerticalSpeed(float speed)
+        {
+            this.randTranslation.Y = -Math.Abs(speed);
+        }
         private EntityPos CalculateEntityTransform(float deltaTime)
         {
             meteorTransforms.Pitch = CalculateMeteorPitch();
