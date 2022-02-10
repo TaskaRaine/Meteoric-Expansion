@@ -90,10 +90,6 @@ namespace MeteoricExpansion
                 }
             }
         }
-        public void SetVerticalSpeed(float speed)
-        {
-            this.randTranslation.Y = -Math.Abs(speed);
-        }
         private EntityPos CalculateEntityTransform(float deltaTime)
         {
             meteorTransforms.Pitch = CalculateMeteorPitch();
@@ -163,10 +159,11 @@ namespace MeteoricExpansion
         //-- Determine the speed and direction of the meteor --//
         private void DetermineMeteorTranslation()
         {
-            int horizontalSpeed = rand.Next(20, 50);
+            int horizontalSpeed = rand.Next(15, 50);
+            int verticalSpeed = rand.Next(2, 20);
 
             randTranslation.X = rand.Next(0, horizontalSpeed);
-            randTranslation.Y = -rand.Next(0, horizontalSpeed / 2);
+            randTranslation.Y = -verticalSpeed;
             randTranslation.Z = horizontalSpeed - randTranslation.X;
 
             if (isMovingEast != 0)

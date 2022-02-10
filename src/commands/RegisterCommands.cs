@@ -17,6 +17,7 @@ namespace MeteoricExpansion
         {
             base.StartServerSide(api);
 
+            /*
             //-- Registers a command that will spawn a random meteor 10 blocks above the player --//
             api.RegisterCommand("testmeteor", "Spawns a meteor for testing purposes.", "",
             (IServerPlayer player, int groupId, CmdArgs args) =>
@@ -29,9 +30,6 @@ namespace MeteoricExpansion
                 entity.Pos.SetFrom(entity.ServerPos);
 
                 api.World.SpawnEntity(entity);
-
-                if(args.Length != 0)
-                    entity.GetBehavior<EntityBehaviorMeteorMotion>().SetVerticalSpeed(float.Parse(args[0]));
 
                 System.Diagnostics.Debug.WriteLine("Spawned at: " + entity.ServerPos);
                 System.Diagnostics.Debug.WriteLine("Player at: " + player.Entity.ServerPos);
@@ -59,6 +57,7 @@ namespace MeteoricExpansion
 
                     blockAccessor.Commit();
                 }, Privilege.controlserver);
+            */
         }
     }
 }

@@ -31,6 +31,8 @@ Further config details can be found by opening the mod ZIP and reading the readm
 ### Releases
 
 ### Vintage Story 1.16.0+
+[Version 1.1.0](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.1.0/MeteoricExpansion_v1.1.0.zip)
+
 [Version 1.0.6](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.0.6/MeteoricExpansion_v1.0.6.zip)
 
 ### Vintage Story 1.15.0+
@@ -49,13 +51,13 @@ Further config details can be found by opening the mod ZIP and reading the readm
 
 
 ### Changelog
+##### Version 1.1.1
+Removed config variables for meteor speed and scale. They were causing crashes on servers.
 
 ##### Version 1.1.0
-Meteors are now made of their own unique blocks. 'Cracked Meteoric Stone'.
+Meteors are now made of their own unique blocks. 'Cracked Rock'.
 
-'Cracked Meteoric Stone' has multiple variants. Smouldering, and cooled. Smouldering stone produces smoke plumes and damages creatures that step on it. Smouldering stone will cool over time.
-
-A new config setting has been added. If 'ClaimsProtected' is set to true, this will ensure that, if the Destructive config is enabled...claims will not be harmed by falling meteors. 
+'Cracked Rock' has multiple variants. Smouldering, and cooled. Smouldering stone produces smoke plumes and damages creatures that step on it. Smouldering stone will cool over time.
 
 Traces of ash can be found in craters. Ash can be used as a fertilizer as it's high in phosphorus and nitrogen.
 
@@ -66,6 +68,14 @@ Only useful meteors are now implemented into the vanilla version. No more overwh
 Gold and silver now can appear in meteors.
 
 Rock can be heated in a fire pit and 'cooked' into a cracked smouldering version.
+
+A new config setting has been added. If 'ClaimsProtected' is set to true, this will ensure that, if the Destructive config option is true...claims will not be harmed by falling meteors. 
+
+Four new 'Meteor Speed' config settings have been added to give you greater control over meteor angles of approach. 
+Want an apocalyptic feel? Lower horizontal speed and boost vertical speed.
+Want a cinematic feel? Lower vertical speed.
+
+Meteor scale configs have been added. Be careful with this one. It can get excessively destructive as scale exponentially increases landed meteor size and crater size.
 
 ##### Version 1.0.6
 Compatability patch for Vintage Story 1.16
