@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeteoricExpansion.Utility;
+using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -39,7 +40,7 @@ namespace MeteoricExpansion.BlockEntities
                 if (coolAtTime == -1)
                 {
                     startedCoolingAt = api.World.ElapsedMilliseconds;
-                    randomCoolingTime = rand.Next(MeteoricExpansionHelpers.ConvertMinutesToMilliseconds(MeteoricExpansionHelpers.GetMinSmoulderTime()), MeteoricExpansionHelpers.ConvertMinutesToMilliseconds(MeteoricExpansionHelpers.GetMaxSmoulderTime()));
+                    randomCoolingTime = rand.Next(MeteoricExpansionHelpers.ConvertMinutesToMilliseconds(api.World.Config.GetInt("MinimumCraterSmoulderTimeInMinutes")), MeteoricExpansionHelpers.ConvertMinutesToMilliseconds(api.World.Config.GetInt("MaximumCraterSmoulderTimeInMinutes")));
 
                     coolingCallback = api.World.RegisterCallback(CoolBlock, (int)randomCoolingTime);
                 }

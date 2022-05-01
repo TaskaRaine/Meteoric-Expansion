@@ -1,0 +1,9 @@
+﻿[
+	{
+		"op": "add",
+		"path": "/enabled",
+		"value": "false",
+		"file": "meteoricexpansion:entities/air/showermeteor",
+		"condition": { "when": "DisableShowers", "isValue": "true" }
+	}
+]

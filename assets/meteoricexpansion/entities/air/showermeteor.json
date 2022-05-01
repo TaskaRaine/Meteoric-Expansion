@@ -1,0 +1,23 @@
+﻿{
+	code: "showermeteor",
+	variantgroups: [
+		{ code: "type", states: ["sodium", "iron", "magnesium", "nitrogen", "potassium", "copper", "lead"] },
+	],
+	class: "EntityShowerMeteor",
+	habitat: "air",
+	client: {
+		renderer: "Shape",
+		shape: { base: "entity/empty" },
+		size: 1,
+		behaviors: [
+		{ code: "interpolateposition" },
+		{ code: "ShowergMeteorMotion" },
+		],
+	},
+	server: {
+		behaviors: [
+		{ code: "despawn", minSeconds: 10 },
+		{ code: "ShowerMeteorMotion" },
+		]
+	},
+}

@@ -1,4 +1,5 @@
 ﻿
+using MeteoricExpansion.Utility;
 using System;
 using System.Collections.Generic;
 using Vintagestory.API;
@@ -111,7 +112,7 @@ namespace MeteoricExpansion
             {
                 this.entity.World.PlaySoundAt(new AssetLocation("meteoricexpansion", "sounds/effect/air_meteor_explosion_layered"), this.entity, null, true, 512, 1.0f);
 
-                if (MeteoricExpansionHelpers.GetConfigDestructive() == true)
+                if (serverAPI.World.Config.GetBool("Destructive") == true)
                 {
                     InjureEntities(this.entity.ServerPos.XYZ);
                 }
@@ -132,7 +133,7 @@ namespace MeteoricExpansion
                 Vec3d shrapnelDirection = MeteoricExpansionHelpers.InvertVector(meteorDirection);
 
 
-                if (MeteoricExpansionHelpers.GetConfigDestructive() == true)
+                if (serverAPI.World.Config.GetBool("Destructive") == true)
                 {
                     CreateCrater(meteorDirection, shrapnelDirection);
                     InjureEntities(currentPos);
@@ -183,7 +184,7 @@ namespace MeteoricExpansion
 
                     if (distanceToCenter < explosionRadius)
                     {
-                        if (MeteoricExpansionHelpers.GetConfigClaimsProtected() == true)
+                        if (serverAPI.World.Config.GetBool("ClaimsProtected") == true)
                         {
                             bool isClaimed = false;
 
@@ -449,7 +450,7 @@ namespace MeteoricExpansion
             blockAccessor.WalkBlocks(new BlockPos(resourceLocation.X - meteorRemainsSize, resourceLocation.Y - meteorRemainsSize, resourceLocation.Z - meteorRemainsSize),
                 new BlockPos(resourceLocation.X + meteorRemainsSize, resourceLocation.Y + meteorRemainsSize, resourceLocation.Z + meteorRemainsSize), (block, bpos) =>
                 {
-                    if (MeteoricExpansionHelpers.GetConfigClaimsProtected() == true)
+                    if (serverAPI.World.Config.GetBool("ClaimsProtected") == true)
                     {
                         bool isClaimed = false;
 

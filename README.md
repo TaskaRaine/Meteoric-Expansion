@@ -51,6 +51,15 @@ Further config details can be found by opening the mod ZIP and reading the readm
 
 
 ### Changelog
+##### Version 1.2.0
+Added a whole new spawning system for meteor showers. 
+
+Shower meteors will all follow the same trajectory and speed of all others within the shower. Additionally, they will all share the same material composition, indicated by the colour of its trail.
+
+Added config variables to control many aspects of the meteor shower implementation.
+
+Added config variables that can be used to toggle both falling meteors and meteor showers on or off.
+
 ##### Version 1.1.1
 Removed config variables for meteor speed and scale. They were causing crashes on servers.
 

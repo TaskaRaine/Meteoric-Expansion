@@ -98,16 +98,24 @@
     <Compile Include="src\block\MeteorRock.cs" />
     <Compile Include="src\block\RegisterBlocks.cs" />
     <Compile Include="src\block\SmoulderingMeteorRock.cs" />
+    <Compile Include="src\entities\MeteorBase.cs" />
+    <Compile Include="src\entities\ShowerMeteor.cs" />
     <Compile Include="src\entity\behavior\MeteorExplosion.cs" />
-    <Compile Include="src\entity\behavior\MeteorMotion.cs" />
+    <Compile Include="src\entity\behavior\FallingMeteorMotion.cs" />
+    <Compile Include="src\entity\behavior\MeteorMotionBase.cs" />
     <Compile Include="src\entity\behavior\RegisterEntityBehaviors.cs" />
     <Compile Include="src\commands\RegisterCommands.cs" />
     <Compile Include="src\config\MeteorConfig.cs" />
-    <Compile Include="src\entities\Meteor.cs" />
+    <Compile Include="src\entities\FallingMeteor.cs" />
     <Compile Include="src\entities\RegisterEntities.cs" />
+    <Compile Include="src\entity\behavior\ShowerMeteorMotion.cs" />
     <Compile Include="src\item\RegisterItems.cs" />
-    <Compile Include="src\systems\MeteoricExpansionHelpers.cs" />
-    <Compile Include="src\systems\MeteorSpawner.cs" />
+    <Compile Include="src\systems\Spawn System\ShowerSpawner.cs" />
+    <Compile Include="src\utility\MeteoricExpansionHelpers.cs" />
+    <Compile Include="src\systems\Spawn System\MeteorSpawner.cs" />
+    <Compile Include="src\systems\Spawn System\SpawnerBase.cs" />
+    <Compile Include="src\utility\ModConfig.cs" />
+    <Compile Include="src\utility\RegisterConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\meteoricexpansion\sounds\effect\" />
@@ -117,6 +125,7 @@
     <None Include="assets\meteoricexpansion\blocktypes\meteoricrock.json" />
     <None Include="assets\meteoricexpansion\blocktypes\rockashpile.json" />
     <None Include="assets\meteoricexpansion\entities\air\meteor.json" />
+    <None Include="assets\meteoricexpansion\entities\air\showermeteor.json" />
     <None Include="assets\meteoricexpansion\itemtypes\rockash.json" />
     <None Include="assets\meteoricexpansion\lang\en.json" />
     <None Include="assets\meteoricexpansion\patches\blocks\rock.json" />
@@ -131,6 +140,8 @@
     <None Include="assets\meteoricexpansion\patches\compatibility\moremetals\metals\rhodochrosite.json" />
     <None Include="assets\meteoricexpansion\patches\compatibility\moremetals\metals\wolframite.json" />
     <None Include="assets\meteoricexpansion\patches\compatibility\moremetals\meteoricrock.json" />
+    <None Include="assets\meteoricexpansion\patches\entity\meteor.json" />
+    <None Include="assets\meteoricexpansion\patches\entity\showermeteor.json" />
     <None Include="assets\meteoricexpansion\shapes\block\rock_metal_smouldering.json" />
     <None Include="assets\meteoricexpansion\shapes\block\rock_smouldering.json" />
     <None Include="assets\meteoricexpansion\shapes\entity\meteor.json" />

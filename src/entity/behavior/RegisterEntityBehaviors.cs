@@ -1,4 +1,5 @@
-﻿using Vintagestory.API.Common;
+﻿using MeteoricExpansion.Entities.Behaviors;
+using Vintagestory.API.Common;
 
 namespace MeteoricExpansion.Entities
 {
@@ -6,7 +7,8 @@ namespace MeteoricExpansion.Entities
     {
         public override void Start(ICoreAPI api)
         {
-            api.RegisterEntityBehaviorClass("MeteorMotion", typeof(EntityBehaviorMeteorMotion));
+            api.RegisterEntityBehaviorClass("FallingMeteorMotion", typeof(EntityBehaviorFallingMeteorMotion));
+            api.RegisterEntityBehaviorClass("ShowerMeteorMotion", typeof(EntityBehaviorShowerMeteorMotion));
             api.RegisterEntityBehaviorClass("MeteorExplosion", typeof(EntityBehaviorMeteorExplosion));
         }
     }

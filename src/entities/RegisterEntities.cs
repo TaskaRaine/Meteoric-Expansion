@@ -11,7 +11,8 @@ namespace MeteoricExpansion
         {
             base.Start(api);
 
-            api.RegisterEntity("EntityMeteor", typeof(EntityMeteor));
+            api.RegisterEntity("EntityFallingMeteor", typeof(EntityFallingMeteor));
+            api.RegisterEntity("EntityShowerMeteor", typeof(EntityShowerMeteor));
         }
     }
 }

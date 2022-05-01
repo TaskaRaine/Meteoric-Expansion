@@ -107,7 +107,7 @@
 		"meteor-galena_nativesilver-sandstone",
 		"meteor-galena_nativesilver-shale",
 	],
-	class: "EntityMeteor",
+	class: "EntityFallingMeteor",
 	habitat: "air",
 	hitboxSize: { x: 1, y: 1 },
 	client: {
@@ -130,14 +130,14 @@
 		size: 1,
 		behaviors: [
 		{ code: "interpolateposition" },
-		{ code: "MeteorMotion" },
+		{ code: "FallingMeteorMotion" },
 		{ code: "MeteorExplosion" },
 		],
 	},
 	server: {
 		behaviors: [
 		{ code: "despawn", minPlayerDistance: 256, minSeconds: 30 },
-		{ code: "MeteorMotion" },
+		{ code: "FallingMeteorMotion" },
 		{ code: "MeteorExplosion" },
 		]
 	},
