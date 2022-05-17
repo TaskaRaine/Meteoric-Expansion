@@ -6,6 +6,10 @@
         public bool DisableFallingMeteors = false;
         public bool Destructive = false;
         public bool ClaimsProtected = true;
+        public int MinimumMeteorHorizontalSpeed = 20;
+        public int MaximumMeteorHorizontalSpeed = 50;
+        public int MinimumMeteorVerticalSpeed = 2;
+        public int MaximumMeteorVerticalSpeed = 20;
         public int MinimumMinutesBetweenMeteorSpawns = 10;
         public int MaximumMinutesBetweenMeteorSpawns = 30;
         public int MinimumSpawnDistanceInChunks = 1;
@@ -17,15 +21,17 @@
 
         public string ShowerConfigOptions = "The Following Options Affect Meteor Showers";
         public bool DisableShowers = false;
+        public int MinimumShowerHorizontalSpeed = 50;
+        public int MaximumShowerHorizontalSpeed = 100;
+        public int MinimumShowerVerticalSpeed = 0;
+        public int MaximumShowerVerticalSpeed = 0;
         public int MinimumMinutesBetweenShowers = 10;
         public int MaximumMinutesBetweenShowers = 30;
-        public int MinimumShowerSpawnDistanceInChunks = 1;
+        public int MinimumShowerSpawnDistanceInChunks = 0;
         public int MaximumShowerSpawnDistanceInChunks = 6;
         public int MinimumShowerDurationInMinutes = 1;
-        public int MaximumShowerDurationInMinutes = 2;
-        public int MinimumShowerMeteorSpeed = 20;
-        public int MaximumShowerMeteorSpeed = 60;
-        public int MaxMeteorsPerShower = 25;
+        public int MaximumShowerDurationInMinutes = 5;
+        public int MaxMeteorsPerShower = 100;
 
         public MeteoricExpansionConfig()
         {
@@ -37,6 +43,10 @@
             DisableFallingMeteors = previousConfig.DisableFallingMeteors;
             Destructive = previousConfig.Destructive;
             ClaimsProtected = previousConfig.ClaimsProtected;
+            MinimumMeteorHorizontalSpeed = previousConfig.MinimumMeteorHorizontalSpeed;
+            MaximumMeteorHorizontalSpeed = previousConfig.MaximumMeteorHorizontalSpeed;
+            MinimumMeteorVerticalSpeed = previousConfig.MinimumMeteorVerticalSpeed;
+            MaximumMeteorVerticalSpeed = previousConfig.MaximumMeteorVerticalSpeed;
             MinimumMinutesBetweenMeteorSpawns = previousConfig.MinimumMinutesBetweenMeteorSpawns;
             MaximumMinutesBetweenMeteorSpawns = previousConfig.MaximumMinutesBetweenMeteorSpawns;
             MinimumSpawnDistanceInChunks = previousConfig.MinimumSpawnDistanceInChunks;
@@ -50,12 +60,14 @@
             DisableShowers = previousConfig.DisableShowers;
             MinimumMinutesBetweenShowers = previousConfig.MinimumMinutesBetweenShowers;
             MaximumMinutesBetweenShowers = previousConfig.MaximumMinutesBetweenShowers;
+            MinimumShowerHorizontalSpeed = previousConfig.MinimumShowerHorizontalSpeed;
+            MaximumShowerHorizontalSpeed = previousConfig.MaximumShowerHorizontalSpeed;
+            MinimumShowerVerticalSpeed = previousConfig.MinimumShowerVerticalSpeed;
+            MaximumShowerVerticalSpeed = previousConfig.MaximumShowerVerticalSpeed;
             MinimumShowerSpawnDistanceInChunks = previousConfig.MinimumShowerSpawnDistanceInChunks;
             MaximumShowerSpawnDistanceInChunks = previousConfig.MaximumShowerSpawnDistanceInChunks;
             MinimumShowerDurationInMinutes = previousConfig.MinimumShowerDurationInMinutes;
             MaximumShowerDurationInMinutes = previousConfig.MaximumShowerDurationInMinutes;
-            MinimumShowerMeteorSpeed = previousConfig.MinimumShowerMeteorSpeed;
-            MaximumShowerMeteorSpeed = previousConfig.MaximumShowerMeteorSpeed;
             MaxMeteorsPerShower = previousConfig.MaxMeteorsPerShower;
         }
     }

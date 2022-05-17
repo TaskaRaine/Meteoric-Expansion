@@ -11,6 +11,14 @@ using Vintagestory.API.Server;
 
 namespace MeteoricExpansion.Utility
 {
+    public class MinMaxTuple
+    {
+        private int _min;
+        private int _max;
+
+        public int Min { get { return _min; } set { _min = value; } }
+        public int Max { get { return _max; } set { _max = value; } }
+    }
     public static class MeteoricExpansionHelpers
     {
         private static Random rand;

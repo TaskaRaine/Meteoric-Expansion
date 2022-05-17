@@ -1,7 +1,10 @@
 ﻿using MeteoricExpansion.Entities;
 using MeteoricExpansion.Entities.Behaviors;
 using MeteoricExpansion.Utility;
+using ProtoBuf;
 using System;
+using Vintagestory.API.Client;
+using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
@@ -22,7 +25,7 @@ namespace MeteoricExpansion.Systems
         protected double NextShower { get; set; }
         protected int MinShowerDuration { get; set; }
         protected int MaxShowerDuration { get; set; }
-        protected Vec2f ShowerTranslation { get; set; }
+        protected Vec3d ShowerTranslation { get; set; }
 
         protected long[] ShowerCallbacks { get; set; }
 
@@ -73,8 +76,7 @@ namespace MeteoricExpansion.Systems
                 if (ServerAPI.World.AllOnlinePlayers.Length > 0)
                 {
                     MeteorCode = GetRandomEntityCode();
-                    ShowerTranslation = DetermineShowerTranslation();
-
+                    ShowerTranslation = DetermineTranslation();
 
                     int numShowerMeteors = SpawnerRand.Next(0, ServerAPI.World.Config.GetInt("MaxMeteorsPerShower"));
                     int showerTime = SpawnerRand.Next(ServerAPI.World.Config.GetInt("MinimumShowerDurationInMinutes"), ServerAPI.World.Config.GetInt("MaximumShowerDurationInMinutes"));
@@ -97,31 +99,16 @@ namespace MeteoricExpansion.Systems
                 }
             }
         }
-        private Vec2f DetermineShowerTranslation()
-        {
-            int minSpeed = ServerAPI.World.Config.GetInt("MinimumShowerMeteorSpeed");
-            int maxSpeed = ServerAPI.World.Config.GetInt("MaximumShowerMeteorSpeed");
-
-            bool isMovingEast = Convert.ToBoolean(SpawnerRand.Next(0, 2));
-            bool isMovingSouth = Convert.ToBoolean(SpawnerRand.Next(0, 2));
-
-            Vec2f randomTranslation = new Vec2f(SpawnerRand.Next(minSpeed, maxSpeed), SpawnerRand.Next(minSpeed, maxSpeed));
-
-            if (isMovingEast != false)
-                randomTranslation.X *= -1;
-
-            if (isMovingSouth != false)
-                randomTranslation.Y *= -1;
-
-            return randomTranslation;
-        }
         private void SpawnShowerMeteor(float deltaTime)
         {
-            EntityShowerMeteor meteor = (EntityShowerMeteor)GenerateEntity(MeteorCode);
-            
-            ServerAPI.World.SpawnEntity(meteor);
+            if (ServerAPI.World.AllOnlinePlayers.Length > 0)
+            {
+                EntityShowerMeteor meteor = (EntityShowerMeteor)GenerateEntity(MeteorCode);
 
-            meteor.GetBehavior<EntityBehaviorShowerMeteorMotion>().SetMeteorTranslation(ShowerTranslation);
+                ServerAPI.World.SpawnEntity(meteor);
+
+                meteor.GetBehavior<EntityBehaviorShowerMeteorMotion>().DetermineMeteorTranslation(ShowerTranslation, (int)TimeSinceSpawn);
+            }
         }
 
         private void UnregisterShowerCallbacks()

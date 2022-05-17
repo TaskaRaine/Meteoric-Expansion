@@ -11,13 +11,15 @@
 		size: 1,
 		behaviors: [
 		{ code: "interpolateposition" },
-		{ code: "ShowergMeteorMotion" },
 		],
 	},
 	server: {
 		behaviors: [
 		{ code: "despawn", minSeconds: 10 },
-		{ code: "ShowerMeteorMotion" },
+		{ code: "ShowerMeteorMotion", 
+			horizontalSpeed: { min: 20, max: 50 },
+			verticalSpeed: { min: 2, max: 20 }
+		},
 		]
 	},
 }

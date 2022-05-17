@@ -1,8 +1,10 @@
 ﻿using MeteoricExpansion.Entities;
+using MeteoricExpansion.Entities.Behaviors;
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 
 namespace MeteoricExpansion.Systems
@@ -67,18 +69,19 @@ namespace MeteoricExpansion.Systems
         /// </summary>
         /// <param name="entityCode"></param>
         /// <returns></returns>
-        protected Entity GenerateEntity()
+        protected MeteorBase GenerateEntity()
         {
             return GenerateEntity(GetRandomEntityCode());
         }
-        protected Entity GenerateEntity(string entityCode)
+        protected MeteorBase GenerateEntity(string entityCode)
         {
             int playerToSpawnOn = SpawnNearPlayer();
 
             EntityProperties entityType = ServerAPI.World.GetEntityType(new AssetLocation("meteoricexpansion", entityCode));
-            Entity entity = ServerAPI.World.ClassRegistry.CreateEntity(entityType);
+            
+            MeteorBase entity = ServerAPI.World.ClassRegistry.CreateEntity(entityType) as MeteorBase;
 
-            EntityPos entityPos = new EntityPos(ServerAPI.World.AllOnlinePlayers[playerToSpawnOn].Entity.ServerPos.X + GetSpawnOffset(), ServerAPI.WorldManager.MapSizeY - 10, ServerAPI.World.AllOnlinePlayers[playerToSpawnOn].Entity.ServerPos.Z + GetSpawnOffset());
+            EntityPos entityPos = new EntityPos(ServerAPI.World.AllOnlinePlayers[playerToSpawnOn].Entity.ServerPos.X + GetSpawnOffset(), ServerAPI.WorldManager.MapSizeY, ServerAPI.World.AllOnlinePlayers[playerToSpawnOn].Entity.ServerPos.Z + GetSpawnOffset());
 
             entity.ServerPos.SetPos(entityPos);
             entity.Pos.SetFrom(entity.ServerPos);
@@ -111,6 +114,31 @@ namespace MeteoricExpansion.Systems
                 return -spawnOffset;
 
             return spawnOffset;
+        }
+        protected Vec3d DetermineTranslation()
+        {
+            double horiztontalTranslation, verticalTranslation;
+
+            horiztontalTranslation = SpawnerRand.NextDouble();
+            verticalTranslation = SpawnerRand.NextDouble();
+
+            bool isMovingEast = Convert.ToBoolean(SpawnerRand.Next(0, 2));
+            bool isMovingSouth = Convert.ToBoolean(SpawnerRand.Next(0, 2));
+
+            Vec3d randomTranslation = new Vec3d
+            {
+                X = horiztontalTranslation,
+                Y = verticalTranslation,
+                Z = 1 - horiztontalTranslation
+            };
+
+            if (isMovingEast != false)
+                randomTranslation.X *= -1;
+
+            if (isMovingSouth != false)
+                randomTranslation.Y *= -1;
+
+            return randomTranslation;
         }
         private List<EntityProperties> FindAllEntitiesOfType(string entityClass)
         {

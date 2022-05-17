@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeteoricExpansion.Utility;
+using System;
 using System.Threading.Tasks;
 using Vintagestory.API;
 using Vintagestory.API.Client;
@@ -20,6 +21,7 @@ namespace MeteoricExpansion.Entities.Behaviors
 
         private int IdleSoundLengthInMilliseconds { get; } = 2000;
         private long IdleSoundStartTime { get; set; } = 0;
+        private int RotationAxisToIgnore { get; set; }
 
         public override string PropertyName()
         {
@@ -35,7 +37,9 @@ namespace MeteoricExpansion.Entities.Behaviors
         {
             base.Initialize(properties, attributes);
 
-            DetermineMeteorTranslation(new Vec2i(20, 50), new Vec2i(2, 20));
+            RotationAxisToIgnore = Rand.Next(0, 3);
+
+            DetermineMeteorTranslation(HorizontalSpeed, VerticalSpeed);
             DetermineMeteorRotation(200, 1600);
 
             InitializeMeteorParticles();
@@ -57,6 +61,47 @@ namespace MeteoricExpansion.Entities.Behaviors
 
                     IdleSoundStartTime = entity.World.ElapsedMilliseconds;
                 }
+            }
+        }
+        public void DetermineMeteorTranslation(MinMaxTuple horizontalSpeed, MinMaxTuple verticalSpeed)
+        {
+            int randomHorizontalSpeed = Rand.Next(horizontalSpeed.Min, horizontalSpeed.Max);
+            int randomVerticalSpeed = Rand.Next(verticalSpeed.Min, verticalSpeed.Max);
+
+            RandomTranslation.X = Rand.Next(0, randomHorizontalSpeed);
+            RandomTranslation.Y = -randomVerticalSpeed;
+            RandomTranslation.Z = randomHorizontalSpeed - RandomTranslation.X;
+
+            IsMovingSouth = Convert.ToBoolean(Rand.Next(0, 2));
+            IsMovingEast = Convert.ToBoolean(Rand.Next(0, 2));
+
+            if (IsMovingEast != false)
+                RandomTranslation.X *= -1;
+
+            if (IsMovingSouth != false)
+                RandomTranslation.Z *= -1;
+        }
+        protected void DetermineMeteorRotation(int minRotation, int maxRotation)
+        {
+            switch (RotationAxisToIgnore)
+            {
+                case 0:
+                    RandomRotation.X = 0;
+                    RandomRotation.Y = Rand.Next(minRotation, maxRotation);
+                    RandomRotation.Z = Rand.Next(minRotation, maxRotation);
+                    break;
+                case 1:
+                    RandomRotation.X = Rand.Next(minRotation, maxRotation);
+                    RandomRotation.Y = 0;
+                    RandomRotation.Z = Rand.Next(minRotation, maxRotation);
+                    break;
+                case 2:
+                    RandomRotation.X = Rand.Next(minRotation, maxRotation);
+                    RandomRotation.Y = Rand.Next(minRotation, maxRotation);
+                    RandomRotation.Z = 0;
+                    break;
+                default:
+                    break;
             }
         }
         protected override void CalculateEntityTransforms(float deltaTime)

@@ -5,5 +5,33 @@
 		"value": "false",
 		"file": "meteoricexpansion:entities/air/showermeteor",
 		"condition": { "when": "DisableShowers", "isValue": "true" }
-	}
+	},
+	{
+		"op": "replace",
+		"path": "/server/behaviors/1/horizontalSpeed/min",
+		"value": 20,
+		"file": "meteoricexpansion:entities/air/showermeteor",
+		"condition": { "when": "MinimumShowerHorizontalSpeed", "useValue": "true" }
+	},
+	{
+		"op": "replace",
+		"path": "/server/behaviors/1/horizontalSpeed/max",
+		"value": 50,
+		"file": "meteoricexpansion:entities/air/showermeteor",
+		"condition": { "when": "MaximumShowerHorizontalSpeed", "useValue": "true" }
+	},
+	{
+		"op": "replace",
+		"path": "/server/behaviors/1/verticalSpeed/min",
+		"value": 0,
+		"file": "meteoricexpansion:entities/air/showermeteor",
+		"condition": { "when": "MinimumShowerVerticalSpeed", "useValue": "true" }
+	},
+	{
+		"op": "replace",
+		"path": "/server/behaviors/1/verticalSpeed/max",
+		"value": 0,
+		"file": "meteoricexpansion:entities/air/showermeteor",
+		"condition": { "when": "MinimumShowerVerticalSpeed", "useValue": "true" }
+	},
 ]

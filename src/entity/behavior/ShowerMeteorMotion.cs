@@ -1,4 +1,5 @@
-﻿using Vintagestory.API.Common;
+﻿using System;
+using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
@@ -35,12 +36,34 @@ namespace MeteoricExpansion.Entities.Behaviors
         }
         public override void OnGameTick(float deltaTime)
         {
-            CalculateEntityTransforms(deltaTime);
+            if(entity.Api.Side == EnumAppSide.Server)
+            {
+                CalculateEntityTransforms(deltaTime);
+                UpdateMeteorParticles();
+                SpawnMeteorParticles();
 
-            base.OnGameTick(deltaTime);
+                base.OnGameTick(deltaTime);
+            }
+        }
+        public void DetermineMeteorTranslation(Vec3d translationVector, int speedSeed)
+        {
+            Random speedRandom = new Random(speedSeed);
 
-            UpdateMeteorParticles();
-            SpawnMeteorParticles();
+            int randomHorizontalSpeed = speedRandom.Next(HorizontalSpeed.Min, HorizontalSpeed.Max);
+            int randomVerticalSpeed = speedRandom.Next(VerticalSpeed.Min, VerticalSpeed.Max);
+
+            RandomTranslation.X = (float)translationVector.X * speedRandom.Next(0, randomHorizontalSpeed);
+            RandomTranslation.Y = (float)translationVector.Y * -randomVerticalSpeed;
+            RandomTranslation.Z = (float)translationVector.Z * (randomHorizontalSpeed - RandomTranslation.X);
+
+            IsMovingSouth = Convert.ToBoolean(speedRandom.Next(0, 2));
+            IsMovingEast = Convert.ToBoolean(speedRandom.Next(0, 2));
+
+            if (IsMovingEast != false)
+                RandomTranslation.X *= -1;
+
+            if (IsMovingSouth != false)
+                RandomTranslation.Z *= -1;
         }
         protected override void CalculateEntityTransforms(float deltaTime)
         {
@@ -79,8 +102,8 @@ namespace MeteoricExpansion.Entities.Behaviors
 
         protected override void UpdateMeteorParticles()
         {
-            MeteorParticles.MinPos = entity.Pos.XYZ + new Vec3d(-1.5, -1.5, -1.5);
-            MeteorParticles.AddPos = new Vec3d(1.5, 1.5, 1.5);
+            MeteorParticles.MinPos = entity.Pos.XYZ + new Vec3d(-2, -2, -2);
+            MeteorParticles.AddPos = new Vec3d(2, 2, 2);
 
             MeteorParticles.MinVelocity = new Vec3f(RandomTranslation.X * 0.1f, 0, RandomTranslation.Z * 0.1f);
         }
