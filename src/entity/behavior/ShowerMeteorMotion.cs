@@ -68,7 +68,7 @@ namespace MeteoricExpansion.Entities.Behaviors
         protected override void CalculateEntityTransforms(float deltaTime)
         {
             EntityTransforms.X += RandomTranslation.X * deltaTime;
-            EntityTransforms.Y = entity.World.BlockAccessor.MapSizeY;
+            EntityTransforms.Y += RandomTranslation.Y * deltaTime;
             EntityTransforms.Z += RandomTranslation.Z * deltaTime;
         }
 
@@ -105,8 +105,12 @@ namespace MeteoricExpansion.Entities.Behaviors
             MeteorParticles.MinPos = entity.Pos.XYZ + new Vec3d(-2, -2, -2);
             MeteorParticles.AddPos = new Vec3d(2, 2, 2);
 
-            MeteorParticles.MinVelocity = new Vec3f(RandomTranslation.X * 0.1f, 0, RandomTranslation.Z * 0.1f);
+            MeteorParticles.MinVelocity = new Vec3f(RandomTranslation.X * 0.1f, RandomTranslation.Y * 0.1f, RandomTranslation.Z * 0.1f);
         }
+        /// <summary>
+        /// This method is only used by the showermeteor command to test meteor shower meteors. Normally, translations are set by the spawner to ensure they all move in parallel.
+        /// </summary>
+        /// <param name="horizontalVector"></param>
         public void SetMeteorTranslation(Vec2f horizontalVector)
         {
             RandomTranslation.X = horizontalVector.X;
@@ -153,14 +157,14 @@ namespace MeteoricExpansion.Entities.Behaviors
                     break;
                 //-- Green --//
                 case "copper":
-                    MeteorParticles.Color = ColorUtil.ColorFromRgba(200, 255, 200, Rand.Next(100, 255));
-                    MeteorParticles.BlueEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, 255);
+                    MeteorParticles.Color = ColorUtil.ColorFromRgba(165, 255, 165, Rand.Next(100, 255));
+                    MeteorParticles.BlueEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, 50);
                     MeteorParticles.GreenEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, Rand.Next(0, 150));
-                    MeteorParticles.RedEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, 255);
+                    MeteorParticles.RedEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, 50);
                     break;
                 //-- Blue --//
                 case "lead":
-                    MeteorParticles.Color = ColorUtil.ColorFromRgba(255, 100, 50, Rand.Next(100, 255));
+                    MeteorParticles.Color = ColorUtil.ColorFromRgba(255, 50, 50, Rand.Next(100, 255));
                     MeteorParticles.BlueEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, 5);
                     MeteorParticles.GreenEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, 5);
                     MeteorParticles.RedEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, 20);

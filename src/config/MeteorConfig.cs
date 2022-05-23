@@ -21,15 +21,15 @@
 
         public string ShowerConfigOptions = "The Following Options Affect Meteor Showers";
         public bool DisableShowers = false;
-        public int MinimumShowerHorizontalSpeed = 50;
+        public int MinimumShowerHorizontalSpeed = 60;
         public int MaximumShowerHorizontalSpeed = 100;
         public int MinimumShowerVerticalSpeed = 0;
         public int MaximumShowerVerticalSpeed = 0;
-        public int MinimumMinutesBetweenShowers = 10;
-        public int MaximumMinutesBetweenShowers = 30;
+        public int MinimumMinutesBetweenShowers = 5;
+        public int MaximumMinutesBetweenShowers = 45;
         public int MinimumShowerSpawnDistanceInChunks = 0;
         public int MaximumShowerSpawnDistanceInChunks = 6;
-        public int MinimumShowerDurationInMinutes = 1;
+        public int MinimumShowerDurationInMinutes = 2;
         public int MaximumShowerDurationInMinutes = 5;
         public int MaxMeteorsPerShower = 100;
 

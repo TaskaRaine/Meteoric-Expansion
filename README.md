@@ -31,6 +31,8 @@ Further config details can be found by opening the mod ZIP and reading the readm
 ### Releases
 
 ### Vintage Story 1.16.0+
+[Version 1.2.0](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.2.0/MeteoricExpansion_v1.2.0.zip)
+
 [Version 1.1.0](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.1.0/MeteoricExpansion_v1.1.0.zip)
 
 [Version 1.0.6](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.0.6/MeteoricExpansion_v1.0.6.zip)
@@ -59,6 +61,10 @@ Shower meteors will all follow the same trajectory and speed of all others withi
 Added config variables to control many aspects of the meteor shower implementation.
 
 Added config variables that can be used to toggle both falling meteors and meteor showers on or off.
+
+Meteors of all kinds can have their trajectories altered via config, this time with less client crashing(hopefully).
+
+Fixed an issue where meteors would only spawn in one quadrant of the sky above a player.
 
 ##### Version 1.1.1
 Removed config variables for meteor speed and scale. They were causing crashes on servers.

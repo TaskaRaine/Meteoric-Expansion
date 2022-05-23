@@ -57,6 +57,9 @@ namespace MeteoricExpansion.Entities.Behaviors
         }
         protected abstract void CalculateEntityTransforms(float deltaTime);
         protected abstract void InitializeMeteorParticles();
+        /// <summary>
+        /// Used to update meteor particles each tick. Particle position, velocity, etc. 
+        /// </summary>
         protected abstract void UpdateMeteorParticles();
         protected void SpawnMeteorParticles()
         {
