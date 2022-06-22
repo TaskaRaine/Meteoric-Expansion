@@ -30,8 +30,12 @@ Further config details can be found by opening the mod ZIP and reading the readm
 
 ### Releases
 
+### Vintage Story 1.17.0+
+[Version 1.2.1](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.2.1/MeteoricExpansion_v1.2.1.zip)
 ### Vintage Story 1.16.0+
 [Version 1.2.0](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.2.0/MeteoricExpansion_v1.2.0.zip)
+
+[Version 1.1.1](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.1.1/MeteoricExpansion_v1.1.1.zip)
 
 [Version 1.1.0](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.1.0/MeteoricExpansion_v1.1.0.zip)
 
@@ -53,6 +57,17 @@ Further config details can be found by opening the mod ZIP and reading the readm
 
 
 ### Changelog
+##### Version 1.2.1
+Meteoric Expansion compatibility for Vintage Story 1.17.0+
+
+Meteoric rock now uses the cracked rock textures included in the vanilla game. Meteoric Expansion cracked textures have been removed.
+
+Meteoric rock/meteoric metallic rock has been renamed to help differentiate Meteoric cracked rock from regular cracked rock.
+
+The patch to cook vanilla stone into cracked meteoric rock has been removed. Cooled meteoric rock can still be 'cooked', however.
+
+A redundant shape file has been removed.
+
 ##### Version 1.2.0
 Added a whole new spawning system for meteor showers. 
 

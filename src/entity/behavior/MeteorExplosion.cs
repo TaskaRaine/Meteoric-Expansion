@@ -126,12 +126,14 @@ namespace MeteoricExpansion
             {
                 this.entity.World.PlaySoundAt(new AssetLocation("meteoricexpansion", "sounds/effect/land_meteor_explosion_layered"), this.entity, null, true, 512, 1.0f);
 
-                Vec3d previousPos = this.entity.PreviousServerPos.XYZ;
+                //-- entity.PreviousServerPos is never set in VS 1.17 for some reason! Therefore, the direction vector is stored in an attribute on the entity and used instead of calculating it from currentPos - previousPos --//
+
                 Vec3d currentPos = this.entity.ServerPos.XYZ;
 
-                Vec3d meteorDirection = (currentPos - previousPos).Normalize();
-                Vec3d shrapnelDirection = MeteoricExpansionHelpers.InvertVector(meteorDirection);
+                Vec3i meteorDirectionInt = entity.Attributes.GetVec3i("direction", Vec3i.Zero);
+                Vec3d meteorDirection = new Vec3d(meteorDirectionInt.X, meteorDirectionInt.Y, meteorDirectionInt.Z).Normalize();
 
+                Vec3d shrapnelDirection = MeteoricExpansionHelpers.InvertVector(meteorDirection);
 
                 if (serverAPI.World.Config.GetBool("Destructive") == true)
                 {
@@ -161,26 +163,29 @@ namespace MeteoricExpansion
             BlockPos craterPos = new BlockPos();
 
             //-- Initial scan to see if the meteor crater should fill with liquid instead of air --//
-            blockAccessor.WalkBlocks(new BlockPos(centerPos.X - explosionRadius, centerPos.Y - explosionRadius, centerPos.Z - explosionRadius), 
-                new BlockPos(centerPos.X + explosionRadius, centerPos.Y + explosionRadius, centerPos.Z + explosionRadius), (block, bpos) =>
+            blockAccessor.SearchLiquidBlocks(new BlockPos(centerPos.X - explosionRadius, centerPos.Y - explosionRadius, centerPos.Z - explosionRadius), 
+                new BlockPos(centerPos.X + explosionRadius, centerPos.Y + explosionRadius, centerPos.Z + explosionRadius), (block, bPos) =>
                 {
                     if(block.DrawType == EnumDrawType.Liquid)
                     {
                         liquidAsset = new AssetLocation(block.Code.Domain, block.Code.Path);
 
                         fillWithLiquid = true;
-                        fillHeight = bpos.Y;
+                        fillHeight = bPos.Y;
 
-                        return;
+                        return true;
                     }
+
+                    return false;
                 });
             
             
             //-- Scans every block in a cube determined by the explosion radius and determines whether that block fits within the explosion sphere --//
             blockAccessor.WalkBlocks(new BlockPos(centerPos.X - explosionRadius, centerPos.Y - explosionRadius, centerPos.Z - explosionRadius),
-                new BlockPos(centerPos.X + explosionRadius, centerPos.Y + explosionRadius, centerPos.Z + explosionRadius), (block, bpos) =>
+                new BlockPos(centerPos.X + explosionRadius, centerPos.Y + explosionRadius, centerPos.Z + explosionRadius), (block, xPos, yPos, zPos) =>
                 {
-                    float distanceToCenter = bpos.DistanceTo(centerPos.ToBlockPos());
+                    BlockPos blockPos = new BlockPos(xPos, yPos, zPos);
+                    float distanceToCenter = blockPos.DistanceTo(centerPos.ToBlockPos());
 
                     if (distanceToCenter < explosionRadius)
                     {
@@ -190,34 +195,34 @@ namespace MeteoricExpansion
 
                             foreach(LandClaim claim in claims)
                             {
-                                if (claim.PositionInside(bpos))
+                                if (claim.PositionInside(blockPos))
                                     isClaimed = true;
                             }
 
                             if (isClaimed == false)
                             {
-                                ExplodeBlock(block, bpos, shrapnelDirection);
+                                ExplodeBlock(block, blockPos, shrapnelDirection);
 
                                 if(fillWithLiquid == false)
                                 {
-                                    if(centerPos.Y - bpos.Y == explosionRadius - 1)
+                                    if(centerPos.Y - blockPos.Y == explosionRadius - 1)
                                     {
                                         if (explosionRand.Next(0, 100) < ashBlockChance)
-                                            ashPositions.Add(bpos + new BlockPos(0, 1, 0));
+                                            ashPositions.Add(blockPos + new BlockPos(0, 1, 0));
                                     }
                                 }
                             }
                         }
                         else
                         {
-                            ExplodeBlock(block, bpos, shrapnelDirection);
+                            ExplodeBlock(block, blockPos, shrapnelDirection);
 
                             if (fillWithLiquid == false)
                             {
-                                if (centerPos.Y - bpos.Y == explosionRadius - 1)
+                                if (centerPos.Y - blockPos.Y == explosionRadius - 1)
                                 {
                                     if (explosionRand.Next(0, 100) < ashBlockChance)
-                                        ashPositions.Add(bpos.Copy() + new BlockPos(0, 1, 0));
+                                        ashPositions.Add(blockPos.Copy() + new BlockPos(0, 1, 0));
                                 }
                             }
                         }
@@ -448,26 +453,28 @@ namespace MeteoricExpansion
             stoneBlockID = serverAPI.WorldManager.GetBlockId(new AssetLocation("meteoricexpansion", stoneBlockCode));
 
             blockAccessor.WalkBlocks(new BlockPos(resourceLocation.X - meteorRemainsSize, resourceLocation.Y - meteorRemainsSize, resourceLocation.Z - meteorRemainsSize),
-                new BlockPos(resourceLocation.X + meteorRemainsSize, resourceLocation.Y + meteorRemainsSize, resourceLocation.Z + meteorRemainsSize), (block, bpos) =>
+                new BlockPos(resourceLocation.X + meteorRemainsSize, resourceLocation.Y + meteorRemainsSize, resourceLocation.Z + meteorRemainsSize), (block, xPos, yPos, zPos) =>
                 {
+                    BlockPos blockPos = new BlockPos(xPos, yPos, zPos);
+
                     if (serverAPI.World.Config.GetBool("ClaimsProtected") == true)
                     {
                         bool isClaimed = false;
 
                         foreach (LandClaim claim in claims)
                         {
-                            if (claim.PositionInside(bpos))
+                            if (claim.PositionInside(blockPos))
                                 isClaimed = true;
                         }
 
                         if(isClaimed == false)
                         {
-                            PlaceMeteorResources(bpos, metalBlockID, stoneBlockID);
+                            PlaceMeteorResources(blockPos, metalBlockID, stoneBlockID);
                         }
                     }
                     else
                     {
-                        PlaceMeteorResources(bpos, metalBlockID, stoneBlockID);
+                        PlaceMeteorResources(blockPos, metalBlockID, stoneBlockID);
                     }
                 }, false);
         }

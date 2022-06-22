@@ -63,15 +63,17 @@ namespace MeteoricExpansion
                     IBlockAccessor blockAccessor = world.GetBlockAccessorBulkUpdate(true, true);
 
                     Vec3i centerPos = new Vec3i((int)player.Entity.ServerPos.X, (int)player.Entity.ServerPos.Y - 1, (int)player.Entity.ServerPos.Z);
-                    BlockPos blockPos = new BlockPos();
+                    //BlockPos blockPos = new BlockPos();
                     int craterRadius = 3;
 
                     blockAccessor.WalkBlocks(new BlockPos(centerPos.X - craterRadius, centerPos.Y - craterRadius, centerPos.Z - craterRadius),
-                        new BlockPos(centerPos.X + craterRadius, centerPos.Y + craterRadius, centerPos.Z + craterRadius), (block, bpos) => {
-                            if (bpos.DistanceTo(centerPos.ToBlockPos()) < craterRadius)
+                        new BlockPos(centerPos.X + craterRadius, centerPos.Y + craterRadius, centerPos.Z + craterRadius), (block, xPos, yPos, zPos) => {
+                            BlockPos blockPos = new BlockPos(xPos, yPos, zPos);
+
+                            if (blockPos.DistanceTo(centerPos.ToBlockPos()) < craterRadius)
                             {
-                                blockAccessor.SetBlock(0, bpos);
-                                blockAccessor.TriggerNeighbourBlockUpdate(bpos);
+                                blockAccessor.SetBlock(0, blockPos);
+                                blockAccessor.TriggerNeighbourBlockUpdate(blockPos);
                             }
                         }, false);
 

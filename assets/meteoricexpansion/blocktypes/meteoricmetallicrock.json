@@ -138,14 +138,30 @@
 	fertility: 0,
 	shapeByType: {
 		"*-smouldering": {
-			base: "block/rock_metal_smouldering"
+			base: "block/rock_smouldering"
 		}
 	},
 	texturesByType: {
-		"*-cooled": { all: { base: "game:block/meteor/{rock}", overlays: [ "game:block/stone/ore/{type}1" ] }},
+		"*-cooled": { 
+			all: { base: "game:block/stone/rock/{rock}1", overlays: [ "game:block/stone/ore/{type}1", "game:block/overlay/rock/cracked1" ],
+			alternates: [
+				{ base: "game:block/stone/rock/{rock}2", overlays: [ "game:block/stone/ore/{type}2", "game:block/overlay/rock/cracked2"]  },
+				{ base: "game:block/stone/rock/{rock}3", overlays: [ "game:block/stone/ore/{type}3", "game:block/overlay/rock/cracked3"]  },
+				{ base: "game:block/stone/rock/{rock}4", overlays: [ "game:block/stone/ore/{type}2", "game:block/overlay/rock/cracked4"]  },
+				{ base: "game:block/stone/rock/{rock}3", overlays: [ "game:block/stone/ore/{type}3", "game:block/overlay/rock/cracked5"]  },
+				{ base: "game:block/stone/rock/{rock}2", overlays: [ "game:block/stone/ore/{type}1", "game:block/overlay/rock/cracked6"]  },
+			]
+		}},
 		"*-smouldering": { 
-			rock: { base: "game:block/meteor/{rock}" },
-			metal: { base: "game:block/stone/ore/{type}1" },
+			rock: { base: "game:block/stone/rock/{rock}1", overlays: [ "game:block/stone/ore/{type}1", "game:block/overlay/rock/cracked1" ],
+				alternates: [
+					{ base: "game:block/stone/rock/{rock}2", overlays: [ "game:block/stone/ore/{type}2", "game:block/overlay/rock/cracked2"]  },
+					{ base: "game:block/stone/rock/{rock}3", overlays: [ "game:block/stone/ore/{type}3", "game:block/overlay/rock/cracked3"]  },
+					{ base: "game:block/stone/rock/{rock}4", overlays: [ "game:block/stone/ore/{type}2", "game:block/overlay/rock/cracked4"]  },
+					{ base: "game:block/stone/rock/{rock}3", overlays: [ "game:block/stone/ore/{type}3", "game:block/overlay/rock/cracked5"]  },
+					{ base: "game:block/stone/rock/{rock}2", overlays: [ "game:block/stone/ore/{type}1", "game:block/overlay/rock/cracked6"]  },
+				]
+			},
 			smouldering: { base: "block/overlay/smoulderoverlay" }
 		}
 	},

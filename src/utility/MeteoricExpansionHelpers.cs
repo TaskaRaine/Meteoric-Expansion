@@ -70,5 +70,9 @@ namespace MeteoricExpansion.Utility
         {
             return new Vec3d(-vectorToInvert.X, -vectorToInvert.Y, -vectorToInvert.Z);
         }
+        public static Vec3i InvertVector(Vec3i vectorToInvert)
+        {
+            return new Vec3i(-vectorToInvert.X, -vectorToInvert.Y, -vectorToInvert.Z);
+        }
     }
 }

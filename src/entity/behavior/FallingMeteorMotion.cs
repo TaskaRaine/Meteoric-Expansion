@@ -43,6 +43,9 @@ namespace MeteoricExpansion.Entities.Behaviors
             DetermineMeteorRotation(200, 1600);
 
             InitializeMeteorParticles();
+
+            //-- The meteor direction is stored as an attribute and used to calculate meteorite placement and shrapnel, since entity.PreviousServerPos is never assigned --//
+            entity.Attributes.SetVec3i("direction", new Vec3i((int)(RandomTranslation.X + .5f), (int)(RandomTranslation.Y + .5f), (int)(RandomTranslation.Z + .5f)));
         }
         public override void OnGameTick(float deltaTime)
         {
