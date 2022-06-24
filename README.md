@@ -64,6 +64,8 @@ Meteoric rock now uses the cracked rock textures included in the vanilla game. M
 
 Meteoric rock/meteoric metallic rock has been renamed to help differentiate Meteoric cracked rock from regular cracked rock.
 
+Increased the drop rate of crystallized ore in meteoric metallic rock to match vanilla rates.
+
 The patch to cook vanilla stone into cracked meteoric rock has been removed. Cooled meteoric rock can still be 'cooked', however.
 
 A redundant shape file has been removed.

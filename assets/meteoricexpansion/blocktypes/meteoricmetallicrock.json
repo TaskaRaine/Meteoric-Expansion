@@ -214,7 +214,7 @@
 	},
 	dropsByType: {
 		"*": [ 
-			{ type: "item", code: "game:crystalizedore-{grade}-{type}-{rock}",  quantity: { avg: 0.005, var: 0 }  },
+			{ type: "item", code: "game:crystalizedore-{grade}-{type}-{rock}",  quantity: { avg: 0.01, var: 0 }  },
 			{ type: "item", code: "game:ore-{grade}-{type}-{rock}",  quantity: { avg: 1.25, var: 0 }  },
 			{ type: "item", code: "game:stone-obsidian", quantity: { avg: 0.1, var: 0.25 } }
 		],
