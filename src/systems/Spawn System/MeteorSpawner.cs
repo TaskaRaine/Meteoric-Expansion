@@ -60,7 +60,7 @@ namespace MeteoricExpansion.Systems
             {
                 if (ServerAPI.World.AllOnlinePlayers.Length > 0)
                 {
-                    //ServerAPI.World.SpawnEntity(GenerateEntity());
+                    ServerAPI.World.SpawnEntity(GenerateEntity());
                 }
 
                 NextSpawn = SpawnerRand.Next(MinSpawnTime, MaxSpawnTime) + SpawnerRand.NextDouble();
