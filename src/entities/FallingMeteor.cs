@@ -27,7 +27,7 @@ namespace MeteoricExpansion.Entities
                 }
                 else if(this.World.CollisionTester.IsColliding(this.World.BlockAccessor, this.CollisionBox, this.ServerPos.XYZ, false))
                 {
-                    EnumBlockMaterial material = this.World.BlockAccessor.GetBlock(this.ServerPos.XYZ.AsBlockPos).BlockMaterial;
+                    EnumBlockMaterial material = this.World.BlockAccessor.GetBlock(this.ServerPos.XYZ.AsBlockPos, BlockLayersAccess.SolidBlocks).BlockMaterial;
 
                     //-- Don't kill the entity on plant matter, causing the meteor to explode. It just looks silly... --//
                     if(material != EnumBlockMaterial.Plant && material != EnumBlockMaterial.Wood && material != EnumBlockMaterial.Leaves && material != EnumBlockMaterial.Air)

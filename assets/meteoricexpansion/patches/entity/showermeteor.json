@@ -4,34 +4,39 @@
 		"path": "/enabled",
 		"value": "false",
 		"file": "meteoricexpansion:entities/air/showermeteor",
-		"condition": { "when": "DisableShowers", "isValue": "true" }
+		"condition": { "when": "DisableShowers", "isValue": "true" },
+		"side": "Server"
 	},
 	{
 		"op": "replace",
 		"path": "/server/behaviors/1/horizontalSpeed/min",
 		"value": 20,
 		"file": "meteoricexpansion:entities/air/showermeteor",
-		"condition": { "when": "MinimumShowerHorizontalSpeed", "useValue": "true" }
+		"condition": { "when": "MinimumShowerHorizontalSpeed", "useValue": "true" },
+		"side": "Server"
 	},
 	{
 		"op": "replace",
 		"path": "/server/behaviors/1/horizontalSpeed/max",
 		"value": 50,
 		"file": "meteoricexpansion:entities/air/showermeteor",
-		"condition": { "when": "MaximumShowerHorizontalSpeed", "useValue": "true" }
+		"condition": { "when": "MaximumShowerHorizontalSpeed", "useValue": "true" },
+		"side": "Server"
 	},
 	{
 		"op": "replace",
 		"path": "/server/behaviors/1/verticalSpeed/min",
 		"value": 0,
 		"file": "meteoricexpansion:entities/air/showermeteor",
-		"condition": { "when": "MinimumShowerVerticalSpeed", "useValue": "true" }
+		"condition": { "when": "MinimumShowerVerticalSpeed", "useValue": "true" },
+		"side": "Server"
 	},
 	{
 		"op": "replace",
 		"path": "/server/behaviors/1/verticalSpeed/max",
 		"value": 0,
 		"file": "meteoricexpansion:entities/air/showermeteor",
-		"condition": { "when": "MinimumShowerVerticalSpeed", "useValue": "true" }
+		"condition": { "when": "MinimumShowerVerticalSpeed", "useValue": "true" },
+		"side": "Server"
 	},
 ]

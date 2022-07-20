@@ -147,7 +147,8 @@ namespace MeteoricExpansion.BlockEntities
 
                 RandomVelocityChange = true,
 
-                ParticleModel = EnumParticleModel.Quad
+                ParticleModel = EnumParticleModel.Quad,
+                Async = true
             };
         }
         private void InitializeFireParticles()
@@ -182,7 +183,8 @@ namespace MeteoricExpansion.BlockEntities
                 GravityEffect = 0.4f,
                 VertexFlags = rand.Next(100, 150),
 
-                ParticleModel = EnumParticleModel.Cube
+                ParticleModel = EnumParticleModel.Cube,
+                Async = true
             };
         }
         private void SpawnParticles(float dt)

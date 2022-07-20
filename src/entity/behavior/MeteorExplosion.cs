@@ -163,7 +163,7 @@ namespace MeteoricExpansion
             BlockPos craterPos = new BlockPos();
 
             //-- Initial scan to see if the meteor crater should fill with liquid instead of air --//
-            blockAccessor.SearchLiquidBlocks(new BlockPos(centerPos.X - explosionRadius, centerPos.Y - explosionRadius, centerPos.Z - explosionRadius), 
+            blockAccessor.SearchFluidBlocks(new BlockPos(centerPos.X - explosionRadius, centerPos.Y - explosionRadius, centerPos.Z - explosionRadius), 
                 new BlockPos(centerPos.X + explosionRadius, centerPos.Y + explosionRadius, centerPos.Z + explosionRadius), (block, bPos) =>
                 {
                     if(block.DrawType == EnumDrawType.Liquid)
@@ -272,7 +272,7 @@ namespace MeteoricExpansion
                     }
                     else
                     {
-                        foreach (BlockDropItemStack itemStack in blockAccessor.GetBlock(explosionPos).Drops)
+                        foreach (BlockDropItemStack itemStack in blockAccessor.GetBlock(explosionPos, BlockLayersAccess.SolidBlocks).Drops)
                             if (explosionRand.Next(0, 101) < terrainDropChance)
                             {
                                 entity.World.SpawnItemEntity(itemStack.GetNextItemStack(), explosionPos.ToVec3d(), GetNewItemStackVector(shrapnelDirection, itemStackVelocityModifier));

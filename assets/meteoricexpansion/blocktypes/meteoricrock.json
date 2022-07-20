@@ -23,6 +23,8 @@
 		{ code: "state", states: ["cooled", "smouldering"] }
 	],
 	skipVariants: [
+		"meteoricrock-obsidian-*",
+		"meteoricrock-suevite-*"
 	],
 	creativeinventory: { "general": ["*"], "construction": ["*"], "meteoricexpansion": ["*"] },
 	drawtypeByType: {
@@ -37,20 +39,61 @@
 			base: "block/rock_smouldering"
 		}
 	},
-	texturesByType: {
-		"*-cooled": { 
-		all: { base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked1"], 
-			alternates: [
-				{ base: "game:block/stone/rock/{rock}2", overlays: ["game:block/overlay/rock/cracked2"]  },
-				{ base: "game:block/stone/rock/{rock}3", overlays: ["game:block/overlay/rock/cracked3"]  },
-				{ base: "game:block/stone/rock/{rock}4", overlays: ["game:block/overlay/rock/cracked4"]  },
-				{ base: "game:block/stone/rock/{rock}3", overlays: ["game:block/overlay/rock/cracked5"]  },
-				{ base: "game:block/stone/rock/{rock}2", overlays: ["game:block/overlay/rock/cracked6"]  },
-			]
-		}},
-		"*-smouldering": { 
-			rock: { base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked1"], 
-				alternates: [
+	texturesByType: 
+	{
+		"*-kimberlite-cooled": 
+		{
+			all: 
+			{ 
+				base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked1"], 
+				alternates: 
+				[
+					{ base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked2"]  },
+					{ base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked3"]  },
+					{ base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked4"]  },
+					{ base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked5"]  },
+					{ base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked6"]  },
+				]
+			}
+		},
+		"*-cooled": 
+		{ 
+			all: 
+			{ 
+				base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked1"], 
+				alternates: 
+				[
+					{ base: "game:block/stone/rock/{rock}2", overlays: ["game:block/overlay/rock/cracked2"]  },
+					{ base: "game:block/stone/rock/{rock}3", overlays: ["game:block/overlay/rock/cracked3"]  },
+					{ base: "game:block/stone/rock/{rock}4", overlays: ["game:block/overlay/rock/cracked4"]  },
+					{ base: "game:block/stone/rock/{rock}3", overlays: ["game:block/overlay/rock/cracked5"]  },
+					{ base: "game:block/stone/rock/{rock}2", overlays: ["game:block/overlay/rock/cracked6"]  },
+				]
+			}
+		},
+		"*-kimberlite-smouldering": 
+		{
+			rock: 
+			{ 
+				base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked1"], 
+				alternates: 
+				[
+					{ base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked2"]  },
+					{ base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked3"]  },
+					{ base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked4"]  },
+					{ base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked5"]  },
+					{ base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked6"]  },
+				]
+			},
+			smouldering: { base: "block/overlay/smoulderoverlay" }
+		},
+		"*-smouldering": 
+		{ 
+			rock: 
+			{ 
+				base: "game:block/stone/rock/{rock}1", overlays: ["game:block/overlay/rock/cracked1"], 
+				alternates: 
+				[
 					{ base: "game:block/stone/rock/{rock}2", overlays: ["game:block/overlay/rock/cracked2"]  },
 					{ base: "game:block/stone/rock/{rock}3", overlays: ["game:block/overlay/rock/cracked3"]  },
 					{ base: "game:block/stone/rock/{rock}4", overlays: ["game:block/overlay/rock/cracked4"]  },

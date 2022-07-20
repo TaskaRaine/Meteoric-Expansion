@@ -95,6 +95,7 @@ namespace MeteoricExpansion.Entities.Behaviors
             MeteorParticles.VertexFlags = Rand.Next(150, 255);
 
             MeteorParticles.ParticleModel = EnumParticleModel.Quad;
+            MeteorParticles.Async = true;
 
             #endregion
             UpdateMeteorParticles();

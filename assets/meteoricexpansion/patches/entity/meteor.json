@@ -4,62 +4,71 @@
 		"path": "/enabled",
 		"value": "false",
 		"file": "meteoricexpansion:entities/air/meteor",
-		"condition": { "when": "DisableFallingMeteors", "isValue": "true" }
+		"condition": { "when": "DisableFallingMeteors", "isValue": "true" },
+		"side": "Server"
 	},
 	{
 		"op": "replace",
 		"path": "/server/behaviors/1/horizontalSpeed/min",
 		"value": 20,
 		"file": "meteoricexpansion:entities/air/meteor",
-		"condition": { "when": "MinimumMeteorHorizontalSpeed", "useValue": "true" }
+		"condition": { "when": "MinimumMeteorHorizontalSpeed", "useValue": "true" },
+		"side": "Server"
 	},
 	{
 		"op": "replace",
 		"path": "/server/behaviors/1/horizontalSpeed/max",
 		"value": 50,
 		"file": "meteoricexpansion:entities/air/meteor",
-		"condition": { "when": "MaximumMeteorHorizontalSpeed", "useValue": "true" }
+		"condition": { "when": "MaximumMeteorHorizontalSpeed", "useValue": "true" },
+		"side": "Server"
 	},
 	{
 		"op": "replace",
 		"path": "/server/behaviors/1/verticalSpeed/min",
 		"value": 2,
 		"file": "meteoricexpansion:entities/air/meteor",
-		"condition": { "when": "MinimumMeteorVerticalSpeed", "useValue": "true" }
+		"condition": { "when": "MinimumMeteorVerticalSpeed", "useValue": "true" },
+		"side": "Server"
 	},
 	{
 		"op": "replace",
 		"path": "/server/behaviors/1/verticalSpeed/max",
 		"value": 20,
 		"file": "meteoricexpansion:entities/air/meteor",
-		"condition": { "when": "MinimumMeteorVerticalSpeed", "useValue": "true" }
+		"condition": { "when": "MinimumMeteorVerticalSpeed", "useValue": "true" },
+		"side": "Server"
 	},
 	{
 		"op": "replace",
 		"path": "/client/behaviors/1/horizontalSpeed/min",
 		"value": 20,
 		"file": "meteoricexpansion:entities/air/meteor",
-		"condition": { "when": "MinimumMeteorHorizontalSpeed", "useValue": "true" }
+		"condition": { "when": "MinimumMeteorHorizontalSpeed", "useValue": "true" },
+		"side": "Server"
 	},
 	{
 		"op": "replace",
 		"path": "/client/behaviors/1/horizontalSpeed/max",
 		"value": 50,
 		"file": "meteoricexpansion:entities/air/meteor",
-		"condition": { "when": "MaximumMeteorHorizontalSpeed", "useValue": "true" }
+		"condition": { "when": "MaximumMeteorHorizontalSpeed", "useValue": "true" },
+		"side": "Server"
 	},
 	{
 		"op": "replace",
 		"path": "/client/behaviors/1/verticalSpeed/min",
 		"value": 2,
 		"file": "meteoricexpansion:entities/air/meteor",
-		"condition": { "when": "MinimumMeteorVerticalSpeed", "useValue": "true" }
+		"condition": { "when": "MinimumMeteorVerticalSpeed", "useValue": "true" },
+		"side": "Server"
 	},
 	{
 		"op": "replace",
 		"path": "/client/behaviors/1/verticalSpeed/max",
 		"value": 20,
 		"file": "meteoricexpansion:entities/air/meteor",
-		"condition": { "when": "MinimumMeteorVerticalSpeed", "useValue": "true" }
+		"condition": { "when": "MinimumMeteorVerticalSpeed", "useValue": "true" },
+		"side": "Server"
 	}
 ]

@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="protobuf-net">
-      <HintPath>H:\VintageStory 1.17.0 Pre-1\Lib\protobuf-net.dll</HintPath>
+      <HintPath>H:\VintageStory 1.17.0 Pre-5\Lib\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,23 +45,23 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="VintagestoryAPI">
-      <HintPath>H:\VintageStory 1.17.0 Pre-1\VintagestoryAPI.dll</HintPath>
+      <HintPath>H:\VintageStory 1.17.0 Pre-5\VintagestoryAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VSSurvivalMod">
-      <HintPath>H:\VintageStory 1.17.0 Pre-1\Mods\VSSurvivalMod.dll</HintPath>
+      <HintPath>H:\VintageStory 1.17.0 Pre-5\Mods\VSSurvivalMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VSEssentials">
-      <HintPath>H:\VintageStory 1.17.0 Pre-1\Mods\VSEssentials.dll</HintPath>
+      <HintPath>H:\VintageStory 1.17.0 Pre-5\Mods\VSEssentials.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VSCreativeMod">
-      <HintPath>H:\VintageStory 1.17.0 Pre-1\Mods\VSCreativeMod.dll</HintPath>
+      <HintPath>H:\VintageStory 1.17.0 Pre-5\Mods\VSCreativeMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>H:\VintageStory 1.17.0 Pre-1\Lib\Newtonsoft.Json.dll</HintPath>
+      <HintPath>H:\VintageStory 1.17.0 Pre-5\Lib\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
