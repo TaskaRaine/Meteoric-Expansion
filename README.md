@@ -61,11 +61,17 @@ Further config details can be found by opening the mod ZIP and reading the readm
 ##### Version 1.2.1
 Meteoric Expansion compatibility for Vintage Story 1.17.0+
 
+Added a Brazilian Portuguese translation provided by xCoiotex.
+
 Meteoric rock now uses the cracked rock textures included in the vanilla game. Meteoric Expansion cracked textures have been removed.
 
 Meteoric rock/meteoric metallic rock has been renamed to help differentiate Meteoric cracked rock from regular cracked rock.
 
 Increased the drop rate of crystallized ore in meteoric metallic rock to match vanilla rates.
+
+Explosion cube particles now only spawn on the client side. 
+
+Made various mod particle systems asynchronous to improve game performance.
 
 The patch to cook vanilla stone into cracked meteoric rock has been removed. Cooled meteoric rock can still be 'cooked', however.
 

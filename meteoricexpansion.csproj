@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="protobuf-net">
-      <HintPath>H:\VintageStory 1.17.0 Pre-5\Lib\protobuf-net.dll</HintPath>
+      <HintPath>H:\VintageStory 1.17.0 RC-2\Lib\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,23 +45,23 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="VintagestoryAPI">
-      <HintPath>H:\VintageStory 1.17.0 Pre-5\VintagestoryAPI.dll</HintPath>
+      <HintPath>H:\VintageStory 1.17.0 RC-2\VintagestoryAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VSSurvivalMod">
-      <HintPath>H:\VintageStory 1.17.0 Pre-5\Mods\VSSurvivalMod.dll</HintPath>
+      <HintPath>H:\VintageStory 1.17.0 RC-2\Mods\VSSurvivalMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VSEssentials">
-      <HintPath>H:\VintageStory 1.17.0 Pre-5\Mods\VSEssentials.dll</HintPath>
+      <HintPath>H:\VintageStory 1.17.0 RC-2\Mods\VSEssentials.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VSCreativeMod">
-      <HintPath>H:\VintageStory 1.17.0 Pre-5\Mods\VSCreativeMod.dll</HintPath>
+      <HintPath>H:\VintageStory 1.17.0 RC-2\Mods\VSCreativeMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>H:\VintageStory 1.17.0 Pre-5\Lib\Newtonsoft.Json.dll</HintPath>
+      <HintPath>H:\VintageStory 1.17.0 RC-2\Lib\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -108,6 +108,7 @@
     <None Include="assets\meteoricexpansion\entities\air\showermeteor.json" />
     <None Include="assets\meteoricexpansion\itemtypes\rockash.json" />
     <None Include="assets\meteoricexpansion\lang\en.json" />
+    <None Include="assets\meteoricexpansion\lang\pt-br.json" />
     <None Include="assets\meteoricexpansion\patches\compatibility\fahlore\tennantite.json" />
     <None Include="assets\meteoricexpansion\patches\compatibility\moremetals\metals\chromite.json" />
     <None Include="assets\meteoricexpansion\patches\compatibility\moremetals\metals\electrum.json" />

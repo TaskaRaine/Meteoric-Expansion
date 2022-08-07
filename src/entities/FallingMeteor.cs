@@ -22,8 +22,8 @@ namespace MeteoricExpansion.Entities
 
                 if(ElapsedLifetime - MeteorSpawnTime > CurrentLifespan)
                 {
-                    //-- Combusted, in this case, represents the meteor exploding in mid-air --//
-                    this.Die(EnumDespawnReason.Combusted);
+                    //-- Fire, in this case, represents the meteor exploding in mid-air --//
+                    this.Die(EnumDespawnReason.Death, new DamageSource() { Type = EnumDamageType.Fire });
                 }
                 else if(this.World.CollisionTester.IsColliding(this.World.BlockAccessor, this.CollisionBox, this.ServerPos.XYZ, false))
                 {
@@ -32,11 +32,15 @@ namespace MeteoricExpansion.Entities
                     //-- Don't kill the entity on plant matter, causing the meteor to explode. It just looks silly... --//
                     if(material != EnumBlockMaterial.Plant && material != EnumBlockMaterial.Wood && material != EnumBlockMaterial.Leaves && material != EnumBlockMaterial.Air)
                     {
-                        //-- Death represents the meteor colliding with terrain and creating a crater --//
-                        this.Die(EnumDespawnReason.Death);
+                        //-- Gravity represents the meteor colliding with terrain and creating a crater --//
+                        this.Die(EnumDespawnReason.Death, new DamageSource() { Type = EnumDamageType.Gravity });
                     }
                 }
             }
+        }
+        public override ItemStack[] GetDrops(IWorldAccessor world, BlockPos pos, IPlayer byPlayer)
+        {
+            return null;
         }
     }
 }

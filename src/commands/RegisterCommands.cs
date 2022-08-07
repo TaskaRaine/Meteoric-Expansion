@@ -18,7 +18,6 @@ namespace MeteoricExpansion
         public override void StartServerSide(ICoreServerAPI api)
         {
             base.StartServerSide(api);
-
             /*
             //-- Registers a command that will spawn a random meteor 10 blocks above the player --//
             api.RegisterCommand("fallingmeteor", "Spawns a meteor for testing purposes.", "",

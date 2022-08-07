@@ -19,7 +19,7 @@ namespace MeteoricExpansion
         ICoreServerAPI serverAPI;
         IBlockAccessor blockAccessor;
 
-        public static SimpleParticleProperties solidExplosionParticles, quadExplosionParticles;
+        public SimpleParticleProperties solidExplosionParticles, quadExplosionParticles;
 
         Random explosionRand;
         DamageSource meteorDamageSource;
@@ -64,7 +64,6 @@ namespace MeteoricExpansion
 
             explosionRand = new Random();
 
-            solidExplosionParticles = new SimpleParticleProperties(1, 1, 1, new Vec3d(), new Vec3d(), new Vec3f(), new Vec3f());
             quadExplosionParticles = new SimpleParticleProperties(1, 1, 1, new Vec3d(), new Vec3d(), new Vec3f(), new Vec3f());
 
             if(sidedAPI.Side == EnumAppSide.Server)
@@ -75,6 +74,10 @@ namespace MeteoricExpansion
                 {
                     Source = EnumDamageSource.Unknown,
                 };
+            }
+            else
+            {
+                solidExplosionParticles = new SimpleParticleProperties(1, 1, 1, new Vec3d(), new Vec3d(), new Vec3f(), new Vec3f());
             }
         }
         public override void OnEntityDespawn(EntityDespawnReason despawn)
@@ -90,24 +93,27 @@ namespace MeteoricExpansion
             }
             if (despawn != null)
             {
-                switch (despawn.reason)
+                if(despawn.reason != EnumDespawnReason.OutOfRange)
                 {
-                    case EnumDespawnReason.Combusted:
-                        ExplodeInAir();
-                        break;
-                    case EnumDespawnReason.Death:
-                        ExplodeOnLand();
-                        break;
-                    default:
-                        break;
+                    SpawnExplosionParticles();
+
+                    switch (despawn.damageSourceForDeath.Type)
+                    {
+                        case EnumDamageType.Fire:
+                            ExplodeInAir();
+                            break;
+                        case EnumDamageType.Gravity:
+                            ExplodeOnLand();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
 
         }
         private void ExplodeInAir()
         {
-            SpawnExplosionParticles();
-
             if (sidedAPI.Side == EnumAppSide.Server)
             {
                 this.entity.World.PlaySoundAt(new AssetLocation("meteoricexpansion", "sounds/effect/air_meteor_explosion_layered"), this.entity, null, true, 512, 1.0f);
@@ -120,8 +126,6 @@ namespace MeteoricExpansion
         }
         private void ExplodeOnLand()
         {
-            SpawnExplosionParticles();
-
             if (sidedAPI.Side == EnumAppSide.Server)
             {
                 this.entity.World.PlaySoundAt(new AssetLocation("meteoricexpansion", "sounds/effect/land_meteor_explosion_layered"), this.entity, null, true, 512, 1.0f);
@@ -324,42 +328,6 @@ namespace MeteoricExpansion
         }
         private void SpawnExplosionParticles()
         {
-            #region Cuboid Particle Options
-            Vec3f velocityRand = new Vec3f((float)(explosionRand.Next(0, 5) + explosionRand.NextDouble()), (float)(explosionRand.Next(0, 5) + explosionRand.NextDouble()), (float)(explosionRand.Next(0, 5) + explosionRand.NextDouble()));
-
-            solidExplosionParticles.MinPos = this.entity.Pos.XYZ + new Vec3d(-this.entity.Properties.Client.Size / 2, -this.entity.Properties.Client.Size / 2, -this.entity.Properties.Client.Size / 2);
-            solidExplosionParticles.AddPos = new Vec3d(this.entity.Properties.Client.Size, this.entity.Properties.Client.Size, this.entity.Properties.Client.Size);
-
-            solidExplosionParticles.MinVelocity = new Vec3f(-velocityRand.X, -velocityRand.Y, -velocityRand.Z);
-
-            solidExplosionParticles.AddVelocity = velocityRand * 2;
-
-            solidExplosionParticles.GravityEffect = 0.1f;
-
-            solidExplosionParticles.MinSize = 1.0f;
-            solidExplosionParticles.MaxSize = 5.0f;
-            solidExplosionParticles.SizeEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEAR, -2);
-
-            solidExplosionParticles.MinQuantity = 100;
-            solidExplosionParticles.AddQuantity = 50;
-
-            solidExplosionParticles.LifeLength = 5.0f;
-            solidExplosionParticles.addLifeLength = 5.0f;
-
-            solidExplosionParticles.ShouldDieInLiquid = true;
-
-            solidExplosionParticles.WithTerrainCollision = true;
-
-            solidExplosionParticles.Color = ColorUtil.ColorFromRgba(255, 255, 255, explosionRand.Next(100, 255));
-            solidExplosionParticles.OpacityEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, 255);
-            solidExplosionParticles.BlueEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, explosionRand.Next(0, 150));
-            solidExplosionParticles.GreenEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, explosionRand.Next(150, 255));
-            solidExplosionParticles.RedEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, 250);
-
-            solidExplosionParticles.VertexFlags = explosionRand.Next(150, 255);
-
-            #endregion
-
             #region Quad Particle Options
             Vec3f quadVelocityRand = new Vec3f((float)(explosionRand.Next(0, 2) + explosionRand.NextDouble()), (float)(explosionRand.Next(0, 2) + explosionRand.NextDouble()), (float)(explosionRand.Next(0, 2) + explosionRand.NextDouble()));
 
@@ -393,9 +361,51 @@ namespace MeteoricExpansion
             quadExplosionParticles.VertexFlags = explosionRand.Next(150, 255);
 
             quadExplosionParticles.ParticleModel = EnumParticleModel.Quad;
+            quadExplosionParticles.Async = true;
             #endregion
 
-            this.entity.World.SpawnParticles(solidExplosionParticles);
+            if (sidedAPI.Side == EnumAppSide.Client)
+            {
+                #region Cuboid Particle Options
+                Vec3f velocityRand = new Vec3f((float)(explosionRand.Next(0, 5) + explosionRand.NextDouble()), (float)(explosionRand.Next(0, 5) + explosionRand.NextDouble()), (float)(explosionRand.Next(0, 5) + explosionRand.NextDouble()));
+
+                solidExplosionParticles.MinPos = this.entity.Pos.XYZ + new Vec3d(-this.entity.Properties.Client.Size / 2, -this.entity.Properties.Client.Size / 2, -this.entity.Properties.Client.Size / 2);
+                solidExplosionParticles.AddPos = new Vec3d(this.entity.Properties.Client.Size, this.entity.Properties.Client.Size, this.entity.Properties.Client.Size);
+
+                solidExplosionParticles.MinVelocity = new Vec3f(-velocityRand.X, -velocityRand.Y, -velocityRand.Z);
+
+                solidExplosionParticles.AddVelocity = velocityRand * 2;
+
+                solidExplosionParticles.GravityEffect = 0.1f;
+
+                solidExplosionParticles.MinSize = 1.0f;
+                solidExplosionParticles.MaxSize = 3.0f;
+                solidExplosionParticles.SizeEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARNULLIFY, -2.5f);
+
+                solidExplosionParticles.MinQuantity = 100;
+                solidExplosionParticles.AddQuantity = 50;
+
+                solidExplosionParticles.LifeLength = 5.0f;
+                solidExplosionParticles.addLifeLength = 5.0f;
+
+                solidExplosionParticles.ShouldDieInLiquid = true;
+
+                solidExplosionParticles.WithTerrainCollision = true;
+
+                solidExplosionParticles.Color = ColorUtil.ColorFromRgba(255, 255, 255, 255);
+
+                solidExplosionParticles.BlueEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, explosionRand.Next(0, 150));
+                solidExplosionParticles.GreenEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, explosionRand.Next(150, 255));
+                solidExplosionParticles.RedEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEARREDUCE, 250);
+
+                solidExplosionParticles.VertexFlags = explosionRand.Next(150, 255);
+                solidExplosionParticles.Async = true;
+
+                #endregion
+
+                this.entity.World.SpawnParticles(solidExplosionParticles);
+            }
+
             this.entity.World.SpawnParticles(quadExplosionParticles);
 
         }
