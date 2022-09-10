@@ -97,17 +97,18 @@ namespace MeteoricExpansion
                 {
                     SpawnExplosionParticles();
 
-                    switch (despawn.damageSourceForDeath.Type)
-                    {
-                        case EnumDamageType.Fire:
-                            ExplodeInAir();
-                            break;
-                        case EnumDamageType.Gravity:
-                            ExplodeOnLand();
-                            break;
-                        default:
-                            break;
-                    }
+                    if(despawn.damageSourceForDeath != null)
+                        switch (despawn.damageSourceForDeath.Type)
+                        {
+                            case EnumDamageType.Fire:
+                                ExplodeInAir();
+                                break;
+                            case EnumDamageType.Gravity:
+                                ExplodeOnLand();
+                                break;
+                            default:
+                                break;
+                        }
                 }
             }
 

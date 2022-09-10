@@ -31,6 +31,8 @@ Further config details can be found by opening the mod ZIP and reading the readm
 ### Releases
 
 ### Vintage Story 1.17.0+
+[Version 1.2.2](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.2.2/MeteoricExpansion_v1.2.2.zip)
+
 [Version 1.2.1](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.2.1/MeteoricExpansion_v1.2.1.zip)
 
 ### Vintage Story 1.16.0+
@@ -58,6 +60,9 @@ Further config details can be found by opening the mod ZIP and reading the readm
 
 
 ### Changelog
+##### Version 1.2.2
+Potentially fixed a crash with falling meteors when despawning.
+
 ##### Version 1.2.1
 Meteoric Expansion compatibility for Vintage Story 1.17.0+
 
