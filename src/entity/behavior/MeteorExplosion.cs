@@ -25,6 +25,7 @@ namespace MeteoricExpansion
         DamageSource meteorDamageSource;
 
         private int explosionRadius;
+        private int crackedCraterRadius = 1;
         private int injuryRadius;
         private float injuryBaseDamage = 5.0f;
 
@@ -65,8 +66,9 @@ namespace MeteoricExpansion
             explosionRand = new Random();
 
             quadExplosionParticles = new SimpleParticleProperties(1, 1, 1, new Vec3d(), new Vec3d(), new Vec3f(), new Vec3f());
+            solidExplosionParticles = new SimpleParticleProperties(1, 1, 1, new Vec3d(), new Vec3d(), new Vec3f(), new Vec3f());
 
-            if(sidedAPI.Side == EnumAppSide.Server)
+            if (sidedAPI.Side == EnumAppSide.Server)
             {
                 serverAPI = (ICoreServerAPI)sidedAPI;
 
@@ -75,12 +77,8 @@ namespace MeteoricExpansion
                     Source = EnumDamageSource.Unknown,
                 };
             }
-            else
-            {
-                solidExplosionParticles = new SimpleParticleProperties(1, 1, 1, new Vec3d(), new Vec3d(), new Vec3f(), new Vec3f());
-            }
         }
-        public override void OnEntityDespawn(EntityDespawnReason despawn)
+        public override void OnEntityDespawn(EntityDespawnData despawn)
         {
             base.OnEntityDespawn(despawn);
 
@@ -93,12 +91,12 @@ namespace MeteoricExpansion
             }
             if (despawn != null)
             {
-                if(despawn.reason != EnumDespawnReason.OutOfRange)
+                if(despawn.Reason != EnumDespawnReason.OutOfRange)
                 {
                     SpawnExplosionParticles();
 
-                    if(despawn.damageSourceForDeath != null)
-                        switch (despawn.damageSourceForDeath.Type)
+                    if(despawn.DamageSourceForDeath != null)
+                        switch (despawn.DamageSourceForDeath.Type)
                         {
                             case EnumDamageType.Fire:
                                 ExplodeInAir();
@@ -158,10 +156,9 @@ namespace MeteoricExpansion
         //-- Creates a spherical crater where the meteor made contact with the ground --//
         private void CreateCrater(Vec3d meteorDirection, Vec3d shrapnelDirection)
         {
-            List<LandClaim> claims = serverAPI.World.Claims.All;
             List<BlockPos> ashPositions = new List<BlockPos>();
             
-            blockAccessor = serverAPI.World.GetBlockAccessorBulkUpdate(true, true);
+            blockAccessor = serverAPI.World.GetBlockAccessorBulkUpdate(true, true, false);
 
             Vec3i centerPos = this.entity.ServerPos.XYZInt;
 
@@ -186,39 +183,16 @@ namespace MeteoricExpansion
             
             
             //-- Scans every block in a cube determined by the explosion radius and determines whether that block fits within the explosion sphere --//
-            blockAccessor.WalkBlocks(new BlockPos(centerPos.X - explosionRadius, centerPos.Y - explosionRadius, centerPos.Z - explosionRadius),
-                new BlockPos(centerPos.X + explosionRadius, centerPos.Y + explosionRadius, centerPos.Z + explosionRadius), (block, xPos, yPos, zPos) =>
+            blockAccessor.WalkBlocks(new BlockPos(centerPos.X - explosionRadius - crackedCraterRadius, centerPos.Y - explosionRadius - crackedCraterRadius, centerPos.Z - explosionRadius - crackedCraterRadius),
+                new BlockPos(centerPos.X + explosionRadius + crackedCraterRadius, centerPos.Y + explosionRadius + crackedCraterRadius, centerPos.Z + explosionRadius + crackedCraterRadius), (block, xPos, yPos, zPos) =>
                 {
                     BlockPos blockPos = new BlockPos(xPos, yPos, zPos);
-                    float distanceToCenter = blockPos.DistanceTo(centerPos.ToBlockPos());
 
-                    if (distanceToCenter < explosionRadius)
+                    if (!IsPositionClaimed(blockPos))
                     {
-                        if (serverAPI.World.Config.GetBool("ClaimsProtected") == true)
-                        {
-                            bool isClaimed = false;
+                        float distanceToCenter = blockPos.DistanceTo(centerPos.ToBlockPos());
 
-                            foreach(LandClaim claim in claims)
-                            {
-                                if (claim.PositionInside(blockPos))
-                                    isClaimed = true;
-                            }
-
-                            if (isClaimed == false)
-                            {
-                                ExplodeBlock(block, blockPos, shrapnelDirection);
-
-                                if(fillWithLiquid == false)
-                                {
-                                    if(centerPos.Y - blockPos.Y == explosionRadius - 1)
-                                    {
-                                        if (explosionRand.Next(0, 100) < ashBlockChance)
-                                            ashPositions.Add(blockPos + new BlockPos(0, 1, 0));
-                                    }
-                                }
-                            }
-                        }
-                        else
+                        if (distanceToCenter < explosionRadius)
                         {
                             ExplodeBlock(block, blockPos, shrapnelDirection);
 
@@ -227,14 +201,22 @@ namespace MeteoricExpansion
                                 if (centerPos.Y - blockPos.Y == explosionRadius - 1)
                                 {
                                     if (explosionRand.Next(0, 100) < ashBlockChance)
-                                        ashPositions.Add(blockPos.Copy() + new BlockPos(0, 1, 0));
+                                        ashPositions.Add(blockPos);
                                 }
+                            }
+                        }
+                        else if (distanceToCenter < explosionRadius + crackedCraterRadius + 0.1)
+                        {
+                            if (block.Code.Equals(new AssetLocation("game", "rock-" + block.Code.EndVariant())))
+                            {
+                                blockAccessor.SetBlock(serverAPI.World.GetBlock(new AssetLocation("game", "crackedrock-" + block.Code.EndVariant())).Id, blockPos);
                             }
                         }
                     }
                 });
+            blockAccessor.Commit();
 
-            PlaceMeteor(meteorDirection, shrapnelDirection, centerPos, explosionRadius, claims);
+            PlaceMeteor(meteorDirection, shrapnelDirection, centerPos, explosionRadius);
             PlaceAsh(ashPositions);
 
             blockAccessor.Commit();
@@ -247,10 +229,10 @@ namespace MeteoricExpansion
             //-- Explosions do not destroy water, mantle or air blocks --//
             switch (blockCode.Path)
             {
+                case "boilingwater-still-7":
+                case "saltwater-still-7":
                 case "water-still-7":
-                    break;
                 case "mantle":
-                    break;
                 case "air":
                     break;
                 default:
@@ -365,7 +347,7 @@ namespace MeteoricExpansion
             quadExplosionParticles.Async = true;
             #endregion
 
-            if (sidedAPI.Side == EnumAppSide.Client)
+            if (sidedAPI.Side == EnumAppSide.Server)
             {
                 #region Cuboid Particle Options
                 Vec3f velocityRand = new Vec3f((float)(explosionRand.Next(0, 5) + explosionRand.NextDouble()), (float)(explosionRand.Next(0, 5) + explosionRand.NextDouble()), (float)(explosionRand.Next(0, 5) + explosionRand.NextDouble()));
@@ -386,8 +368,8 @@ namespace MeteoricExpansion
                 solidExplosionParticles.MinQuantity = 100;
                 solidExplosionParticles.AddQuantity = 50;
 
-                solidExplosionParticles.LifeLength = 5.0f;
-                solidExplosionParticles.addLifeLength = 5.0f;
+                solidExplosionParticles.LifeLength = 2.0f;
+                solidExplosionParticles.addLifeLength = 2.5f;
 
                 solidExplosionParticles.ShouldDieInLiquid = true;
 
@@ -410,7 +392,7 @@ namespace MeteoricExpansion
             this.entity.World.SpawnParticles(quadExplosionParticles);
 
         }
-        private void PlaceMeteor(Vec3d direction, Vec3d shrapnelDirection, Vec3i explosionPos, int explosionRadius, List<LandClaim> claims)
+        private void PlaceMeteor(Vec3d direction, Vec3d shrapnelDirection, Vec3i explosionPos, int explosionRadius)
         {
             Vec3i resourceLocation = new Vec3i(explosionPos.X + (int)(direction.X * (explosionRadius + 1)), explosionPos.Y + (int)(direction.Y * (explosionRadius + 1)), explosionPos.Z + (int)(direction.Z * (explosionRadius + 1)));
             
@@ -463,29 +445,25 @@ namespace MeteoricExpansion
 
             stoneBlockID = serverAPI.WorldManager.GetBlockId(new AssetLocation("meteoricexpansion", stoneBlockCode));
 
-            blockAccessor.WalkBlocks(new BlockPos(resourceLocation.X - meteorRemainsSize, resourceLocation.Y - meteorRemainsSize, resourceLocation.Z - meteorRemainsSize),
-                new BlockPos(resourceLocation.X + meteorRemainsSize, resourceLocation.Y + meteorRemainsSize, resourceLocation.Z + meteorRemainsSize), (block, xPos, yPos, zPos) =>
+            blockAccessor.WalkBlocks(new BlockPos(resourceLocation.X - meteorRemainsSize - crackedCraterRadius, resourceLocation.Y - meteorRemainsSize - crackedCraterRadius, resourceLocation.Z - meteorRemainsSize - crackedCraterRadius),
+                new BlockPos(resourceLocation.X + meteorRemainsSize + crackedCraterRadius, resourceLocation.Y + meteorRemainsSize + crackedCraterRadius, resourceLocation.Z + meteorRemainsSize + crackedCraterRadius), (block, xPos, yPos, zPos) =>
                 {
                     BlockPos blockPos = new BlockPos(xPos, yPos, zPos);
 
-                    if (serverAPI.World.Config.GetBool("ClaimsProtected") == true)
+                    if (!IsPositionClaimed(blockPos))
                     {
-                        bool isClaimed = false;
-
-                        foreach (LandClaim claim in claims)
+                        //-- Modifies rock around the deposit to be cracked rock --//
+                        if (blockPos.DistanceTo(resourceLocation.AsBlockPos) > meteorRemainsSize)
                         {
-                            if (claim.PositionInside(blockPos))
-                                isClaimed = true;
+                            if (block.Code.Equals(new AssetLocation("game", "rock-" + block.Code.EndVariant())))
+                            {
+                                blockAccessor.SetBlock(serverAPI.World.GetBlock(new AssetLocation("game", "crackedrock-" + block.Code.EndVariant())).Id, blockPos);
+                            }
                         }
-
-                        if(isClaimed == false)
+                        else
                         {
                             PlaceMeteorResources(blockPos, metalBlockID, stoneBlockID);
                         }
-                    }
-                    else
-                    {
-                        PlaceMeteorResources(blockPos, metalBlockID, stoneBlockID);
                     }
                 }, false);
         }
@@ -533,6 +511,17 @@ namespace MeteoricExpansion
 
                 blockAccessor.SetBlock(ashID, position);
             }
+        }
+        private bool IsPositionClaimed(BlockPos blockPos)
+        {
+            if (serverAPI.World.Config.GetBool("ClaimsProtected") == true)
+                foreach (LandClaim claim in serverAPI.World.Claims.All)
+                {
+                    if (claim.PositionInside(blockPos))
+                        return true;
+                }
+
+            return false;
         }
     }
 }

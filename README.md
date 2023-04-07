@@ -31,6 +31,8 @@ Further config details can be found by opening the mod ZIP and reading the readm
 ### Releases
 
 ### Vintage Story 1.17.0+
+[Version 1.2.3](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.2.3/MeteoricExpansion_v1.2.3.zip)
+
 [Version 1.2.2](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.2.2/MeteoricExpansion_v1.2.2.zip)
 
 [Version 1.2.1](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.2.1/MeteoricExpansion_v1.2.1.zip)
@@ -60,6 +62,17 @@ Further config details can be found by opening the mod ZIP and reading the readm
 
 
 ### Changelog
+##### Version 1.2.3
+Updated Meteoric Expansion for Vintage Story 1.18.0+ compatibility.
+
+When meteors strike ground, they will now turn vanilla rock into vanilla cracked rock at the crash site.
+
+Cuboid explosion particles now spawn on server instead of client and have had their lifespan reduced.
+
+Modified claim protection code slightly to eliminate some redundancy.
+
+Added a Russian translation provided by LordOri.
+
 ##### Version 1.2.2
 Potentially fixed a crash with falling meteors when despawning.
 
