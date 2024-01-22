@@ -23,13 +23,17 @@ namespace MeteoricExpansion.Entities
         protected long MeteorSpawnTime { get; set; }
         protected long ElapsedLifetime { get; set; }
 
+        public void SkipMeteorInit(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
+        {
+            base.Initialize(properties, api, InChunkIndex3d);
+        }
         public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
         {
             base.Initialize(properties, api, InChunkIndex3d);
 
             rand = new Random((int)this.EntityId);
 
-            CurrentScale = (float)rand.NextDouble() + rand.Next(MinimumScale, MaximumScale);
+            CurrentScale = (float)rand.NextDouble() + rand.Next(1, this.Properties.Attributes["sizeVariance"].AsInt(1));
 
             properties.Client.Size *= CurrentScale;
             properties.CollisionBoxSize *= CurrentScale;
@@ -40,7 +44,7 @@ namespace MeteoricExpansion.Entities
                 MaximumLifespan = api.World.Config.GetInt("MaximumMeteorLifespanInSeconds");
 
                 MeteorSpawnTime = api.World.ElapsedMilliseconds;
-                CurrentLifespan = (long)(rand.Next(MinimumLifespan, MaximumLifespan) * CurrentScale + rand.NextDouble()) * 1000;
+                CurrentLifespan = (float)(rand.Next(MinimumLifespan, MaximumLifespan) + rand.NextDouble()) * 1000;
             }
         }
     }

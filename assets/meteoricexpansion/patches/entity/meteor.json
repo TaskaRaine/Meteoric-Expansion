@@ -70,5 +70,21 @@
 		"file": "meteoricexpansion:entities/air/meteor",
 		"condition": { "when": "MinimumMeteorVerticalSpeed", "useValue": "true" },
 		"side": "Server"
+	},
+	{
+		"op": "replace",
+		"path": "/client/size",
+		"value": 1,
+		"file": "meteoricexpansion:entities/air/meteor",
+		"condition": { "when": "FallingMeteorSize", "useValue": "true" },
+		"side": "Server"
+	},
+	{
+		"op": "replace",
+		"path": "/attributes/sizeVariance",
+		"value": 1,
+		"file": "meteoricexpansion:entities/air/meteor",
+		"condition": { "when": "FallingMeteorSizeVariance", "useValue": "true" },
+		"side": "Server"
 	}
 ]

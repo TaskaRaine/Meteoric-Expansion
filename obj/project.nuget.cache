@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Vy2UPfno9DNviF/mAuVI9I4BmwKxqomD9tBOatIrGp+aaBXn5PLRNE7O/B66XnpvekRumBuG72woVJnj6zRSGA==",
+  "success": true,
+  "projectFilePath": "C:\\Projects\\VintageStory\\Mods Solution\\vsmods\\mods\\meteoricexpansion\\meteoricexpansion.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\khrog\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\khrog\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

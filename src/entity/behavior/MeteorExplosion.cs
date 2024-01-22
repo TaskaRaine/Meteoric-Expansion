@@ -17,6 +17,8 @@ namespace MeteoricExpansion
     {
         ICoreAPI sidedAPI;
         ICoreServerAPI serverAPI;
+
+        //-- IBulkBlockAccessor doesn't seem to relight chunks when it should? --//
         IBlockAccessor blockAccessor;
 
         public SimpleParticleProperties solidExplosionParticles, quadExplosionParticles;
@@ -29,7 +31,7 @@ namespace MeteoricExpansion
         private int injuryRadius;
         private float injuryBaseDamage = 5.0f;
 
-        private double explosionRadiusModifier = 1.5;
+        private double explosionRadiusModifier;
         private double itemStackVelocityModifier = 1.0;
         private double injuryDamageModifier = 1.0;
 
@@ -71,6 +73,7 @@ namespace MeteoricExpansion
             if (sidedAPI.Side == EnumAppSide.Server)
             {
                 serverAPI = (ICoreServerAPI)sidedAPI;
+                explosionRadiusModifier = serverAPI.World.Config.GetDouble("CraterSizeMultiplier", 1.5);
 
                 meteorDamageSource = new DamageSource
                 {
@@ -82,7 +85,7 @@ namespace MeteoricExpansion
         {
             base.OnEntityDespawn(despawn);
 
-            explosionRadius = (int)((this.entity.Properties.Client.Size + 0.5f) * explosionRadiusModifier);
+            explosionRadius = (int)((entity.Properties.Client.Size + 0.5f) * explosionRadiusModifier);
 
             if(sidedAPI.Side == EnumAppSide.Server)
             {
@@ -158,35 +161,35 @@ namespace MeteoricExpansion
         {
             List<BlockPos> ashPositions = new List<BlockPos>();
             
-            blockAccessor = serverAPI.World.GetBlockAccessorBulkUpdate(true, true, false);
+            blockAccessor = serverAPI.World.GetBlockAccessor(true, true, false);
 
             Vec3i centerPos = this.entity.ServerPos.XYZInt;
 
-            BlockPos craterPos = new BlockPos();
+            BlockPos craterPos = new BlockPos(0);
 
             //-- Initial scan to see if the meteor crater should fill with liquid instead of air --//
-            blockAccessor.SearchFluidBlocks(new BlockPos(centerPos.X - explosionRadius, centerPos.Y - explosionRadius, centerPos.Z - explosionRadius), 
-                new BlockPos(centerPos.X + explosionRadius, centerPos.Y + explosionRadius, centerPos.Z + explosionRadius), (block, bPos) =>
+            blockAccessor.SearchFluidBlocks(new BlockPos(centerPos.X - explosionRadius, centerPos.Y - explosionRadius, centerPos.Z - explosionRadius, 0), 
+                new BlockPos(centerPos.X + explosionRadius, centerPos.Y + explosionRadius, centerPos.Z + explosionRadius, 0), (block, bPos) =>
                 {
-                    if(block.DrawType == EnumDrawType.Liquid)
+                    if(block.BlockMaterial == EnumBlockMaterial.Liquid || block.BlockMaterial == EnumBlockMaterial.Lava)
                     {
                         liquidAsset = new AssetLocation(block.Code.Domain, block.Code.Path);
 
                         fillWithLiquid = true;
-                        fillHeight = bPos.Y;
 
-                        return true;
+                        if(fillHeight < bPos.Y)
+                            fillHeight = bPos.Y;
                     }
 
-                    return false;
+                    return true;
                 });
             
             
             //-- Scans every block in a cube determined by the explosion radius and determines whether that block fits within the explosion sphere --//
-            blockAccessor.WalkBlocks(new BlockPos(centerPos.X - explosionRadius - crackedCraterRadius, centerPos.Y - explosionRadius - crackedCraterRadius, centerPos.Z - explosionRadius - crackedCraterRadius),
-                new BlockPos(centerPos.X + explosionRadius + crackedCraterRadius, centerPos.Y + explosionRadius + crackedCraterRadius, centerPos.Z + explosionRadius + crackedCraterRadius), (block, xPos, yPos, zPos) =>
+            blockAccessor.WalkBlocks(new BlockPos(centerPos.X - explosionRadius - crackedCraterRadius, centerPos.Y - explosionRadius - crackedCraterRadius, centerPos.Z - explosionRadius - crackedCraterRadius, 0),
+                new BlockPos(centerPos.X + explosionRadius + crackedCraterRadius, centerPos.Y + explosionRadius + crackedCraterRadius, centerPos.Z + explosionRadius + crackedCraterRadius, 0), (block, xPos, yPos, zPos) =>
                 {
-                    BlockPos blockPos = new BlockPos(xPos, yPos, zPos);
+                    BlockPos blockPos = new BlockPos(xPos, yPos, zPos, 0);
 
                     if (!IsPositionClaimed(blockPos))
                     {
@@ -226,14 +229,13 @@ namespace MeteoricExpansion
         {
             AssetLocation blockCode = blockToExplode.Code;
 
-            //-- Explosions do not destroy water, mantle or air blocks --//
-            switch (blockCode.Path)
+            switch(blockToExplode.BlockMaterial)
             {
-                case "boilingwater-still-7":
-                case "saltwater-still-7":
-                case "water-still-7":
-                case "mantle":
-                case "air":
+                case EnumBlockMaterial.Lava:
+                case EnumBlockMaterial.Liquid:
+                case EnumBlockMaterial.Air:
+                case EnumBlockMaterial.Mantle:
+                case EnumBlockMaterial.Meta:
                     break;
                 default:
                     //-- If a block being destroyed is an inventory, then throw all the contents of it on the ground. Otherwise, for terrain blocks, only spawn items based on a % chance --//
@@ -257,6 +259,8 @@ namespace MeteoricExpansion
                                 entity.World.SpawnItemEntity(slot.Itemstack, explosionPos.ToVec3d(), GetNewItemStackVector(shrapnelDirection, itemStackVelocityModifier));
                         }
                     }
+                    else if (blockToExplode is BlockFruitTreePart)
+                        break;
                     else
                     {
                         foreach (BlockDropItemStack itemStack in blockAccessor.GetBlock(explosionPos, BlockLayersAccess.SolidBlocks).Drops)
@@ -270,14 +274,13 @@ namespace MeteoricExpansion
                         blockAccessor.SetBlock(0, explosionPos);
                     else
                     {
-                        if (explosionPos.Y <= fillHeight)
-                            blockAccessor.SetBlock(serverAPI.WorldManager.GetBlockId(liquidAsset), explosionPos);
-                        else
-                            blockAccessor.SetBlock(0, explosionPos);
-                    }
+                        blockAccessor.SetBlock(0, explosionPos, BlockLayersAccess.Solid);
 
-                    blockAccessor.TriggerNeighbourBlockUpdate(explosionPos);
+                        if (explosionPos.Y <= fillHeight)
+                            blockAccessor.SetBlock(serverAPI.WorldManager.GetBlockId(liquidAsset),explosionPos, BlockLayersAccess.Fluid);
+                    }
                     break;
+
             }
         }
         //-- Do damage to any entities within the vicinity of the explosion --//
@@ -399,7 +402,7 @@ namespace MeteoricExpansion
             string metalType = this.entity.FirstCodePart(1);
             string stoneType = this.entity.FirstCodePart(2);
 
-            int meteorRemainsSize = (int)(this.entity.Properties.CollisionBoxSize.X + 0.5f) / 2;
+            int meteorRemainsSize = (int)((this.entity.Properties.Client.Size + 0.5f) / 2);
             int metalBlockID = 0;
             int stoneBlockID = 0;
 
@@ -445,10 +448,10 @@ namespace MeteoricExpansion
 
             stoneBlockID = serverAPI.WorldManager.GetBlockId(new AssetLocation("meteoricexpansion", stoneBlockCode));
 
-            blockAccessor.WalkBlocks(new BlockPos(resourceLocation.X - meteorRemainsSize - crackedCraterRadius, resourceLocation.Y - meteorRemainsSize - crackedCraterRadius, resourceLocation.Z - meteorRemainsSize - crackedCraterRadius),
-                new BlockPos(resourceLocation.X + meteorRemainsSize + crackedCraterRadius, resourceLocation.Y + meteorRemainsSize + crackedCraterRadius, resourceLocation.Z + meteorRemainsSize + crackedCraterRadius), (block, xPos, yPos, zPos) =>
+            blockAccessor.WalkBlocks(new BlockPos(resourceLocation.X - meteorRemainsSize - crackedCraterRadius, resourceLocation.Y - meteorRemainsSize - crackedCraterRadius, resourceLocation.Z - meteorRemainsSize - crackedCraterRadius, 0),
+                new BlockPos(resourceLocation.X + meteorRemainsSize + crackedCraterRadius, resourceLocation.Y + meteorRemainsSize + crackedCraterRadius, resourceLocation.Z + meteorRemainsSize + crackedCraterRadius, 0), (block, xPos, yPos, zPos) =>
                 {
-                    BlockPos blockPos = new BlockPos(xPos, yPos, zPos);
+                    BlockPos blockPos = new BlockPos(xPos, yPos, zPos, 0);
 
                     if (!IsPositionClaimed(blockPos))
                     {

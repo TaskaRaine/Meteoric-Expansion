@@ -106,7 +106,7 @@
 	},
 	lightAbsorption: 0,
 	lighthsvByType: {
-		"*-smouldering": [4, 7, 5]
+		"*-smouldering": [4, 7, 10]
 	},
 	combustiblePropsByType: {
 		"*-cooled": {

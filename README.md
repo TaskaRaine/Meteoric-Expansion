@@ -30,9 +30,15 @@ Further config details can be found by opening the mod ZIP and reading the readm
 
 ### Releases
 
-### Vintage Story 1.17.0+
+### Vintage Story 1.19.0+
+[Version 1.2.5](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.2.5/MeteoricExpansion_v1.2.5.zip)
+
+### Vintage Story 1.18.0+
+[Version 1.2.4](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.2.4/MeteoricExpansion_v1.2.4.zip)
+
 [Version 1.2.3](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.2.3/MeteoricExpansion_v1.2.3.zip)
 
+### Vintage Story 1.17.0+
 [Version 1.2.2](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.2.2/MeteoricExpansion_v1.2.2.zip)
 
 [Version 1.2.1](https://github.com/TaskaRaine/Meteoric-Expansion/releases/download/1.2.1/MeteoricExpansion_v1.2.1.zip)
@@ -62,6 +68,25 @@ Further config details can be found by opening the mod ZIP and reading the readm
 
 
 ### Changelog
+
+##### Version 1.2.5
+Updated Meteoric Expansion for Vintage Story 1.19.0+ compatibility.
+
+Added some new configuration options! You can now tweak meteor sizes again. This time, hopefully, with less crashing of clients. 
+
+FallingMeteorSize does exactly as it implies. This will set the minimum size of your meteors. Craters and meteorites will also scale up in size when this value is changed.
+
+FallingMeteorVariance provides randomness to meteor sizes. Randomly increases FallingMeteorSize up to the value provided(ish).
+
+CraterSizeMultiplier will make the meteor craters and meteorites larger or smaller without affecting the visual size of the falling meteor.
+
+Added a renderer to falling meteors which allows the meteor shape to be visible at much longer ranges(up to 512 blocks)
+
+Although it looks silly, meteors will no longer destroy fruit trees. For some reason they were causing serious crashing unrelated to Meteoric Expansion when destroyed.
+
+##### Version 1.2.4
+Rebuilt the mod using more recent Vintage Story dlls to avoid error spam due to the mod not being able to fetch the vanilla LandClaim type.
+
 ##### Version 1.2.3
 Updated Meteoric Expansion for Vintage Story 1.18.0+ compatibility.
 

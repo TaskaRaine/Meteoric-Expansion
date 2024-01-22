@@ -6,23 +6,26 @@
         public bool DisableFallingMeteors = false;
         public bool Destructive = false;
         public bool ClaimsProtected = true;
-        public int MinimumMeteorHorizontalSpeed = 20;
-        public int MaximumMeteorHorizontalSpeed = 50;
-        public int MinimumMeteorVerticalSpeed = 2;
-        public int MaximumMeteorVerticalSpeed = 20;
+        public double FallingMeteorSize = 2;
+        public int FallingMeteorSizeVariance = 3;
+        public int MinimumMeteorHorizontalSpeed = 25;
+        public int MaximumMeteorHorizontalSpeed = 60;
+        public int MinimumMeteorVerticalSpeed = 20;
+        public int MaximumMeteorVerticalSpeed = 45;
         public int MinimumMinutesBetweenMeteorSpawns = 10;
         public int MaximumMinutesBetweenMeteorSpawns = 30;
         public int MinimumSpawnDistanceInChunks = 1;
         public int MaximumSpawnDistanceInChunks = 6;
-        public int MinimumMeteorLifespanInSeconds = 2;
+        public int MinimumMeteorLifespanInSeconds = 3;
         public int MaximumMeteorLifespanInSeconds = 10;
         public int MinimumCraterSmoulderTimeInMinutes = 2;
         public int MaximumCraterSmoulderTimeInMinutes = 10;
+        public double CraterSizeMultiplier = 1.75;
 
         public string ShowerConfigOptions = "The Following Options Affect Meteor Showers";
         public bool DisableShowers = false;
-        public int MinimumShowerHorizontalSpeed = 60;
-        public int MaximumShowerHorizontalSpeed = 100;
+        public int MinimumShowerHorizontalSpeed = 80;
+        public int MaximumShowerHorizontalSpeed = 120;
         public int MinimumShowerVerticalSpeed = 0;
         public int MaximumShowerVerticalSpeed = 0;
         public int MinimumMinutesBetweenShowers = 5;
@@ -43,6 +46,8 @@
             DisableFallingMeteors = previousConfig.DisableFallingMeteors;
             Destructive = previousConfig.Destructive;
             ClaimsProtected = previousConfig.ClaimsProtected;
+            FallingMeteorSize = previousConfig.FallingMeteorSize;
+            FallingMeteorSizeVariance = previousConfig.FallingMeteorSizeVariance;
             MinimumMeteorHorizontalSpeed = previousConfig.MinimumMeteorHorizontalSpeed;
             MaximumMeteorHorizontalSpeed = previousConfig.MaximumMeteorHorizontalSpeed;
             MinimumMeteorVerticalSpeed = previousConfig.MinimumMeteorVerticalSpeed;
@@ -55,6 +60,7 @@
             MaximumMeteorLifespanInSeconds = previousConfig.MaximumMeteorLifespanInSeconds;
             MinimumCraterSmoulderTimeInMinutes = previousConfig.MinimumCraterSmoulderTimeInMinutes;
             MaximumCraterSmoulderTimeInMinutes = previousConfig.MaximumCraterSmoulderTimeInMinutes;
+            CraterSizeMultiplier = previousConfig.CraterSizeMultiplier;
 
             //-- The following options affect meteor showers --//
             DisableShowers = previousConfig.DisableShowers;

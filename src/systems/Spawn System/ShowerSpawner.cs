@@ -1,7 +1,6 @@
 ﻿using MeteoricExpansion.Entities;
 using MeteoricExpansion.Entities.Behaviors;
 using MeteoricExpansion.Utility;
-using ProtoBuf;
 using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;

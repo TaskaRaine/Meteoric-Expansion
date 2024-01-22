@@ -111,7 +111,7 @@
 	habitat: "air",
 	hitboxSize: { x: 1, y: 1 },
 	client: {
-		renderer: "Shape",
+		renderer: "MeteorRenderer",
 		textures: {
 			"core": {
 				base: "game:block/stone/rock/{rock}1",
@@ -150,6 +150,7 @@
 	sounds: {
 	},
 	attributes: {
+		"sizeVariance":  1.0
 	},
 	dropsByType: {
 		"*-quartz_nativegold-*": [

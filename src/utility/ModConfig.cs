@@ -37,6 +37,8 @@ namespace MeteoricExpansion.Utility
             api.World.Config.SetBool("ClaimsProtected", config.ClaimsProtected);
             api.World.Config.SetBool("DisableFallingMeteors", config.DisableFallingMeteors);
             api.World.Config.SetBool("DisableShowers", config.DisableShowers);
+            api.World.Config.SetDouble("FallingMeteorSize", config.FallingMeteorSize);
+            api.World.Config.SetInt("FallingMeteorSizeVariance", config.FallingMeteorSizeVariance);
             api.World.Config.SetInt("MinimumMeteorHorizontalSpeed", config.MinimumMeteorHorizontalSpeed);
             api.World.Config.SetInt("MaximumMeteorHorizontalSpeed", config.MaximumMeteorHorizontalSpeed);
             api.World.Config.SetInt("MinimumMeteorVerticalSpeed", config.MinimumMeteorVerticalSpeed);
@@ -49,6 +51,7 @@ namespace MeteoricExpansion.Utility
             api.World.Config.SetInt("MaximumMeteorLifespanInSeconds", config.MaximumMeteorLifespanInSeconds);
             api.World.Config.SetInt("MinimumCraterSmoulderTimeInMinutes", config.MinimumCraterSmoulderTimeInMinutes);
             api.World.Config.SetInt("MaximumCraterSmoulderTimeInMinutes", config.MaximumCraterSmoulderTimeInMinutes);
+            api.World.Config.SetDouble("CraterSizeMultiplier", config.CraterSizeMultiplier);
             api.World.Config.SetInt("MinimumShowerHorizontalSpeed", config.MinimumShowerHorizontalSpeed);
             api.World.Config.SetInt("MaximumShowerHorizontalSpeed", config.MaximumShowerHorizontalSpeed);
             api.World.Config.SetInt("MinimumShowerVerticalSpeed", config.MinimumShowerVerticalSpeed);
